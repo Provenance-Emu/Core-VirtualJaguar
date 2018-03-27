@@ -28,12 +28,10 @@
 		B33141272060CE21001D3526 /* table68k in Resources */ = {isa = PBXBuildFile; fileRef = B33140D62060CE1C001D3526 /* table68k */; };
 		B33141282060CE21001D3526 /* m68kinterface.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140D72060CE1C001D3526 /* m68kinterface.h */; };
 		B33141292060CE21001D3526 /* readcpu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D82060CE1C001D3526 /* readcpu.c */; };
-		B331412A2060CE21001D3526 /* gencpu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D92060CE1C001D3526 /* gencpu.c */; };
 		B331412B2060CE21001D3526 /* cpudefs.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DA2060CE1C001D3526 /* cpudefs.c */; };
 		B331412C2060CE21001D3526 /* m68kdasm.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DB2060CE1C001D3526 /* m68kdasm.c */; };
 		B331412E2060CE21001D3526 /* cputbl.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140DD2060CE1C001D3526 /* cputbl.h */; };
 		B331412F2060CE21001D3526 /* cpuemu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DE2060CE1C001D3526 /* cpuemu.c */; };
-		B33141302060CE21001D3526 /* build68k.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DF2060CE1C001D3526 /* build68k.c */; };
 		B33141312060CE21001D3526 /* cpuextra.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E02060CE1C001D3526 /* cpuextra.h */; };
 		B33141322060CE21001D3526 /* m68kinterface.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E12060CE1C001D3526 /* m68kinterface.c */; };
 		B33141332060CE21001D3526 /* cpudefs.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E22060CE1C001D3526 /* cpudefs.h */; };
@@ -564,7 +562,6 @@
 				B33141602060CE21001D3526 /* jagstub2bios.c in Sources */,
 				B331411A2060CE21001D3526 /* jagbios2.c in Sources */,
 				B331412C2060CE21001D3526 /* m68kdasm.c in Sources */,
-				B33141302060CE21001D3526 /* build68k.c in Sources */,
 				B331413D2060CE21001D3526 /* jagstub1bios.c in Sources */,
 				B331411E2060CE21001D3526 /* filedb.c in Sources */,
 				B331415A2060CE21001D3526 /* jerry.c in Sources */,
@@ -581,7 +578,6 @@
 				B33141612060CE21001D3526 /* universalhdr.c in Sources */,
 				B33141352060CE21001D3526 /* cpustbl.c in Sources */,
 				B33141262060CE21001D3526 /* jagdevcdbios.c in Sources */,
-				B331412A2060CE21001D3526 /* gencpu.c in Sources */,
 				B331414E2060CE21001D3526 /* jaguar.c in Sources */,
 				B331411B2060CE21001D3526 /* tom.c in Sources */,
 				B331413A2060CE21001D3526 /* jagdasm.c in Sources */,
@@ -607,8 +603,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
@@ -645,7 +641,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = NO;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
@@ -665,8 +661,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
@@ -697,10 +693,11 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = NO;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
@@ -724,6 +721,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_UNROLL_LOOPS = YES;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/VirtualJaguar/src\"/**";
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -744,6 +743,7 @@
 		B394C9A02060CAB80014A65D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -751,6 +751,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_UNROLL_LOOPS = YES;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/VirtualJaguar/src\"/**";
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

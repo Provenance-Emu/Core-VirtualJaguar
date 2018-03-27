@@ -10,116 +10,198 @@
 		B331406D2060CC3E001D3526 /* PVJaguarGameCore.m in Sources */ = {isa = PBXBuildFile; fileRef = B33140172060CC3E001D3526 /* PVJaguarGameCore.m */; };
 		B331406F2060CC3E001D3526 /* PVJaguarGameCore.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140192060CC3E001D3526 /* PVJaguarGameCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B33140C22060CC66001D3526 /* PVSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B33140C32060CC66001D3526 /* PVSupport.framework */; };
+		B33141172060CE21001D3526 /* dsp.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140C52060CE1B001D3526 /* dsp.c */; };
+		B33141182060CE21001D3526 /* jagdasm.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140C62060CE1B001D3526 /* jagdasm.h */; };
+		B33141192060CE21001D3526 /* cdrom.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140C72060CE1B001D3526 /* cdrom.h */; };
+		B331411A2060CE21001D3526 /* jagbios2.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140C82060CE1B001D3526 /* jagbios2.c */; };
+		B331411B2060CE21001D3526 /* tom.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140C92060CE1B001D3526 /* tom.c */; };
+		B331411C2060CE21001D3526 /* settings.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140CA2060CE1B001D3526 /* settings.h */; };
+		B331411D2060CE21001D3526 /* dac.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140CB2060CE1B001D3526 /* dac.c */; };
+		B331411E2060CE21001D3526 /* filedb.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140CC2060CE1B001D3526 /* filedb.c */; };
+		B331411F2060CE21001D3526 /* jagbios2.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140CD2060CE1B001D3526 /* jagbios2.h */; };
+		B33141202060CE21001D3526 /* blitter.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140CE2060CE1B001D3526 /* blitter.h */; };
+		B33141212060CE21001D3526 /* jagstub2bios.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140CF2060CE1B001D3526 /* jagstub2bios.h */; };
+		B33141222060CE21001D3526 /* vjag_memory.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D02060CE1B001D3526 /* vjag_memory.c */; };
+		B33141232060CE21001D3526 /* log.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140D12060CE1B001D3526 /* log.h */; };
+		B33141242060CE21001D3526 /* crc32.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140D22060CE1C001D3526 /* crc32.h */; };
+		B33141252060CE21001D3526 /* jagcdbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D32060CE1C001D3526 /* jagcdbios.c */; };
+		B33141262060CE21001D3526 /* jagdevcdbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D42060CE1C001D3526 /* jagdevcdbios.c */; };
+		B33141272060CE21001D3526 /* table68k in Resources */ = {isa = PBXBuildFile; fileRef = B33140D62060CE1C001D3526 /* table68k */; };
+		B33141282060CE21001D3526 /* m68kinterface.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140D72060CE1C001D3526 /* m68kinterface.h */; };
+		B33141292060CE21001D3526 /* readcpu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D82060CE1C001D3526 /* readcpu.c */; };
+		B331412A2060CE21001D3526 /* gencpu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D92060CE1C001D3526 /* gencpu.c */; };
+		B331412B2060CE21001D3526 /* cpudefs.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DA2060CE1C001D3526 /* cpudefs.c */; };
+		B331412C2060CE21001D3526 /* m68kdasm.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DB2060CE1C001D3526 /* m68kdasm.c */; };
+		B331412E2060CE21001D3526 /* cputbl.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140DD2060CE1C001D3526 /* cputbl.h */; };
+		B331412F2060CE21001D3526 /* cpuemu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DE2060CE1C001D3526 /* cpuemu.c */; };
+		B33141302060CE21001D3526 /* build68k.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DF2060CE1C001D3526 /* build68k.c */; };
+		B33141312060CE21001D3526 /* cpuextra.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E02060CE1C001D3526 /* cpuextra.h */; };
+		B33141322060CE21001D3526 /* m68kinterface.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E12060CE1C001D3526 /* m68kinterface.c */; };
+		B33141332060CE21001D3526 /* cpudefs.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E22060CE1C001D3526 /* cpudefs.h */; };
+		B33141342060CE21001D3526 /* readcpu.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E32060CE1C001D3526 /* readcpu.h */; };
+		B33141352060CE21001D3526 /* cpustbl.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E42060CE1C001D3526 /* cpustbl.c */; };
+		B33141362060CE21001D3526 /* inlines.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E52060CE1C001D3526 /* inlines.h */; };
+		B33141372060CE21001D3526 /* sysdeps.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E62060CE1C001D3526 /* sysdeps.h */; };
+		B33141382060CE21001D3526 /* cpuextra.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E72060CE1C001D3526 /* cpuextra.c */; };
+		B33141392060CE21001D3526 /* filedb.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E82060CE1C001D3526 /* filedb.h */; };
+		B331413A2060CE21001D3526 /* jagdasm.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E92060CE1C001D3526 /* jagdasm.c */; };
+		B331413B2060CE21001D3526 /* event.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EA2060CE1C001D3526 /* event.c */; };
+		B331413C2060CE21001D3526 /* settings.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EB2060CE1C001D3526 /* settings.c */; };
+		B331413D2060CE21001D3526 /* jagstub1bios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EC2060CE1C001D3526 /* jagstub1bios.c */; };
+		B331413E2060CE21001D3526 /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140ED2060CE1C001D3526 /* log.c */; };
+		B331413F2060CE21001D3526 /* wavetable.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EE2060CE1C001D3526 /* wavetable.c */; };
+		B33141402060CE21001D3526 /* vjag_memory.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140EF2060CE1C001D3526 /* vjag_memory.h */; };
+		B33141412060CE21001D3526 /* mmu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F02060CE1D001D3526 /* mmu.c */; };
+		B33141422060CE21001D3526 /* cdintf.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F12060CE1D001D3526 /* cdintf.c */; };
+		B33141432060CE21001D3526 /* eeprom.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140F22060CE1D001D3526 /* eeprom.h */; };
+		B33141442060CE21001D3526 /* event.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140F32060CE1D001D3526 /* event.h */; };
+		B33141452060CE21001D3526 /* gpu.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140F42060CE1D001D3526 /* gpu.h */; };
+		B33141462060CE21001D3526 /* joystick.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140F52060CE1D001D3526 /* joystick.h */; };
+		B33141472060CE21001D3526 /* op.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F62060CE1D001D3526 /* op.c */; };
+		B33141482060CE21001D3526 /* universalhdr.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140F72060CE1D001D3526 /* universalhdr.h */; };
+		B33141492060CE21001D3526 /* eeprom.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F82060CE1D001D3526 /* eeprom.c */; };
+		B331414A2060CE21001D3526 /* boolean.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140F92060CE1D001D3526 /* boolean.h */; };
+		B331414B2060CE21001D3526 /* jagstub1bios.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140FA2060CE1E001D3526 /* jagstub1bios.h */; };
+		B331414C2060CE21001D3526 /* file.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FB2060CE1E001D3526 /* file.c */; };
+		B331414D2060CE21001D3526 /* jagdevcdbios.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140FC2060CE1E001D3526 /* jagdevcdbios.h */; };
+		B331414E2060CE21001D3526 /* jaguar.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FD2060CE1E001D3526 /* jaguar.c */; };
+		B331414F2060CE21001D3526 /* state.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FE2060CE1E001D3526 /* state.c */; };
+		B33141502060CE21001D3526 /* cdrom.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FF2060CE1E001D3526 /* cdrom.c */; };
+		B33141512060CE21001D3526 /* cdintf.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141002060CE1E001D3526 /* cdintf.h */; };
+		B33141522060CE21001D3526 /* gpu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141012060CE1E001D3526 /* gpu.c */; };
+		B33141532060CE21001D3526 /* file.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141022060CE1E001D3526 /* file.h */; };
+		B33141542060CE21001D3526 /* jerry.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141032060CE1F001D3526 /* jerry.h */; };
+		B33141552060CE21001D3526 /* memtrack.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141042060CE1F001D3526 /* memtrack.h */; };
+		B33141562060CE21001D3526 /* wavetable.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141052060CE1F001D3526 /* wavetable.h */; };
+		B33141572060CE21001D3526 /* tom.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141062060CE1F001D3526 /* tom.h */; };
+		B33141582060CE21001D3526 /* memtrack.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141072060CE1F001D3526 /* memtrack.c */; };
+		B33141592060CE21001D3526 /* jagbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141082060CE1F001D3526 /* jagbios.c */; };
+		B331415A2060CE21001D3526 /* jerry.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141092060CE1F001D3526 /* jerry.c */; };
+		B331415B2060CE21001D3526 /* dsp.h in Headers */ = {isa = PBXBuildFile; fileRef = B331410A2060CE1F001D3526 /* dsp.h */; };
+		B331415C2060CE21001D3526 /* jaguar.h in Headers */ = {isa = PBXBuildFile; fileRef = B331410B2060CE1F001D3526 /* jaguar.h */; };
+		B331415D2060CE21001D3526 /* dac.h in Headers */ = {isa = PBXBuildFile; fileRef = B331410C2060CE20001D3526 /* dac.h */; };
+		B331415E2060CE21001D3526 /* mmu.h in Headers */ = {isa = PBXBuildFile; fileRef = B331410D2060CE20001D3526 /* mmu.h */; };
+		B331415F2060CE21001D3526 /* blitter.c in Sources */ = {isa = PBXBuildFile; fileRef = B331410E2060CE20001D3526 /* blitter.c */; };
+		B33141602060CE21001D3526 /* jagstub2bios.c in Sources */ = {isa = PBXBuildFile; fileRef = B331410F2060CE20001D3526 /* jagstub2bios.c */; };
+		B33141612060CE21001D3526 /* universalhdr.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141102060CE20001D3526 /* universalhdr.c */; };
+		B33141622060CE21001D3526 /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141112060CE20001D3526 /* crc32.c */; };
+		B33141632060CE21001D3526 /* jagbios.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141122060CE20001D3526 /* jagbios.h */; };
+		B33141642060CE21001D3526 /* jagcdbios.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141132060CE20001D3526 /* jagcdbios.h */; };
+		B33141652060CE21001D3526 /* state.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141142060CE21001D3526 /* state.h */; };
+		B33141662060CE21001D3526 /* joystick.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141152060CE21001D3526 /* joystick.c */; };
+		B33141672060CE21001D3526 /* op.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141162060CE21001D3526 /* op.h */; };
 		B33141692060DEB3001D3526 /* Core.plist in Resources */ = {isa = PBXBuildFile; fileRef = B33141682060DEB3001D3526 /* Core.plist */; };
 		B394C99B2060CAB80014A65D /* PVVirtualJaguar.h in Headers */ = {isa = PBXBuildFile; fileRef = B394C9992060CAB80014A65D /* PVVirtualJaguar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B3A683AF206AF93E0051AEE4 /* libretro.c in Sources */ = {isa = PBXBuildFile; fileRef = B3A68345206AF9370051AEE4 /* libretro.c */; };
+		B3A683B0206AF9410051AEE4 /* libretro.h in Headers */ = {isa = PBXBuildFile; fileRef = B3A68351206AF9380051AEE4 /* libretro.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B33140172060CC3E001D3526 /* PVJaguarGameCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PVJaguarGameCore.m; sourceTree = "<group>"; };
 		B33140192060CC3E001D3526 /* PVJaguarGameCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVJaguarGameCore.h; sourceTree = "<group>"; };
 		B33140C32060CC66001D3526 /* PVSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B33140C52060CE1B001D3526 /* dsp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dsp.c; sourceTree = "<group>"; };
+		B33140C62060CE1B001D3526 /* jagdasm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jagdasm.h; sourceTree = "<group>"; };
+		B33140C72060CE1B001D3526 /* cdrom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cdrom.h; sourceTree = "<group>"; };
+		B33140C82060CE1B001D3526 /* jagbios2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jagbios2.c; sourceTree = "<group>"; };
+		B33140C92060CE1B001D3526 /* tom.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tom.c; sourceTree = "<group>"; };
+		B33140CA2060CE1B001D3526 /* settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = settings.h; sourceTree = "<group>"; };
+		B33140CB2060CE1B001D3526 /* dac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dac.c; sourceTree = "<group>"; };
+		B33140CC2060CE1B001D3526 /* filedb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = filedb.c; sourceTree = "<group>"; };
+		B33140CD2060CE1B001D3526 /* jagbios2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jagbios2.h; sourceTree = "<group>"; };
+		B33140CE2060CE1B001D3526 /* blitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blitter.h; sourceTree = "<group>"; };
+		B33140CF2060CE1B001D3526 /* jagstub2bios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jagstub2bios.h; sourceTree = "<group>"; };
+		B33140D02060CE1B001D3526 /* vjag_memory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vjag_memory.c; sourceTree = "<group>"; };
+		B33140D12060CE1B001D3526 /* log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; };
+		B33140D22060CE1C001D3526 /* crc32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crc32.h; sourceTree = "<group>"; };
+		B33140D32060CE1C001D3526 /* jagcdbios.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jagcdbios.c; sourceTree = "<group>"; };
+		B33140D42060CE1C001D3526 /* jagdevcdbios.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jagdevcdbios.c; sourceTree = "<group>"; };
+		B33140D62060CE1C001D3526 /* table68k */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = table68k; sourceTree = "<group>"; };
+		B33140D72060CE1C001D3526 /* m68kinterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = m68kinterface.h; sourceTree = "<group>"; };
+		B33140D82060CE1C001D3526 /* readcpu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = readcpu.c; sourceTree = "<group>"; };
+		B33140D92060CE1C001D3526 /* gencpu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gencpu.c; sourceTree = "<group>"; };
+		B33140DA2060CE1C001D3526 /* cpudefs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpudefs.c; sourceTree = "<group>"; };
+		B33140DB2060CE1C001D3526 /* m68kdasm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = m68kdasm.c; sourceTree = "<group>"; };
+		B33140DC2060CE1C001D3526 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		B33140DD2060CE1C001D3526 /* cputbl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cputbl.h; sourceTree = "<group>"; };
+		B33140DE2060CE1C001D3526 /* cpuemu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpuemu.c; sourceTree = "<group>"; };
+		B33140DF2060CE1C001D3526 /* build68k.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = build68k.c; sourceTree = "<group>"; };
+		B33140E02060CE1C001D3526 /* cpuextra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpuextra.h; sourceTree = "<group>"; };
+		B33140E12060CE1C001D3526 /* m68kinterface.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = m68kinterface.c; sourceTree = "<group>"; };
+		B33140E22060CE1C001D3526 /* cpudefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpudefs.h; sourceTree = "<group>"; };
+		B33140E32060CE1C001D3526 /* readcpu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = readcpu.h; sourceTree = "<group>"; };
+		B33140E42060CE1C001D3526 /* cpustbl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpustbl.c; sourceTree = "<group>"; };
+		B33140E52060CE1C001D3526 /* inlines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inlines.h; sourceTree = "<group>"; };
+		B33140E62060CE1C001D3526 /* sysdeps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sysdeps.h; sourceTree = "<group>"; };
+		B33140E72060CE1C001D3526 /* cpuextra.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpuextra.c; sourceTree = "<group>"; };
+		B33140E82060CE1C001D3526 /* filedb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filedb.h; sourceTree = "<group>"; };
+		B33140E92060CE1C001D3526 /* jagdasm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jagdasm.c; sourceTree = "<group>"; };
+		B33140EA2060CE1C001D3526 /* event.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = event.c; sourceTree = "<group>"; };
+		B33140EB2060CE1C001D3526 /* settings.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = settings.c; sourceTree = "<group>"; };
+		B33140EC2060CE1C001D3526 /* jagstub1bios.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jagstub1bios.c; sourceTree = "<group>"; };
+		B33140ED2060CE1C001D3526 /* log.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = log.c; sourceTree = "<group>"; };
+		B33140EE2060CE1C001D3526 /* wavetable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wavetable.c; sourceTree = "<group>"; };
+		B33140EF2060CE1C001D3526 /* vjag_memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vjag_memory.h; sourceTree = "<group>"; };
+		B33140F02060CE1D001D3526 /* mmu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mmu.c; sourceTree = "<group>"; };
+		B33140F12060CE1D001D3526 /* cdintf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cdintf.c; sourceTree = "<group>"; };
+		B33140F22060CE1D001D3526 /* eeprom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eeprom.h; sourceTree = "<group>"; };
+		B33140F32060CE1D001D3526 /* event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = event.h; sourceTree = "<group>"; };
+		B33140F42060CE1D001D3526 /* gpu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gpu.h; sourceTree = "<group>"; };
+		B33140F52060CE1D001D3526 /* joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = joystick.h; sourceTree = "<group>"; };
+		B33140F62060CE1D001D3526 /* op.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = op.c; sourceTree = "<group>"; };
+		B33140F72060CE1D001D3526 /* universalhdr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = universalhdr.h; sourceTree = "<group>"; };
+		B33140F82060CE1D001D3526 /* eeprom.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eeprom.c; sourceTree = "<group>"; };
+		B33140F92060CE1D001D3526 /* boolean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = boolean.h; sourceTree = "<group>"; };
+		B33140FA2060CE1E001D3526 /* jagstub1bios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jagstub1bios.h; sourceTree = "<group>"; };
+		B33140FB2060CE1E001D3526 /* file.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = file.c; sourceTree = "<group>"; };
+		B33140FC2060CE1E001D3526 /* jagdevcdbios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jagdevcdbios.h; sourceTree = "<group>"; };
+		B33140FD2060CE1E001D3526 /* jaguar.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jaguar.c; sourceTree = "<group>"; };
+		B33140FE2060CE1E001D3526 /* state.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = state.c; sourceTree = "<group>"; };
+		B33140FF2060CE1E001D3526 /* cdrom.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cdrom.c; sourceTree = "<group>"; };
+		B33141002060CE1E001D3526 /* cdintf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cdintf.h; sourceTree = "<group>"; };
+		B33141012060CE1E001D3526 /* gpu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gpu.c; sourceTree = "<group>"; };
+		B33141022060CE1E001D3526 /* file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
+		B33141032060CE1F001D3526 /* jerry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jerry.h; sourceTree = "<group>"; };
+		B33141042060CE1F001D3526 /* memtrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memtrack.h; sourceTree = "<group>"; };
+		B33141052060CE1F001D3526 /* wavetable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wavetable.h; sourceTree = "<group>"; };
+		B33141062060CE1F001D3526 /* tom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tom.h; sourceTree = "<group>"; };
+		B33141072060CE1F001D3526 /* memtrack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = memtrack.c; sourceTree = "<group>"; };
+		B33141082060CE1F001D3526 /* jagbios.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jagbios.c; sourceTree = "<group>"; };
+		B33141092060CE1F001D3526 /* jerry.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jerry.c; sourceTree = "<group>"; };
+		B331410A2060CE1F001D3526 /* dsp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dsp.h; sourceTree = "<group>"; };
+		B331410B2060CE1F001D3526 /* jaguar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jaguar.h; sourceTree = "<group>"; };
+		B331410C2060CE20001D3526 /* dac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dac.h; sourceTree = "<group>"; };
+		B331410D2060CE20001D3526 /* mmu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mmu.h; sourceTree = "<group>"; };
+		B331410E2060CE20001D3526 /* blitter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = blitter.c; sourceTree = "<group>"; };
+		B331410F2060CE20001D3526 /* jagstub2bios.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jagstub2bios.c; sourceTree = "<group>"; };
+		B33141102060CE20001D3526 /* universalhdr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = universalhdr.c; sourceTree = "<group>"; };
+		B33141112060CE20001D3526 /* crc32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crc32.c; sourceTree = "<group>"; };
+		B33141122060CE20001D3526 /* jagbios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jagbios.h; sourceTree = "<group>"; };
+		B33141132060CE20001D3526 /* jagcdbios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jagcdbios.h; sourceTree = "<group>"; };
+		B33141142060CE21001D3526 /* state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = state.h; sourceTree = "<group>"; };
+		B33141152060CE21001D3526 /* joystick.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = joystick.c; sourceTree = "<group>"; };
+		B33141162060CE21001D3526 /* op.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = op.h; sourceTree = "<group>"; };
 		B33141682060DEB3001D3526 /* Core.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Core.plist; sourceTree = "<group>"; };
 		B394C9962060CAB80014A65D /* PVVirtualJaguar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PVVirtualJaguar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B394C9992060CAB80014A65D /* PVVirtualJaguar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PVVirtualJaguar.h; sourceTree = "<group>"; };
 		B394C99A2060CAB80014A65D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B3AAEA43206AF5CA007509AA /* libretro.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = libretro.c; sourceTree = "<group>"; };
-		B3AAEA44206AF5CA007509AA /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		B3AAEA46206AF5CA007509AA /* INSTALL */ = {isa = PBXFileReference; lastKnownFileType = text; path = INSTALL; sourceTree = "<group>"; };
-		B3AAEA47206AF5CA007509AA /* virtualjaguar.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = virtualjaguar.1; sourceTree = "<group>"; };
-		B3AAEA48206AF5CA007509AA /* WHATSNEW */ = {isa = PBXFileReference; lastKnownFileType = text; path = WHATSNEW; sourceTree = "<group>"; };
-		B3AAEA49206AF5CA007509AA /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		B3AAEA4A206AF5CA007509AA /* TODO */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
-		B3AAEA4B206AF5CA007509AA /* GPLv3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = GPLv3; sourceTree = "<group>"; };
-		B3AAEA4C206AF5CA007509AA /* Makefile.common */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.common; sourceTree = "<group>"; };
-		B3AAEA4D206AF5CA007509AA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		B3AAEA4E206AF5CA007509AA /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		B3AAEA4F206AF5CA007509AA /* libretro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libretro.h; sourceTree = "<group>"; };
-		B3AAEA54206AF5CA007509AA /* stdint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stdint.h; sourceTree = "<group>"; };
-		B3AAEA55206AF5CA007509AA /* link.T */ = {isa = PBXFileReference; lastKnownFileType = text; path = link.T; sourceTree = "<group>"; };
-		B3AAEA57206AF5CA007509AA /* Android.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = Android.mk; sourceTree = "<group>"; };
-		B3AAEA58206AF5CA007509AA /* Application.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = Application.mk; sourceTree = "<group>"; };
-		B3AAEA59206AF5CA007509AA /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
-		B3AAEA5B206AF5CA007509AA /* jerry.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = jerry.c; sourceTree = "<group>"; };
-		B3AAEA5C206AF5CA007509AA /* log.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = log.c; sourceTree = "<group>"; };
-		B3AAEA5D206AF5CA007509AA /* gpu.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gpu.c; sourceTree = "<group>"; };
-		B3AAEA5E206AF5CA007509AA /* memtrack.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = memtrack.c; sourceTree = "<group>"; };
-		B3AAEA5F206AF5CA007509AA /* eeprom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = eeprom.h; sourceTree = "<group>"; };
-		B3AAEA60206AF5CA007509AA /* jagstub2bios.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = jagstub2bios.c; sourceTree = "<group>"; };
-		B3AAEA61206AF5CA007509AA /* dac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dac.h; sourceTree = "<group>"; };
-		B3AAEA62206AF5CA007509AA /* op.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = op.h; sourceTree = "<group>"; };
-		B3AAEA63206AF5CA007509AA /* jagbios2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jagbios2.h; sourceTree = "<group>"; };
-		B3AAEA64206AF5CA007509AA /* vjag_memory.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vjag_memory.c; sourceTree = "<group>"; };
-		B3AAEA65206AF5CA007509AA /* dsp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dsp.c; sourceTree = "<group>"; };
-		B3AAEA66206AF5CA007509AA /* blitter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blitter.h; sourceTree = "<group>"; };
-		B3AAEA67206AF5CA007509AA /* wavetable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = wavetable.h; sourceTree = "<group>"; };
-		B3AAEA68206AF5CA007509AA /* jagdevcdbios.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = jagdevcdbios.c; sourceTree = "<group>"; };
-		B3AAEA69206AF5CA007509AA /* jagcdbios.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jagcdbios.h; sourceTree = "<group>"; };
-		B3AAEA6A206AF5CA007509AA /* settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = settings.h; sourceTree = "<group>"; };
-		B3AAEA6B206AF5CA007509AA /* event.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = event.h; sourceTree = "<group>"; };
-		B3AAEA6C206AF5CA007509AA /* cdrom.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cdrom.c; sourceTree = "<group>"; };
-		B3AAEA6D206AF5CA007509AA /* jagbios.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = jagbios.c; sourceTree = "<group>"; };
-		B3AAEA6E206AF5CA007509AA /* jaguar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jaguar.h; sourceTree = "<group>"; };
-		B3AAEA6F206AF5CA007509AA /* universalhdr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = universalhdr.c; sourceTree = "<group>"; };
-		B3AAEA70206AF5CA007509AA /* state.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = state.c; sourceTree = "<group>"; };
-		B3AAEA71206AF5CA007509AA /* joystick.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = joystick.h; sourceTree = "<group>"; };
-		B3AAEA72206AF5CA007509AA /* file.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
-		B3AAEA73206AF5CA007509AA /* filedb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = filedb.h; sourceTree = "<group>"; };
-		B3AAEA75206AF5CA007509AA /* table68k */ = {isa = PBXFileReference; lastKnownFileType = text; path = table68k; sourceTree = "<group>"; };
-		B3AAEA76206AF5CA007509AA /* m68kinterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = m68kinterface.h; sourceTree = "<group>"; };
-		B3AAEA77206AF5CA007509AA /* readcpu.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = readcpu.c; sourceTree = "<group>"; };
-		B3AAEA78206AF5CA007509AA /* gencpu.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gencpu.c; sourceTree = "<group>"; };
-		B3AAEA79206AF5CA007509AA /* cpudefs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cpudefs.c; sourceTree = "<group>"; };
-		B3AAEA7A206AF5CA007509AA /* m68kdasm.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m68kdasm.c; sourceTree = "<group>"; };
-		B3AAEA7B206AF5CA007509AA /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		B3AAEA7C206AF5CA007509AA /* cputbl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cputbl.h; sourceTree = "<group>"; };
-		B3AAEA7D206AF5CA007509AA /* cpuemu.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cpuemu.c; sourceTree = "<group>"; };
-		B3AAEA7E206AF5CA007509AA /* build68k.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = build68k.c; sourceTree = "<group>"; };
-		B3AAEA7F206AF5CA007509AA /* cpuextra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cpuextra.h; sourceTree = "<group>"; };
-		B3AAEA80206AF5CA007509AA /* m68kinterface.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m68kinterface.c; sourceTree = "<group>"; };
-		B3AAEA81206AF5CA007509AA /* cpudefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cpudefs.h; sourceTree = "<group>"; };
-		B3AAEA82206AF5CA007509AA /* readcpu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = readcpu.h; sourceTree = "<group>"; };
-		B3AAEA83206AF5CA007509AA /* cpustbl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cpustbl.c; sourceTree = "<group>"; };
-		B3AAEA84206AF5CA007509AA /* inlines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = inlines.h; sourceTree = "<group>"; };
-		B3AAEA85206AF5CA007509AA /* sysdeps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sysdeps.h; sourceTree = "<group>"; };
-		B3AAEA86206AF5CA007509AA /* cpuextra.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cpuextra.c; sourceTree = "<group>"; };
-		B3AAEA87206AF5CA007509AA /* jagstub1bios.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = jagstub1bios.c; sourceTree = "<group>"; };
-		B3AAEA88206AF5CA007509AA /* cdintf.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cdintf.c; sourceTree = "<group>"; };
-		B3AAEA89206AF5CA007509AA /* mmu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mmu.h; sourceTree = "<group>"; };
-		B3AAEA8A206AF5CA007509AA /* tom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tom.h; sourceTree = "<group>"; };
-		B3AAEA8B206AF5CA007509AA /* crc32.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = crc32.c; sourceTree = "<group>"; };
-		B3AAEA8C206AF5CA007509AA /* jagdasm.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = jagdasm.c; sourceTree = "<group>"; };
-		B3AAEA8D206AF5CA007509AA /* jagbios2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = jagbios2.c; sourceTree = "<group>"; };
-		B3AAEA8E206AF5CA007509AA /* op.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = op.c; sourceTree = "<group>"; };
-		B3AAEA8F206AF5CA007509AA /* dac.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dac.c; sourceTree = "<group>"; };
-		B3AAEA90206AF5CA007509AA /* boolean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = boolean.h; sourceTree = "<group>"; };
-		B3AAEA91206AF5CA007509AA /* vjag_memory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vjag_memory.h; sourceTree = "<group>"; };
-		B3AAEA92206AF5CA007509AA /* eeprom.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = eeprom.c; sourceTree = "<group>"; };
-		B3AAEA93206AF5CA007509AA /* jagstub2bios.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jagstub2bios.h; sourceTree = "<group>"; };
-		B3AAEA94206AF5CA007509AA /* memtrack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = memtrack.h; sourceTree = "<group>"; };
-		B3AAEA95206AF5CA007509AA /* gpu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gpu.h; sourceTree = "<group>"; };
-		B3AAEA96206AF5CA007509AA /* log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; };
-		B3AAEA97206AF5CA007509AA /* jerry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jerry.h; sourceTree = "<group>"; };
-		B3AAEA98206AF5CA007509AA /* event.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = event.c; sourceTree = "<group>"; };
-		B3AAEA99206AF5CA007509AA /* cdrom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cdrom.h; sourceTree = "<group>"; };
-		B3AAEA9A206AF5CA007509AA /* jagcdbios.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = jagcdbios.c; sourceTree = "<group>"; };
-		B3AAEA9B206AF5CA007509AA /* jagdevcdbios.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jagdevcdbios.h; sourceTree = "<group>"; };
-		B3AAEA9C206AF5CA007509AA /* settings.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = settings.c; sourceTree = "<group>"; };
-		B3AAEA9D206AF5CA007509AA /* wavetable.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = wavetable.c; sourceTree = "<group>"; };
-		B3AAEA9E206AF5CA007509AA /* blitter.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = blitter.c; sourceTree = "<group>"; };
-		B3AAEA9F206AF5CA007509AA /* dsp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dsp.h; sourceTree = "<group>"; };
-		B3AAEAA0206AF5CA007509AA /* jagstub1bios.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jagstub1bios.h; sourceTree = "<group>"; };
-		B3AAEAA1206AF5CA007509AA /* file.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = file.c; sourceTree = "<group>"; };
-		B3AAEAA2206AF5CA007509AA /* joystick.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = joystick.c; sourceTree = "<group>"; };
-		B3AAEAA3206AF5CA007509AA /* filedb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = filedb.c; sourceTree = "<group>"; };
-		B3AAEAA4206AF5CA007509AA /* universalhdr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = universalhdr.h; sourceTree = "<group>"; };
-		B3AAEAA5206AF5CA007509AA /* jaguar.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = jaguar.c; sourceTree = "<group>"; };
-		B3AAEAA6206AF5CA007509AA /* jagbios.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jagbios.h; sourceTree = "<group>"; };
-		B3AAEAA7206AF5CA007509AA /* state.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = state.h; sourceTree = "<group>"; };
-		B3AAEAA8206AF5CA007509AA /* crc32.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = crc32.h; sourceTree = "<group>"; };
-		B3AAEAA9206AF5CA007509AA /* tom.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = tom.c; sourceTree = "<group>"; };
-		B3AAEAAA206AF5CA007509AA /* jagdasm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jagdasm.h; sourceTree = "<group>"; };
-		B3AAEAAB206AF5CA007509AA /* mmu.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = mmu.c; sourceTree = "<group>"; };
-		B3AAEAAC206AF5CA007509AA /* cdintf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cdintf.h; sourceTree = "<group>"; };
+		B3A68345206AF9370051AEE4 /* libretro.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = libretro.c; sourceTree = "<group>"; };
+		B3A68346206AF9370051AEE4 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		B3A68348206AF9380051AEE4 /* INSTALL */ = {isa = PBXFileReference; lastKnownFileType = text; path = INSTALL; sourceTree = "<group>"; };
+		B3A68349206AF9380051AEE4 /* virtualjaguar.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = virtualjaguar.1; sourceTree = "<group>"; };
+		B3A6834A206AF9380051AEE4 /* WHATSNEW */ = {isa = PBXFileReference; lastKnownFileType = text; path = WHATSNEW; sourceTree = "<group>"; };
+		B3A6834B206AF9380051AEE4 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		B3A6834C206AF9380051AEE4 /* TODO */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
+		B3A6834D206AF9380051AEE4 /* GPLv3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = GPLv3; sourceTree = "<group>"; };
+		B3A6834E206AF9380051AEE4 /* Makefile.common */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.common; sourceTree = "<group>"; };
+		B3A6834F206AF9380051AEE4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B3A68350206AF9380051AEE4 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		B3A68351206AF9380051AEE4 /* libretro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libretro.h; sourceTree = "<group>"; };
+		B3A68356206AF9380051AEE4 /* stdint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stdint.h; sourceTree = "<group>"; };
+		B3A68357206AF9380051AEE4 /* link.T */ = {isa = PBXFileReference; lastKnownFileType = text; path = link.T; sourceTree = "<group>"; };
+		B3A68359206AF9380051AEE4 /* Android.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = Android.mk; sourceTree = "<group>"; };
+		B3A6835A206AF9380051AEE4 /* Application.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = Application.mk; sourceTree = "<group>"; };
+		B3A6835B206AF9380051AEE4 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +225,77 @@
 			path = VirtualJaguar;
 			sourceTree = "<group>";
 		};
+		B331401A2060CC3E001D3526 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B331410E2060CE20001D3526 /* blitter.c */,
+				B33140CE2060CE1B001D3526 /* blitter.h */,
+				B33140F92060CE1D001D3526 /* boolean.h */,
+				B33140F12060CE1D001D3526 /* cdintf.c */,
+				B33141002060CE1E001D3526 /* cdintf.h */,
+				B33140FF2060CE1E001D3526 /* cdrom.c */,
+				B33140C72060CE1B001D3526 /* cdrom.h */,
+				B33141112060CE20001D3526 /* crc32.c */,
+				B33140D22060CE1C001D3526 /* crc32.h */,
+				B33140CB2060CE1B001D3526 /* dac.c */,
+				B331410C2060CE20001D3526 /* dac.h */,
+				B33140C52060CE1B001D3526 /* dsp.c */,
+				B331410A2060CE1F001D3526 /* dsp.h */,
+				B33140F82060CE1D001D3526 /* eeprom.c */,
+				B33140F22060CE1D001D3526 /* eeprom.h */,
+				B33140EA2060CE1C001D3526 /* event.c */,
+				B33140F32060CE1D001D3526 /* event.h */,
+				B33140FB2060CE1E001D3526 /* file.c */,
+				B33141022060CE1E001D3526 /* file.h */,
+				B33140CC2060CE1B001D3526 /* filedb.c */,
+				B33140E82060CE1C001D3526 /* filedb.h */,
+				B33141012060CE1E001D3526 /* gpu.c */,
+				B33140F42060CE1D001D3526 /* gpu.h */,
+				B33141082060CE1F001D3526 /* jagbios.c */,
+				B33141122060CE20001D3526 /* jagbios.h */,
+				B33140C82060CE1B001D3526 /* jagbios2.c */,
+				B33140CD2060CE1B001D3526 /* jagbios2.h */,
+				B33140D32060CE1C001D3526 /* jagcdbios.c */,
+				B33141132060CE20001D3526 /* jagcdbios.h */,
+				B33140E92060CE1C001D3526 /* jagdasm.c */,
+				B33140C62060CE1B001D3526 /* jagdasm.h */,
+				B33140D42060CE1C001D3526 /* jagdevcdbios.c */,
+				B33140FC2060CE1E001D3526 /* jagdevcdbios.h */,
+				B33140EC2060CE1C001D3526 /* jagstub1bios.c */,
+				B33140FA2060CE1E001D3526 /* jagstub1bios.h */,
+				B331410F2060CE20001D3526 /* jagstub2bios.c */,
+				B33140CF2060CE1B001D3526 /* jagstub2bios.h */,
+				B33140FD2060CE1E001D3526 /* jaguar.c */,
+				B331410B2060CE1F001D3526 /* jaguar.h */,
+				B33141092060CE1F001D3526 /* jerry.c */,
+				B33141032060CE1F001D3526 /* jerry.h */,
+				B33141152060CE21001D3526 /* joystick.c */,
+				B33140F52060CE1D001D3526 /* joystick.h */,
+				B33140ED2060CE1C001D3526 /* log.c */,
+				B33140D12060CE1B001D3526 /* log.h */,
+				B33140D52060CE1C001D3526 /* m68000 */,
+				B33141072060CE1F001D3526 /* memtrack.c */,
+				B33141042060CE1F001D3526 /* memtrack.h */,
+				B33140F02060CE1D001D3526 /* mmu.c */,
+				B331410D2060CE20001D3526 /* mmu.h */,
+				B33140F62060CE1D001D3526 /* op.c */,
+				B33141162060CE21001D3526 /* op.h */,
+				B33140EB2060CE1C001D3526 /* settings.c */,
+				B33140CA2060CE1B001D3526 /* settings.h */,
+				B33140FE2060CE1E001D3526 /* state.c */,
+				B33141142060CE21001D3526 /* state.h */,
+				B33140C92060CE1B001D3526 /* tom.c */,
+				B33141062060CE1F001D3526 /* tom.h */,
+				B33141102060CE20001D3526 /* universalhdr.c */,
+				B33140F72060CE1D001D3526 /* universalhdr.h */,
+				B33140D02060CE1B001D3526 /* vjag_memory.c */,
+				B33140EF2060CE1C001D3526 /* vjag_memory.h */,
+				B33140EE2060CE1C001D3526 /* wavetable.c */,
+				B33141052060CE1F001D3526 /* wavetable.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		B33140C12060CC66001D3526 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,12 +304,37 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B33140D52060CE1C001D3526 /* m68000 */ = {
+			isa = PBXGroup;
+			children = (
+				B33140D62060CE1C001D3526 /* table68k */,
+				B33140D72060CE1C001D3526 /* m68kinterface.h */,
+				B33140D82060CE1C001D3526 /* readcpu.c */,
+				B33140D92060CE1C001D3526 /* gencpu.c */,
+				B33140DA2060CE1C001D3526 /* cpudefs.c */,
+				B33140DB2060CE1C001D3526 /* m68kdasm.c */,
+				B33140DC2060CE1C001D3526 /* Makefile */,
+				B33140DD2060CE1C001D3526 /* cputbl.h */,
+				B33140DE2060CE1C001D3526 /* cpuemu.c */,
+				B33140DF2060CE1C001D3526 /* build68k.c */,
+				B33140E02060CE1C001D3526 /* cpuextra.h */,
+				B33140E12060CE1C001D3526 /* m68kinterface.c */,
+				B33140E22060CE1C001D3526 /* cpudefs.h */,
+				B33140E32060CE1C001D3526 /* readcpu.h */,
+				B33140E42060CE1C001D3526 /* cpustbl.c */,
+				B33140E52060CE1C001D3526 /* inlines.h */,
+				B33140E62060CE1C001D3526 /* sysdeps.h */,
+				B33140E72060CE1C001D3526 /* cpuextra.c */,
+			);
+			path = m68000;
+			sourceTree = "<group>";
+		};
 		B394C98C2060CAB80014A65D = {
 			isa = PBXGroup;
 			children = (
 				B33140162060CC3E001D3526 /* VirtualJaguar */,
 				B394C9982060CAB80014A65D /* Supporting Files */,
-				B3AAEA42206AF5CA007509AA /* virtualjaguar-libretro */,
+				B3A68344206AF9370051AEE4 /* virtualjaguar-libretro */,
 				B394C9972060CAB80014A65D /* Products */,
 				B33140C12060CC66001D3526 /* Frameworks */,
 			);
@@ -180,173 +358,77 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		B3AAEA42206AF5CA007509AA /* virtualjaguar-libretro */ = {
+		B3A68344206AF9370051AEE4 /* virtualjaguar-libretro */ = {
 			isa = PBXGroup;
 			children = (
-				B3AAEA43206AF5CA007509AA /* libretro.c */,
-				B3AAEA44206AF5CA007509AA /* Makefile */,
-				B3AAEA45206AF5CA007509AA /* docs */,
-				B3AAEA4C206AF5CA007509AA /* Makefile.common */,
-				B3AAEA4D206AF5CA007509AA /* README.md */,
-				B3AAEA4E206AF5CA007509AA /* .gitignore */,
-				B3AAEA4F206AF5CA007509AA /* libretro.h */,
-				B3AAEA50206AF5CA007509AA /* libretro-common */,
-				B3AAEA55206AF5CA007509AA /* link.T */,
-				B3AAEA56206AF5CA007509AA /* jni */,
-				B3AAEA59206AF5CA007509AA /* .travis.yml */,
-				B3AAEA5A206AF5CA007509AA /* src */,
+				B3A68350206AF9380051AEE4 /* .gitignore */,
+				B3A68346206AF9370051AEE4 /* Makefile */,
+				B3A68345206AF9370051AEE4 /* libretro.c */,
+				B3A6834E206AF9380051AEE4 /* Makefile.common */,
+				B3A68351206AF9380051AEE4 /* libretro.h */,
+				B3A6834F206AF9380051AEE4 /* README.md */,
+				B3A68357206AF9380051AEE4 /* link.T */,
+				B3A6835B206AF9380051AEE4 /* .travis.yml */,
+				B3A68347206AF9370051AEE4 /* docs */,
+				B3A68358206AF9380051AEE4 /* jni */,
+				B3A68352206AF9380051AEE4 /* libretro-common */,
+				B331401A2060CC3E001D3526 /* src */,
 			);
 			path = "virtualjaguar-libretro";
 			sourceTree = "<group>";
 		};
-		B3AAEA45206AF5CA007509AA /* docs */ = {
+		B3A68347206AF9370051AEE4 /* docs */ = {
 			isa = PBXGroup;
 			children = (
-				B3AAEA46206AF5CA007509AA /* INSTALL */,
-				B3AAEA47206AF5CA007509AA /* virtualjaguar.1 */,
-				B3AAEA48206AF5CA007509AA /* WHATSNEW */,
-				B3AAEA49206AF5CA007509AA /* README */,
-				B3AAEA4A206AF5CA007509AA /* TODO */,
-				B3AAEA4B206AF5CA007509AA /* GPLv3 */,
+				B3A68348206AF9380051AEE4 /* INSTALL */,
+				B3A68349206AF9380051AEE4 /* virtualjaguar.1 */,
+				B3A6834A206AF9380051AEE4 /* WHATSNEW */,
+				B3A6834B206AF9380051AEE4 /* README */,
+				B3A6834C206AF9380051AEE4 /* TODO */,
+				B3A6834D206AF9380051AEE4 /* GPLv3 */,
 			);
 			path = docs;
 			sourceTree = "<group>";
 		};
-		B3AAEA50206AF5CA007509AA /* libretro-common */ = {
+		B3A68352206AF9380051AEE4 /* libretro-common */ = {
 			isa = PBXGroup;
 			children = (
-				B3AAEA51206AF5CA007509AA /* include */,
+				B3A68353206AF9380051AEE4 /* include */,
 			);
 			path = "libretro-common";
 			sourceTree = "<group>";
 		};
-		B3AAEA51206AF5CA007509AA /* include */ = {
+		B3A68353206AF9380051AEE4 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				B3AAEA52206AF5CA007509AA /* compat */,
+				B3A68354206AF9380051AEE4 /* compat */,
 			);
 			path = include;
 			sourceTree = "<group>";
 		};
-		B3AAEA52206AF5CA007509AA /* compat */ = {
+		B3A68354206AF9380051AEE4 /* compat */ = {
 			isa = PBXGroup;
 			children = (
-				B3AAEA53206AF5CA007509AA /* msvc */,
+				B3A68355206AF9380051AEE4 /* msvc */,
 			);
 			path = compat;
 			sourceTree = "<group>";
 		};
-		B3AAEA53206AF5CA007509AA /* msvc */ = {
+		B3A68355206AF9380051AEE4 /* msvc */ = {
 			isa = PBXGroup;
 			children = (
-				B3AAEA54206AF5CA007509AA /* stdint.h */,
+				B3A68356206AF9380051AEE4 /* stdint.h */,
 			);
 			path = msvc;
 			sourceTree = "<group>";
 		};
-		B3AAEA56206AF5CA007509AA /* jni */ = {
+		B3A68358206AF9380051AEE4 /* jni */ = {
 			isa = PBXGroup;
 			children = (
-				B3AAEA57206AF5CA007509AA /* Android.mk */,
-				B3AAEA58206AF5CA007509AA /* Application.mk */,
+				B3A68359206AF9380051AEE4 /* Android.mk */,
+				B3A6835A206AF9380051AEE4 /* Application.mk */,
 			);
 			path = jni;
-			sourceTree = "<group>";
-		};
-		B3AAEA5A206AF5CA007509AA /* src */ = {
-			isa = PBXGroup;
-			children = (
-				B3AAEA5B206AF5CA007509AA /* jerry.c */,
-				B3AAEA5C206AF5CA007509AA /* log.c */,
-				B3AAEA5D206AF5CA007509AA /* gpu.c */,
-				B3AAEA5E206AF5CA007509AA /* memtrack.c */,
-				B3AAEA5F206AF5CA007509AA /* eeprom.h */,
-				B3AAEA60206AF5CA007509AA /* jagstub2bios.c */,
-				B3AAEA61206AF5CA007509AA /* dac.h */,
-				B3AAEA62206AF5CA007509AA /* op.h */,
-				B3AAEA63206AF5CA007509AA /* jagbios2.h */,
-				B3AAEA64206AF5CA007509AA /* vjag_memory.c */,
-				B3AAEA65206AF5CA007509AA /* dsp.c */,
-				B3AAEA66206AF5CA007509AA /* blitter.h */,
-				B3AAEA67206AF5CA007509AA /* wavetable.h */,
-				B3AAEA68206AF5CA007509AA /* jagdevcdbios.c */,
-				B3AAEA69206AF5CA007509AA /* jagcdbios.h */,
-				B3AAEA6A206AF5CA007509AA /* settings.h */,
-				B3AAEA6B206AF5CA007509AA /* event.h */,
-				B3AAEA6C206AF5CA007509AA /* cdrom.c */,
-				B3AAEA6D206AF5CA007509AA /* jagbios.c */,
-				B3AAEA6E206AF5CA007509AA /* jaguar.h */,
-				B3AAEA6F206AF5CA007509AA /* universalhdr.c */,
-				B3AAEA70206AF5CA007509AA /* state.c */,
-				B3AAEA71206AF5CA007509AA /* joystick.h */,
-				B3AAEA72206AF5CA007509AA /* file.h */,
-				B3AAEA73206AF5CA007509AA /* filedb.h */,
-				B3AAEA74206AF5CA007509AA /* m68000 */,
-				B3AAEA87206AF5CA007509AA /* jagstub1bios.c */,
-				B3AAEA88206AF5CA007509AA /* cdintf.c */,
-				B3AAEA89206AF5CA007509AA /* mmu.h */,
-				B3AAEA8A206AF5CA007509AA /* tom.h */,
-				B3AAEA8B206AF5CA007509AA /* crc32.c */,
-				B3AAEA8C206AF5CA007509AA /* jagdasm.c */,
-				B3AAEA8D206AF5CA007509AA /* jagbios2.c */,
-				B3AAEA8E206AF5CA007509AA /* op.c */,
-				B3AAEA8F206AF5CA007509AA /* dac.c */,
-				B3AAEA90206AF5CA007509AA /* boolean.h */,
-				B3AAEA91206AF5CA007509AA /* vjag_memory.h */,
-				B3AAEA92206AF5CA007509AA /* eeprom.c */,
-				B3AAEA93206AF5CA007509AA /* jagstub2bios.h */,
-				B3AAEA94206AF5CA007509AA /* memtrack.h */,
-				B3AAEA95206AF5CA007509AA /* gpu.h */,
-				B3AAEA96206AF5CA007509AA /* log.h */,
-				B3AAEA97206AF5CA007509AA /* jerry.h */,
-				B3AAEA98206AF5CA007509AA /* event.c */,
-				B3AAEA99206AF5CA007509AA /* cdrom.h */,
-				B3AAEA9A206AF5CA007509AA /* jagcdbios.c */,
-				B3AAEA9B206AF5CA007509AA /* jagdevcdbios.h */,
-				B3AAEA9C206AF5CA007509AA /* settings.c */,
-				B3AAEA9D206AF5CA007509AA /* wavetable.c */,
-				B3AAEA9E206AF5CA007509AA /* blitter.c */,
-				B3AAEA9F206AF5CA007509AA /* dsp.h */,
-				B3AAEAA0206AF5CA007509AA /* jagstub1bios.h */,
-				B3AAEAA1206AF5CA007509AA /* file.c */,
-				B3AAEAA2206AF5CA007509AA /* joystick.c */,
-				B3AAEAA3206AF5CA007509AA /* filedb.c */,
-				B3AAEAA4206AF5CA007509AA /* universalhdr.h */,
-				B3AAEAA5206AF5CA007509AA /* jaguar.c */,
-				B3AAEAA6206AF5CA007509AA /* jagbios.h */,
-				B3AAEAA7206AF5CA007509AA /* state.h */,
-				B3AAEAA8206AF5CA007509AA /* crc32.h */,
-				B3AAEAA9206AF5CA007509AA /* tom.c */,
-				B3AAEAAA206AF5CA007509AA /* jagdasm.h */,
-				B3AAEAAB206AF5CA007509AA /* mmu.c */,
-				B3AAEAAC206AF5CA007509AA /* cdintf.h */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
-		B3AAEA74206AF5CA007509AA /* m68000 */ = {
-			isa = PBXGroup;
-			children = (
-				B3AAEA75206AF5CA007509AA /* table68k */,
-				B3AAEA76206AF5CA007509AA /* m68kinterface.h */,
-				B3AAEA77206AF5CA007509AA /* readcpu.c */,
-				B3AAEA78206AF5CA007509AA /* gencpu.c */,
-				B3AAEA79206AF5CA007509AA /* cpudefs.c */,
-				B3AAEA7A206AF5CA007509AA /* m68kdasm.c */,
-				B3AAEA7B206AF5CA007509AA /* Makefile */,
-				B3AAEA7C206AF5CA007509AA /* cputbl.h */,
-				B3AAEA7D206AF5CA007509AA /* cpuemu.c */,
-				B3AAEA7E206AF5CA007509AA /* build68k.c */,
-				B3AAEA7F206AF5CA007509AA /* cpuextra.h */,
-				B3AAEA80206AF5CA007509AA /* m68kinterface.c */,
-				B3AAEA81206AF5CA007509AA /* cpudefs.h */,
-				B3AAEA82206AF5CA007509AA /* readcpu.h */,
-				B3AAEA83206AF5CA007509AA /* cpustbl.c */,
-				B3AAEA84206AF5CA007509AA /* inlines.h */,
-				B3AAEA85206AF5CA007509AA /* sysdeps.h */,
-				B3AAEA86206AF5CA007509AA /* cpuextra.c */,
-			);
-			path = m68000;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -356,7 +438,47 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B33141632060CE21001D3526 /* jagbios.h in Headers */,
+				B33141672060CE21001D3526 /* op.h in Headers */,
+				B33141652060CE21001D3526 /* state.h in Headers */,
+				B33141532060CE21001D3526 /* file.h in Headers */,
+				B33141462060CE21001D3526 /* joystick.h in Headers */,
+				B331414A2060CE21001D3526 /* boolean.h in Headers */,
+				B33141192060CE21001D3526 /* cdrom.h in Headers */,
+				B331415C2060CE21001D3526 /* jaguar.h in Headers */,
 				B331406F2060CC3E001D3526 /* PVJaguarGameCore.h in Headers */,
+				B331415E2060CE21001D3526 /* mmu.h in Headers */,
+				B33141432060CE21001D3526 /* eeprom.h in Headers */,
+				B33141242060CE21001D3526 /* crc32.h in Headers */,
+				B33141402060CE21001D3526 /* vjag_memory.h in Headers */,
+				B33141442060CE21001D3526 /* event.h in Headers */,
+				B33141482060CE21001D3526 /* universalhdr.h in Headers */,
+				B33141342060CE21001D3526 /* readcpu.h in Headers */,
+				B33141542060CE21001D3526 /* jerry.h in Headers */,
+				B3A683B0206AF9410051AEE4 /* libretro.h in Headers */,
+				B331411C2060CE21001D3526 /* settings.h in Headers */,
+				B331411F2060CE21001D3526 /* jagbios2.h in Headers */,
+				B331412E2060CE21001D3526 /* cputbl.h in Headers */,
+				B33141202060CE21001D3526 /* blitter.h in Headers */,
+				B33141362060CE21001D3526 /* inlines.h in Headers */,
+				B33141392060CE21001D3526 /* filedb.h in Headers */,
+				B331415D2060CE21001D3526 /* dac.h in Headers */,
+				B33141372060CE21001D3526 /* sysdeps.h in Headers */,
+				B33141552060CE21001D3526 /* memtrack.h in Headers */,
+				B33141212060CE21001D3526 /* jagstub2bios.h in Headers */,
+				B33141512060CE21001D3526 /* cdintf.h in Headers */,
+				B33141282060CE21001D3526 /* m68kinterface.h in Headers */,
+				B33141452060CE21001D3526 /* gpu.h in Headers */,
+				B33141312060CE21001D3526 /* cpuextra.h in Headers */,
+				B33141562060CE21001D3526 /* wavetable.h in Headers */,
+				B33141642060CE21001D3526 /* jagcdbios.h in Headers */,
+				B33141572060CE21001D3526 /* tom.h in Headers */,
+				B33141232060CE21001D3526 /* log.h in Headers */,
+				B33141332060CE21001D3526 /* cpudefs.h in Headers */,
+				B331414B2060CE21001D3526 /* jagstub1bios.h in Headers */,
+				B331414D2060CE21001D3526 /* jagdevcdbios.h in Headers */,
+				B331415B2060CE21001D3526 /* dsp.h in Headers */,
+				B33141182060CE21001D3526 /* jagdasm.h in Headers */,
 				B394C99B2060CAB80014A65D /* PVVirtualJaguar.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -419,6 +541,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B33141272060CE21001D3526 /* table68k in Resources */,
 				B33141692060DEB3001D3526 /* Core.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -430,7 +553,48 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B33141582060CE21001D3526 /* memtrack.c in Sources */,
+				B33141472060CE21001D3526 /* op.c in Sources */,
+				B331413E2060CE21001D3526 /* log.c in Sources */,
+				B331412F2060CE21001D3526 /* cpuemu.c in Sources */,
+				B331413F2060CE21001D3526 /* wavetable.c in Sources */,
+				B331412B2060CE21001D3526 /* cpudefs.c in Sources */,
+				B331414C2060CE21001D3526 /* file.c in Sources */,
+				B33141422060CE21001D3526 /* cdintf.c in Sources */,
+				B33141602060CE21001D3526 /* jagstub2bios.c in Sources */,
+				B331411A2060CE21001D3526 /* jagbios2.c in Sources */,
+				B331412C2060CE21001D3526 /* m68kdasm.c in Sources */,
+				B33141302060CE21001D3526 /* build68k.c in Sources */,
+				B331413D2060CE21001D3526 /* jagstub1bios.c in Sources */,
+				B331411E2060CE21001D3526 /* filedb.c in Sources */,
+				B331415A2060CE21001D3526 /* jerry.c in Sources */,
+				B33141252060CE21001D3526 /* jagcdbios.c in Sources */,
+				B3A683AF206AF93E0051AEE4 /* libretro.c in Sources */,
+				B33141322060CE21001D3526 /* m68kinterface.c in Sources */,
+				B33141662060CE21001D3526 /* joystick.c in Sources */,
+				B33141412060CE21001D3526 /* mmu.c in Sources */,
+				B33141502060CE21001D3526 /* cdrom.c in Sources */,
 				B331406D2060CC3E001D3526 /* PVJaguarGameCore.m in Sources */,
+				B331413B2060CE21001D3526 /* event.c in Sources */,
+				B33141622060CE21001D3526 /* crc32.c in Sources */,
+				B331413C2060CE21001D3526 /* settings.c in Sources */,
+				B33141612060CE21001D3526 /* universalhdr.c in Sources */,
+				B33141352060CE21001D3526 /* cpustbl.c in Sources */,
+				B33141262060CE21001D3526 /* jagdevcdbios.c in Sources */,
+				B331412A2060CE21001D3526 /* gencpu.c in Sources */,
+				B331414E2060CE21001D3526 /* jaguar.c in Sources */,
+				B331411B2060CE21001D3526 /* tom.c in Sources */,
+				B331413A2060CE21001D3526 /* jagdasm.c in Sources */,
+				B33141382060CE21001D3526 /* cpuextra.c in Sources */,
+				B331414F2060CE21001D3526 /* state.c in Sources */,
+				B33141222060CE21001D3526 /* vjag_memory.c in Sources */,
+				B33141492060CE21001D3526 /* eeprom.c in Sources */,
+				B33141172060CE21001D3526 /* dsp.c in Sources */,
+				B331415F2060CE21001D3526 /* blitter.c in Sources */,
+				B33141522060CE21001D3526 /* gpu.c in Sources */,
+				B33141292060CE21001D3526 /* readcpu.c in Sources */,
+				B33141592060CE21001D3526 /* jagbios.c in Sources */,
+				B331411D2060CE21001D3526 /* dac.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

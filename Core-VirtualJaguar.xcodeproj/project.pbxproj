@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		B331406D2060CC3E001D3526 /* PVJaguarGameCore.m in Sources */ = {isa = PBXBuildFile; fileRef = B33140172060CC3E001D3526 /* PVJaguarGameCore.m */; };
 		B331406F2060CC3E001D3526 /* PVJaguarGameCore.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140192060CC3E001D3526 /* PVJaguarGameCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B33140C22060CC66001D3526 /* PVSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B33140C32060CC66001D3526 /* PVSupport.framework */; };
 		B33141172060CE21001D3526 /* dsp.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140C52060CE1B001D3526 /* dsp.c */; };
 		B33141182060CE21001D3526 /* jagdasm.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140C62060CE1B001D3526 /* jagdasm.h */; };
 		B33141192060CE21001D3526 /* cdrom.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140C72060CE1B001D3526 /* cdrom.h */; };
@@ -94,6 +93,7 @@
 		B394C99B2060CAB80014A65D /* PVVirtualJaguar.h in Headers */ = {isa = PBXBuildFile; fileRef = B394C9992060CAB80014A65D /* PVVirtualJaguar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3A683AF206AF93E0051AEE4 /* libretro.c in Sources */ = {isa = PBXBuildFile; fileRef = B3A68345206AF9370051AEE4 /* libretro.c */; };
 		B3A683B0206AF9410051AEE4 /* libretro.h in Headers */ = {isa = PBXBuildFile; fileRef = B3A68351206AF9380051AEE4 /* libretro.h */; };
+		B3A683B1206AFB490051AEE4 /* PVSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B33140C32060CC66001D3526 /* PVSupport.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -209,7 +209,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B33140C22060CC66001D3526 /* PVSupport.framework in Frameworks */,
+				B3A683B1206AFB490051AEE4 /* PVSupport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

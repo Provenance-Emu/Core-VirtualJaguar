@@ -3,7 +3,7 @@
 
 #import <PVSupport/PVSupport-Swift.h>
 #import <OpenGLES/ES2/gl.h>
-#import "JaguarGameCore.h"
+#import "PVJaguarGameCore.h"
 #import "jaguar.h"
 #import "file.h"
 #import "jagbios.h"

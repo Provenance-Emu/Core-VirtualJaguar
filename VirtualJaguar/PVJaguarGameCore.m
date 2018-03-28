@@ -109,6 +109,9 @@ __weak static PVJaguarGameCore *_current;
 
 - (void)executeFrame
 {
+    if (self.controller1 || self.controller2) {
+        [self pollControllers];
+    }
 #if PARALLEL_GFX_AUDIO_CALLS
     dispatch_group_enter(renderGroup);
     dispatch_async(videoQueue, ^{
@@ -219,6 +222,79 @@ __weak static PVJaguarGameCore *_current;
 - (NSUInteger)channelCount
 {
     return 2;
+}
+
+#pragma mark Input
+- (void)pollControllers {
+    for (NSInteger playerIndex = 0; playerIndex < 2; playerIndex++) {
+        GCController *controller = nil;
+        uint8_t *currentController;
+        
+        if (self.controller1 && playerIndex == 0) {
+            controller = self.controller1;
+            currentController = joypad0Buttons;
+        }
+        else if (self.controller2 && playerIndex == 1)
+        {
+            controller = self.controller2;
+            currentController = joypad1Buttons;
+        }
+        
+        if ([controller extendedGamepad]) {
+            GCExtendedGamepad *gamepad     = [controller extendedGamepad];
+            GCControllerDirectionPad *dpad = [gamepad dpad];
+            
+            // DPAD
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonUp]] = (dpad.up.isPressed || gamepad.leftThumbstick.up.isPressed);
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonDown]] = (dpad.down.isPressed || gamepad.leftThumbstick.down.isPressed);
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonLeft]] = (dpad.left.isPressed || gamepad.leftThumbstick.left.isPressed);
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonRight]] = (dpad.right.isPressed || gamepad.leftThumbstick.right.isPressed);
+            // Buttons
+            
+            // Fire 1
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonC]] = gamepad.buttonX.isPressed;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonB]] = gamepad.buttonA.isPressed;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonA]] = gamepad.buttonB.isPressed;
+
+            // Triggers
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonPause]] = gamepad.leftTrigger.isPressed || gamepad.leftShoulder.isPressed;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonOption]] = gamepad.rightTrigger.isPressed || gamepad.rightShoulder.isPressed;
+            
+        } else if ([controller gamepad]) {
+            GCGamepad *gamepad = [controller gamepad];
+            GCControllerDirectionPad *dpad = [gamepad dpad];
+            
+            // DPAD
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonUp]] = dpad.up.isPressed;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonDown]] = dpad.down.isPressed;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonLeft]] = dpad.left.isPressed;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonRight]] = dpad.right.isPressed;
+            // Buttons
+            
+            // Fire 1
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonC]] = gamepad.buttonX.isPressed;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonB]] = gamepad.buttonA.isPressed;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonA]] = gamepad.buttonB.isPressed;
+            
+            // Triggers
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonPause]] = gamepad.leftShoulder.isPressed;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonOption]] = gamepad.rightShoulder.isPressed;
+        }
+#if TARGET_OS_TV
+        else if ([controller microGamepad]) {
+            GCMicroGamepad *gamepad = [controller microGamepad];
+            GCControllerDirectionPad *dpad = [gamepad dpad];
+            
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonUp]]    = dpad.up.value > 0.5;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonDown]]  = dpad.down.value > 0.5;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonLeft]]  = dpad.left.value > 0.5;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonRight]] = dpad.right.value > 0.5;
+            
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonC]] = gamepad.buttonX.isPressed;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonB]] = gamepad.buttonA.isPressed;
+        }
+#endif
+    }
 }
 
 - (void)didPushJaguarButton:(PVJaguarButton)button forPlayer:(NSInteger)player

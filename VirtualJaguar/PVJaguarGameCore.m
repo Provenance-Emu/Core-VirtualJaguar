@@ -37,6 +37,7 @@ __weak static PVJaguarGameCore *_current;
 }
 @end
 
+#define PARALLEL_GFX_AUDIO_CALLS 1
 #define SAMPLERATE 48000
 #define BUFPAL  1920
 #define BUFNTSC 1600
@@ -90,6 +91,8 @@ __weak static PVJaguarGameCore *_current;
     
 //    //LogInit("vj.log");                                      // initialize log file for debugging
     vjs.hardwareTypeNTSC = true;
+    
+    //TODO: Make these core options
     vjs.useJaguarBIOS = false;
     vjs.useFastBlitter = false;
 
@@ -106,7 +109,7 @@ __weak static PVJaguarGameCore *_current;
 
 - (void)executeFrame
 {
-#if 0
+#if PARALLEL_GFX_AUDIO_CALLS
     dispatch_group_enter(renderGroup);
     dispatch_async(videoQueue, ^{
         JaguarExecuteNew();

@@ -2,7 +2,8 @@
 #import <PVSupport/DebugUtils.h>
 
 #import <PVSupport/PVSupport-Swift.h>
-#import <OpenGLES/ES2/gl.h>
+#import <OpenGLES/ES3/gl.h>
+#import <OpenGLES/ES3/glext.h>
 #import "PVJaguarGameCore.h"
 #import "jaguar.h"
 #import "file.h"
@@ -141,7 +142,7 @@ __weak static PVJaguarGameCore *_current;
 
 - (GLenum)pixelFormat
 {
-    return GL_RGBA;
+    return GL_BGRA;
 }
 
 - (GLenum)pixelType

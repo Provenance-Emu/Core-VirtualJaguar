@@ -174,11 +174,12 @@ __weak static PVJaguarGameCore *_current;
 {
     uint8_t *currentController;
     
-    if (player == 1) {
+    if (player == 0) {
         currentController = joypad0Buttons;
-    }
-    else {
+    } else if (player == 1) {
         currentController = joypad1Buttons;
+    } else {
+        return;
     }
     
     // special cases to prevent invalid inputs
@@ -208,11 +209,12 @@ __weak static PVJaguarGameCore *_current;
 {
     uint8_t *currentController;
     
-    if (player == 1) {
+    if (player == 0) {
         currentController = joypad0Buttons;
-    }
-    else {
+    } else if (player == 1) {
         currentController = joypad1Buttons;
+    } else {
+        return;
     }
     
     int index = [self getIndexForPVJaguarButton:button];

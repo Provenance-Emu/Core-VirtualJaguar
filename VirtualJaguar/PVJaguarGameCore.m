@@ -9,10 +9,12 @@
 #import "file.h"
 #import "jagbios.h"
 #import "jagbios2.h"
+#include "jagstub2bios.h"
 #include "memory.h"
 #include "log.h"
 #include "tom.h"
 #include "dsp.h"
+#include "m68kinterface.h"
 #include "settings.h"
 #include "joystick.h"
 #include "dac.h"
@@ -81,8 +83,6 @@ __weak static PVJaguarGameCore *_current;
         strcpy(vjs.EEPROMPath, [filePath UTF8String]);
     }
     
-    NSData* romData = [NSData dataWithContentsOfFile:path];
-
     videoWidth           = 320;
     videoHeight          = 240;
     buffer  = (uint32_t *)calloc(sizeof(uint32_t), 1024 * 512);
@@ -98,13 +98,67 @@ __weak static PVJaguarGameCore *_current;
 
     JaguarInit();                                             // set up hardware
     memcpy(jagMemSpace + 0xE00000, (vjs.biosType == BT_K_SERIES ? jaguarBootROM : jaguarBootROM2), 0x20000); // Use the stock BIOS
-    [self initVideo];
-    SET32(jaguarMainRAM, 0, 0x00200000);                      // set up stack
-
-    JaguarLoadFile((uint8_t*)romData.bytes, romData.length);   // load rom
-    JaguarReset();
     
-    return YES;
+    // Load up the default ROM if in Alpine mode:
+    if (vjs.hardwareTypeAlpine)
+    {
+        NSData* alpineData = [NSData dataWithContentsOfFile:@(vjs.alpineROMPath)];
+
+        BOOL romLoaded = JaguarLoadFile((uint8_t*)alpineData.bytes, alpineData.length);
+
+        // If regular load failed, try just a straight file load
+        // (Dev only! I don't want people to start getting lazy with their releases again! :-P)
+        if (!romLoaded) {
+            romLoaded = AlpineLoadFile((uint8_t*)alpineData.bytes, alpineData.length);
+        }
+
+        if (romLoaded) {
+            ILOG(@"Alpine Mode: Successfully loaded file \"%s\".\n", vjs.alpineROMPath);
+        } else {
+            ILOG(@"Alpine Mode: Unable to load file \"%s\"!\n", vjs.alpineROMPath);
+        }
+        
+        // Attempt to load/run the ABS file...
+//        LoadSoftware(@(vjs.absROMPath));
+        memcpy(jagMemSpace + 0xE00000, jaguarDevBootROM2, 0x20000);    // Use the stub BIOS
+
+        return romLoaded;
+    } else {
+        return [self loadSoftware:path];
+    }
+    
+    return NO;
+}
+
+- (BOOL)loadSoftware:(NSString *)path {
+    NSData* romData = [NSData dataWithContentsOfFile:path];
+
+    uint8_t * biosPointer = jaguarBootROM;
+    
+    if (vjs.hardwareTypeAlpine) {
+        biosPointer = jaguarDevBootROM2;
+    }
+    
+    memcpy(jagMemSpace + 0xE00000, biosPointer, 0x20000);
+    
+    JaguarReset();
+    DACPauseAudioThread(false);
+    
+    // We have to load our software *after* the Jaguar RESET
+    BOOL cartridgeLoaded = JaguarLoadFile((uint8_t*)romData.bytes, romData.length);   // load rom
+    SET32(jaguarMainRAM, 0, 0x00200000);        // Set top of stack...
+    
+    [self initVideo];
+
+    // This is icky because we've already done it
+    // it gets worse :-P
+    if (!vjs.useJaguarBIOS) {
+        SET32(jaguarMainRAM, 4, jaguarRunAddress);
+    }
+    
+    m68k_pulse_reset();
+
+    return cartridgeLoaded;
 }
 
 - (void)executeFrame
@@ -121,7 +175,7 @@ __weak static PVJaguarGameCore *_current;
     
     dispatch_group_wait(renderGroup, DISPATCH_TIME_FOREVER);
 
-    NSUInteger bufferSize = vjs.hardwareTypeNTSC == 1 ? BUFNTSC : BUFPAL;
+    NSUInteger bufferSize = vjs.hardwareTypeNTSC ? BUFNTSC : BUFPAL;
     // Don't block the frame draw waiting for audio
     dispatch_group_enter(renderGroup);
     dispatch_async(audioQueue, ^{
@@ -131,7 +185,7 @@ __weak static PVJaguarGameCore *_current;
     });
 #else
     JaguarExecuteNew();
-    NSUInteger bufferSize = vjs.hardwareTypeNTSC == 1 ? BUFNTSC : BUFPAL;
+    NSUInteger bufferSize = vjs.hardwareTypeNTSC ? BUFNTSC : BUFPAL;
 
     SDLSoundCallback(NULL, sampleBuffer, bufferSize);
     [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
@@ -217,7 +271,7 @@ __weak static PVJaguarGameCore *_current;
 
 - (NSTimeInterval)frameInterval
 {
-    return 60;
+    return vjs.hardwareTypeNTSC ? 60 : 50;
 }
 
 - (NSUInteger)channelCount

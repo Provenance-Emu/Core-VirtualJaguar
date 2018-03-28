@@ -18,15 +18,29 @@
 #include "dac.h"
 #include "libretro.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic error "-Wall"
+
 __weak static PVJaguarGameCore *_current;
 
-@interface PVJaguarGameCore () <PVJaguarSystemResponderClient>
+@interface PVJaguarGameCore ()
 {
     int videoWidth, videoHeight;
     double sampleRate;
     uint32_t *buffer;
+    dispatch_queue_t audioQueue;
+    dispatch_queue_t videoQueue;
+    dispatch_group_t renderGroup;
+
+    dispatch_semaphore_t waitToBeginFrameSemaphore;
+
 }
 @end
+
+#define SAMPLERATE 48000
+#define BUFPAL  1920
+#define BUFNTSC 1600
+#define BUFMAX (2048 * 2)
 
 @implementation PVJaguarGameCore
 
@@ -35,10 +49,18 @@ __weak static PVJaguarGameCore *_current;
     if (self = [super init]) {
         videoWidth = 1024;
         videoHeight = 512;
-        sampleRate = 48000;
-        buffer = (uint32_t*)calloc(sizeof(uint32_t), videoWidth * videoHeight);
-        sampleBuffer = (uint16_t *)malloc(2048 * sizeof(uint16_t));
-        memset(sampleBuffer, 0, 2048 * sizeof(uint16_t));
+        sampleRate = SAMPLERATE;
+        
+        dispatch_queue_attr_t priorityAttribute = dispatch_queue_attr_make_with_qos_class( DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INTERACTIVE, -1);
+        audioQueue = dispatch_queue_create("com.provenance.jaguar.audio", priorityAttribute);
+        videoQueue = dispatch_queue_create("com.provenance.jaguar.video", priorityAttribute);
+        renderGroup = dispatch_group_create();
+
+        waitToBeginFrameSemaphore = dispatch_semaphore_create(0);
+
+//        buffer = (uint32_t*)calloc(sizeof(uint32_t), videoWidth * videoHeight);
+//        sampleBuffer = (uint16_t *)malloc(BUFMAX * sizeof(uint16_t));
+//        memset(sampleBuffer, 0, BUFMAX * sizeof(uint16_t));
     }
     
     _current = self;
@@ -60,6 +82,12 @@ __weak static PVJaguarGameCore *_current;
     
     NSData* romData = [NSData dataWithContentsOfFile:path];
 
+    videoWidth           = 320;
+    videoHeight          = 240;
+    buffer  = (uint32_t *)calloc(sizeof(uint32_t), 1024 * 512);
+    sampleBuffer = (uint16_t *)malloc(BUFMAX * sizeof(uint16_t)); //found in dac.h
+    memset(sampleBuffer, 0, BUFMAX * sizeof(uint16_t));
+    
 //    //LogInit("vj.log");                                      // initialize log file for debugging
     vjs.hardwareTypeNTSC = true;
     vjs.useJaguarBIOS = false;
@@ -78,11 +106,31 @@ __weak static PVJaguarGameCore *_current;
 
 - (void)executeFrame
 {
-    JaguarExecuteNew();
+#if 0
+    dispatch_group_enter(renderGroup);
+    dispatch_async(videoQueue, ^{
+        JaguarExecuteNew();
+        dispatch_group_leave(renderGroup);
+    });
     
-    SDLSoundCallback(NULL, sampleBuffer, 2048*2);
-    [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:2048*2];
-}
+    dispatch_group_wait(renderGroup, DISPATCH_TIME_FOREVER);
+
+    NSUInteger bufferSize = vjs.hardwareTypeNTSC == 1 ? BUFNTSC : BUFPAL;
+    // Don't block the frame draw waiting for audio
+    dispatch_group_enter(renderGroup);
+    dispatch_async(audioQueue, ^{
+        SDLSoundCallback(NULL, sampleBuffer, bufferSize);
+        [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
+        dispatch_group_leave(renderGroup);
+    });
+#else
+    JaguarExecuteNew();
+    NSUInteger bufferSize = vjs.hardwareTypeNTSC == 1 ? BUFNTSC : BUFPAL;
+
+    SDLSoundCallback(NULL, sampleBuffer, bufferSize);
+    [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
+#endif
+ }
 
 - (void)initVideo
 {

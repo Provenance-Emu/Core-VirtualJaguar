@@ -631,9 +631,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B394C99E2060CAB80014A65D /* Build configuration list for PBXNativeTarget "PVVirtualJaguar" */;
 			buildPhases = (
+				B394C9932060CAB80014A65D /* Headers */,
 				B394C9912060CAB80014A65D /* Sources */,
 				B394C9922060CAB80014A65D /* Frameworks */,
-				B394C9932060CAB80014A65D /* Headers */,
 				B394C9942060CAB80014A65D /* Resources */,
 			);
 			buildRules = (
@@ -649,9 +649,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B3C8993D206B7AF2005E7033 /* Build configuration list for PBXNativeTarget "PVVirtualJaguar tvOS" */;
 			buildPhases = (
+				B3C89933206B7AF1005E7033 /* Headers */,
 				B3C89931206B7AF1005E7033 /* Sources */,
 				B3C89932206B7AF1005E7033 /* Frameworks */,
-				B3C89933206B7AF1005E7033 /* Headers */,
 				B3C89934206B7AF1005E7033 /* Resources */,
 			);
 			buildRules = (

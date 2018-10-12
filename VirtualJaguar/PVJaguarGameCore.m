@@ -1,10 +1,9 @@
-#import <PVSupport/OERingBuffer.h>
-#import <PVSupport/DebugUtils.h>
+#import "PVJaguarGameCore.h"
 
-#import <PVSupport/PVSupport-Swift.h>
+@import PVSupport;
 #import <OpenGLES/ES3/gl.h>
 #import <OpenGLES/ES3/glext.h>
-#import "PVJaguarGameCore.h"
+
 #import "jaguar.h"
 #import "file.h"
 #import "jagbios.h"

@@ -171,8 +171,6 @@ __weak static PVJaguarGameCore *_current;
         JaguarExecuteNew();
         dispatch_group_leave(renderGroup);
     });
-    
-    dispatch_group_wait(renderGroup, DISPATCH_TIME_FOREVER);
 
     NSUInteger bufferSize = vjs.hardwareTypeNTSC ? BUFNTSC : BUFPAL;
     // Don't block the frame draw waiting for audio
@@ -182,6 +180,9 @@ __weak static PVJaguarGameCore *_current;
         [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
         dispatch_group_leave(renderGroup);
     });
+	float frameTime = vjs.hardwareTypeNTSC ? 1.0/60.0 : 1.0/50.0;
+	dispatch_time_t killTime = dispatch_time(DISPATCH_TIME_NOW, frameTime * NSEC_PER_SEC);
+	dispatch_group_wait(renderGroup, killTime);
 #else
     JaguarExecuteNew();
     NSUInteger bufferSize = vjs.hardwareTypeNTSC ? BUFNTSC : BUFPAL;

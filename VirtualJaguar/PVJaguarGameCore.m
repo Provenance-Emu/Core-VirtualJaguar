@@ -536,5 +536,16 @@ __weak static PVJaguarGameCore *_current;
 {
     return NO;
 }
+- (BOOL)saveStateToFileAtPath:(NSString *)path error:(NSError *__autoreleasing *)error {
+	return NO;
+}
+
+- (BOOL)loadStateFromFileAtPath:(NSString *)path error:(NSError**)error {
+	return NO;
+}
+
+-(BOOL)supportsSaveStates {
+	return NO;
+}
 
 @end

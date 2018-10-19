@@ -92,12 +92,30 @@ __weak static PVJaguarGameCore *_current;
     vjs.hardwareTypeNTSC = true;
     
     //TODO: Make these core options
-    vjs.useJaguarBIOS = false;
+	NSFileManager *fm = [NSFileManager defaultManager];
+	NSString *biosPath = [self.BIOSPath stringByAppendingPathComponent:@"jagboot.rom"];
+	BOOL externalBIOS = false;
+	if ([fm fileExistsAtPath:biosPath]) {
+		ILOG(@"Using bios at path %@", biosPath);
+		strcpy(vjs.jagBootPath, biosPath.cString);
+		// No idea if this is working actually - does useJaguarBIOS do something?
+		vjs.useJaguarBIOS = false;
+		externalBIOS = true;
+	} else {
+		ILOG(@"No external BIOS found. Using no BIOS.");
+		vjs.useJaguarBIOS = false;
+	}
+
     vjs.useFastBlitter = false;
 
     JaguarInit();                                             // set up hardware
-    memcpy(jagMemSpace + 0xE00000, (vjs.biosType == BT_K_SERIES ? jaguarBootROM : jaguarBootROM2), 0x20000); // Use the stock BIOS
-    
+	if (!externalBIOS) {
+		memcpy(jagMemSpace + 0xE00000, (vjs.biosType == BT_K_SERIES ? jaguarBootROM : jaguarBootROM2), 0x20000); // Use the stock BIOS
+	} else {
+		NSData *data = [NSData dataWithContentsOfFile:biosPath];
+		memcpy(jagMemSpace + 0xE00000, data.bytes, data.length); // Use the stock BIOS
+	}
+
     // Load up the default ROM if in Alpine mode:
     if (vjs.hardwareTypeAlpine)
     {
@@ -133,8 +151,16 @@ __weak static PVJaguarGameCore *_current;
     NSData* romData = [NSData dataWithContentsOfFile:path];
 
     uint8_t * biosPointer = jaguarBootROM;
+	NSFileManager *fm = [NSFileManager defaultManager];
+
+	NSString *biosPath = [self.BIOSPath stringByAppendingPathComponent:@"jagboot.rom"];
+	BOOL externalBIOS = false;
+	if ([fm fileExistsAtPath:biosPath]) {
+		// No idea if this is working actually
+		biosPointer = [NSData dataWithContentsOfFile:biosPath].bytes;
+	}
     
-    if (vjs.hardwareTypeAlpine) {
+    if (!externalBIOS && vjs.hardwareTypeAlpine) {
         biosPointer = jaguarDevBootROM2;
     }
     

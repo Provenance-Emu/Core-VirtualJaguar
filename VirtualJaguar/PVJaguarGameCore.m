@@ -90,11 +90,14 @@ __weak static PVJaguarGameCore *_current;
     
 //    //LogInit("vj.log");                                      // initialize log file for debugging
     vjs.hardwareTypeNTSC = true;
-    
-    //TODO: Make these core options
+
+	strcpy(vjs.romName, path.lastPathComponent.cString);
+
+	BOOL externalBIOS = false;
+
+	// Look to see if user has copied a bios into the bios dir
 	NSFileManager *fm = [NSFileManager defaultManager];
 	NSString *biosPath = [self.BIOSPath stringByAppendingPathComponent:@"jagboot.rom"];
-	BOOL externalBIOS = false;
 	if ([fm fileExistsAtPath:biosPath]) {
 		ILOG(@"Using bios at path %@", biosPath);
 		strcpy(vjs.jagBootPath, biosPath.cString);
@@ -106,7 +109,8 @@ __weak static PVJaguarGameCore *_current;
 		vjs.useJaguarBIOS = false;
 	}
 
-    vjs.useFastBlitter = false;
+	//TODO: Make these core options
+	vjs.useFastBlitter = false;
 
     JaguarInit();                                             // set up hardware
 	if (!externalBIOS) {

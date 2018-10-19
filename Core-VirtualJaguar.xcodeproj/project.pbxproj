@@ -88,9 +88,9 @@
 		B33141662060CE21001D3526 /* joystick.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141152060CE21001D3526 /* joystick.c */; };
 		B33141672060CE21001D3526 /* op.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141162060CE21001D3526 /* op.h */; };
 		B33141692060DEB3001D3526 /* Core.plist in Resources */ = {isa = PBXBuildFile; fileRef = B33141682060DEB3001D3526 /* Core.plist */; };
+		B366480621799430004FDDAD /* PVSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B33140C32060CC66001D3526 /* PVSupport.framework */; };
 		B394C99B2060CAB80014A65D /* PVVirtualJaguar.h in Headers */ = {isa = PBXBuildFile; fileRef = B394C9992060CAB80014A65D /* PVVirtualJaguar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3A683B0206AF9410051AEE4 /* libretro.h in Headers */ = {isa = PBXBuildFile; fileRef = B3A68351206AF9380051AEE4 /* libretro.h */; };
-		B3A683B1206AFB490051AEE4 /* PVSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B33140C32060CC66001D3526 /* PVSupport.framework */; };
 		B3C8993E206B7BA4005E7033 /* PVSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C8993F206B7BA4005E7033 /* PVSupport.framework */; };
 		B3C89960206B7BCF005E7033 /* memtrack.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141072060CE1F001D3526 /* memtrack.c */; };
 		B3C89961206B7BCF005E7033 /* op.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F62060CE1D001D3526 /* op.c */; };
@@ -291,7 +291,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3A683B1206AFB490051AEE4 /* PVSupport.framework in Frameworks */,
+				B366480621799430004FDDAD /* PVSupport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

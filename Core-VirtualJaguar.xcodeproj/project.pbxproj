@@ -25,7 +25,6 @@
 		B33141242060CE21001D3526 /* crc32.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140D22060CE1C001D3526 /* crc32.h */; };
 		B33141252060CE21001D3526 /* jagcdbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D32060CE1C001D3526 /* jagcdbios.c */; };
 		B33141262060CE21001D3526 /* jagdevcdbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D42060CE1C001D3526 /* jagdevcdbios.c */; };
-		B33141272060CE21001D3526 /* table68k in Resources */ = {isa = PBXBuildFile; fileRef = B33140D62060CE1C001D3526 /* table68k */; };
 		B33141282060CE21001D3526 /* m68kinterface.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140D72060CE1C001D3526 /* m68kinterface.h */; };
 		B33141292060CE21001D3526 /* readcpu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D82060CE1C001D3526 /* readcpu.c */; };
 		B331412B2060CE21001D3526 /* cpudefs.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DA2060CE1C001D3526 /* cpudefs.c */; };
@@ -705,7 +704,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B33141272060CE21001D3526 /* table68k in Resources */,
 				B33141692060DEB3001D3526 /* Core.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

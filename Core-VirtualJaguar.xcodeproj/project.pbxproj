@@ -87,10 +87,10 @@
 		B33141662060CE21001D3526 /* joystick.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141152060CE21001D3526 /* joystick.c */; };
 		B33141672060CE21001D3526 /* op.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141162060CE21001D3526 /* op.h */; };
 		B33141692060DEB3001D3526 /* Core.plist in Resources */ = {isa = PBXBuildFile; fileRef = B33141682060DEB3001D3526 /* Core.plist */; };
-		B366480621799430004FDDAD /* PVSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B33140C32060CC66001D3526 /* PVSupport.framework */; };
+		B35D663F218019200005A992 /* PVSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35D663E218019200005A992 /* PVSupport.framework */; };
+		B35D6641218019350005A992 /* PVSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35D6640218019350005A992 /* PVSupport.framework */; };
 		B394C99B2060CAB80014A65D /* PVVirtualJaguar.h in Headers */ = {isa = PBXBuildFile; fileRef = B394C9992060CAB80014A65D /* PVVirtualJaguar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3A683B0206AF9410051AEE4 /* libretro.h in Headers */ = {isa = PBXBuildFile; fileRef = B3A68351206AF9380051AEE4 /* libretro.h */; };
-		B3C8993E206B7BA4005E7033 /* PVSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C8993F206B7BA4005E7033 /* PVSupport.framework */; };
 		B3C89960206B7BCF005E7033 /* memtrack.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141072060CE1F001D3526 /* memtrack.c */; };
 		B3C89961206B7BCF005E7033 /* op.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F62060CE1D001D3526 /* op.c */; };
 		B3C89962206B7BCF005E7033 /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140ED2060CE1C001D3526 /* log.c */; };
@@ -261,6 +261,8 @@
 		B33141152060CE21001D3526 /* joystick.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = joystick.c; sourceTree = "<group>"; };
 		B33141162060CE21001D3526 /* op.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = op.h; sourceTree = "<group>"; };
 		B33141682060DEB3001D3526 /* Core.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Core.plist; sourceTree = "<group>"; };
+		B35D663E218019200005A992 /* PVSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PVSupport.framework; path = Carthage/Build/iOS/PVSupport.framework; sourceTree = "<group>"; };
+		B35D6640218019350005A992 /* PVSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PVSupport.framework; path = Carthage/Build/tvOS/PVSupport.framework; sourceTree = "<group>"; };
 		B394C9962060CAB80014A65D /* PVVirtualJaguar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PVVirtualJaguar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B394C9992060CAB80014A65D /* PVVirtualJaguar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PVVirtualJaguar.h; sourceTree = "<group>"; };
 		B394C99A2060CAB80014A65D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -290,7 +292,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B366480621799430004FDDAD /* PVSupport.framework in Frameworks */,
+				B35D663F218019200005A992 /* PVSupport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,7 +300,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3C8993E206B7BA4005E7033 /* PVSupport.framework in Frameworks */,
+				B35D6641218019350005A992 /* PVSupport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +390,8 @@
 		B33140C12060CC66001D3526 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B35D6640218019350005A992 /* PVSupport.framework */,
+				B35D663E218019200005A992 /* PVSupport.framework */,
 				B3C8993F206B7BA4005E7033 /* PVSupport.framework */,
 				B33140C32060CC66001D3526 /* PVSupport.framework */,
 			);
@@ -942,6 +946,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"INLINE=inline",
 					"USE_STRUCTS=1",
@@ -975,6 +983,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"INLINE=inline",
 					"USE_STRUCTS=1",
@@ -1009,6 +1021,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"INLINE=inline",
@@ -1041,6 +1057,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"INLINE=inline",

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -672,8 +672,9 @@
 		B394C98D2060CAB80014A65D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = PV;
 				LastUpgradeCheck = 1000;
-				ORGANIZATIONNAME = "Joseph Mattiello";
+				ORGANIZATIONNAME = "Provenance Emu";
 				TargetAttributes = {
 					B394C9952060CAB80014A65D = {
 						CreatedOnToolsVersion = 9.2;
@@ -686,7 +687,7 @@
 				};
 			};
 			buildConfigurationList = B394C9902060CAB80014A65D /* Build configuration list for PBXProject "Core-VirtualJaguar" */;
-			compatibilityVersion = "Xcode 8.0";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -957,7 +958,11 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-D__GCCUNIX__",
@@ -991,7 +996,11 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-D__GCCUNIX__",
@@ -1026,7 +1035,11 @@
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/VirtualJaguar/src\"";
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				OTHER_CFLAGS = "-D__GCCUNIX__";
 				PRODUCT_BUNDLE_IDENTIFIER = com.provenance.VirtualJaguar;
 				PRODUCT_NAME = PVVirtualJaguar;
@@ -1059,7 +1072,11 @@
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/VirtualJaguar/src\"";
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				OTHER_CFLAGS = "-D__GCCUNIX__";
 				PRODUCT_BUNDLE_IDENTIFIER = com.provenance.VirtualJaguar;
 				PRODUCT_NAME = PVVirtualJaguar;

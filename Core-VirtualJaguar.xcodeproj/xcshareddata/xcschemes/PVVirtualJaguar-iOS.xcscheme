@@ -30,7 +30,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B394C9952060CAB80014A65D"
                BuildableName = "PVVirtualJaguar.framework"
-               BlueprintName = "PVVirtualJaguar"
+               BlueprintName = "PVVirtualJaguar-iOS"
                ReferencedContainer = "container:Core-VirtualJaguar.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -48,7 +48,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B394C9952060CAB80014A65D"
             BuildableName = "PVVirtualJaguar.framework"
-            BlueprintName = "PVVirtualJaguar"
+            BlueprintName = "PVVirtualJaguar-iOS"
             ReferencedContainer = "container:Core-VirtualJaguar.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -70,7 +70,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B394C9952060CAB80014A65D"
             BuildableName = "PVVirtualJaguar.framework"
-            BlueprintName = "PVVirtualJaguar"
+            BlueprintName = "PVVirtualJaguar-iOS"
             ReferencedContainer = "container:Core-VirtualJaguar.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -88,7 +88,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B394C9952060CAB80014A65D"
             BuildableName = "PVVirtualJaguar.framework"
-            BlueprintName = "PVVirtualJaguar"
+            BlueprintName = "PVVirtualJaguar-iOS"
             ReferencedContainer = "container:Core-VirtualJaguar.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

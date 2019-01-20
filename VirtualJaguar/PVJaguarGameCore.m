@@ -18,8 +18,8 @@
 #include "dac.h"
 #include "libretro.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic error "-Wall"
+//#pragma clang diagnostic push
+//#pragma clang diagnostic error "-Wall"
 
 __weak static PVJaguarGameCore *_current;
 

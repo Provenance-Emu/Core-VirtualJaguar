@@ -27,7 +27,7 @@ __weak static PVJaguarGameCore *_current;
 {
     int videoWidth, videoHeight;
     double sampleRate;
-    uint32_t *buffer;
+    struct JagBuffer * videoBuffer;
     dispatch_queue_t audioQueue;
     dispatch_queue_t videoQueue;
     dispatch_group_t renderGroup;
@@ -42,6 +42,20 @@ __weak static PVJaguarGameCore *_current;
 #define BUFPAL  1920
 #define BUFNTSC 1600
 #define BUFMAX (2048 * 2)
+
+typedef struct JagBuffer {
+    char label[256];
+    uint32_t buffer[1024 * 512];
+    uint16_t * sampleBuffer[BUFMAX];
+
+    bool read;
+    bool written;
+    bool audio_read;
+    bool audio_written;
+
+    u_long frameNumber;
+    struct JagBuffer* next;
+};
 
 @implementation PVJaguarGameCore
 
@@ -83,7 +97,19 @@ __weak static PVJaguarGameCore *_current;
     
     videoWidth           = 320;
     videoHeight          = 240;
-    buffer  = (uint32_t *)calloc(sizeof(uint32_t), 1024 * 512);
+
+    struct JagBuffer *buffer1 = malloc(sizeof(struct JagBuffer));
+    struct JagBuffer *buffer2 = malloc(sizeof(struct JagBuffer));
+
+    strncpy( buffer1->label, "a", 256);
+    strncpy( buffer2->label, "b", 256);
+    buffer1->next = buffer2;
+    buffer2->next = buffer1;
+
+    videoBuffer = buffer1;
+//    frontBuffer  = (uint32_t *)calloc(sizeof(uint32_t), 1024 * 512);
+//    backBuffer  = (uint32_t *)calloc(sizeof(uint32_t), 1024 * 512);
+
     sampleBuffer = (uint16_t *)malloc(BUFMAX * sizeof(uint16_t)); //found in dac.h
     memset(sampleBuffer, 0, BUFMAX * sizeof(uint16_t));
     
@@ -189,29 +215,70 @@ __weak static PVJaguarGameCore *_current;
     return cartridgeLoaded;
 }
 
-- (void)executeFrame
-{
+#define BS(b) b?"Y":"N"
+
+-(void)executeFrameSkippingFrame:(BOOL)skip {
+    __volatile static u_long frameCount = 0;
+
+    static dispatch_once_t onceToken;
+    static NSDate *g_date = NULL;
+    dispatch_once(&onceToken, ^{
+        g_date = [NSDate date];
+    });
+
+    frameCount++;
+
+    NSDate *last = [g_date copy];
+    NSDate *now = [NSDate date];
+
+    NSTimeInterval timeSinceLast = [last timeIntervalSinceNow];
+    g_date = now;
+
+    u_long currentFrame = frameCount;
+
+    printf("executeFrameSkippingFrame: skip: %s\ttime:%lu\n", BS(skip), timeSinceLast);
+
     if (self.controller1 || self.controller2) {
         [self pollControllers];
     }
 #if PARALLEL_GFX_AUDIO_CALLS
+    NSUInteger bufferSize = vjs.hardwareTypeNTSC ? BUFNTSC : BUFPAL;
+    float frameTime = vjs.hardwareTypeNTSC ? 1.0/60.0 : 1.0/50.0;
+    __block BOOL expired = NO;
+    dispatch_time_t killTime = dispatch_time(DISPATCH_TIME_NOW, frameTime * NSEC_PER_SEC);
+
+    struct JagBuffer*videoBuffer = self->videoBuffer;
+
     dispatch_group_enter(renderGroup);
     dispatch_async(videoQueue, ^{
+        vjs.frameSkip = skip || expired;
+        printf("will write frame %lul\written: %s\tread:%s\tlabel:%s\n", videoBuffer->frameNumber, BS(videoBuffer->written), BS(videoBuffer->read), videoBuffer->label);
         JaguarExecuteNew();
+        videoBuffer->written = YES;
+        videoBuffer->frameNumber = currentFrame;
+        printf("did write frame %lul\tskip: %s\texpired:%s\nlabel:%s\n", videoBuffer->frameNumber, BS(skip), BS(expired), videoBuffer->label);
+        dispatch_semaphore_signal(waitToBeginFrameSemaphore);
         dispatch_group_leave(renderGroup);
     });
 
-    NSUInteger bufferSize = vjs.hardwareTypeNTSC ? BUFNTSC : BUFPAL;
-    // Don't block the frame draw waiting for audio
     dispatch_group_enter(renderGroup);
     dispatch_async(audioQueue, ^{
+        dispatch_semaphore_wait(waitToBeginFrameSemaphore, killTime);
         SDLSoundCallback(NULL, sampleBuffer, bufferSize);
         [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
+        printf("wrote audio frame %lul\tlabel:%s\n", videoBuffer->frameNumber, videoBuffer->label);
         dispatch_group_leave(renderGroup);
     });
-	float frameTime = vjs.hardwareTypeNTSC ? 1.0/60.0 : 1.0/50.0;
-	dispatch_time_t killTime = dispatch_time(DISPATCH_TIME_NOW, frameTime * NSEC_PER_SEC);
-	dispatch_group_wait(renderGroup, killTime);
+//        // Don't block the frame draw waiting for audio
+//    dispatch_group_enter(renderGroup);
+//    dispatch_async(audioQueue, ^{
+//        SDLSoundCallback(NULL, sampleBuffer, bufferSize);
+//        [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
+//        dispatch_group_leave(renderGroup);
+//    });
+
+//    dispatch_group_wait(renderGroup, killTime);
+//    expired = YES;
 #else
     JaguarExecuteNew();
     NSUInteger bufferSize = vjs.hardwareTypeNTSC ? BUFNTSC : BUFPAL;
@@ -219,15 +286,78 @@ __weak static PVJaguarGameCore *_current;
     SDLSoundCallback(NULL, sampleBuffer, bufferSize);
     [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
 #endif
- }
+}
+
+//- (void)runRenderThread {
+//    @autoreleasepool
+//    {
+//        [self.renderDelegate startRenderingOnAlternateThread];
+//        [NSThread detachNewThreadSelector:@selector(runEmuThread) toTarget:self withObject:nil];
+//
+//        CFAbsoluteTime lastTime = CFAbsoluteTimeGetCurrent();
+//
+//        while (!has_init) {}
+//        while ( !shouldStop )
+//        {
+//            [self.frontBufferCondition lock];
+//            while (!shouldStop && self.isFrontBufferReady) [self.frontBufferCondition wait];
+//            [self.frontBufferCondition unlock];
+//
+//            CFAbsoluteTime now = CFAbsoluteTimeGetCurrent();
+//            CFTimeInterval deltaTime = now - lastTime;
+//            while ( !shouldStop && !rend_single_frame() ) {}
+//            [self swapBuffers];
+//            lastTime = now;
+//        }
+//    }
+//}
+//
+//- (void)runEmuThread {
+//    @autoreleasepool
+//    {
+//        [self reicastMain];
+//
+//            // Core returns
+//
+//            // Unlock rendering thread
+//        dispatch_semaphore_signal(coreWaitToEndFrameSemaphore);
+//
+//        [super stopEmulation];
+//    }
+//}
+
+- (void)executeFrame {
+    [self executeFrameSkippingFrame:NO];
+}
 
 - (void)initVideo
 {
     JaguarSetScreenPitch(videoWidth);
-    JaguarSetScreenBuffer(buffer);
+    JaguarSetScreenBuffer(videoBuffer->buffer);
     for (int i = 0; i < videoWidth * videoHeight; ++i) {
-        buffer[i] = 0xFF00FFFF;
+        videoBuffer->buffer[i] = 0xFF00FFFF;
+        videoBuffer->next->buffer[i] = 0xFF00FFFF;
     }
+}
+
+- (BOOL)isDoubleBuffered {
+    return YES;
+}
+
+- (void)swapBuffers {
+    printf("swap buffers: current: %s, count: %i, read: %s, written: %s, next: read: %s, written: %s",
+           videoBuffer->label,
+           videoBuffer->frameNumber,
+           BS(videoBuffer->read),
+           BS(videoBuffer->written),
+           BS(videoBuffer->next->read),
+           BS(videoBuffer->next->written));
+
+    videoBuffer->read = YES;
+    videoBuffer = videoBuffer->next;
+    videoBuffer->written = NO;
+    videoBuffer->read = NO;
+    JaguarSetScreenBuffer(videoBuffer->buffer);
 }
 
 - (NSUInteger)audioBitDepth
@@ -254,7 +384,14 @@ __weak static PVJaguarGameCore *_current;
 - (void)dealloc
 {
     _current = nil;
-    free(buffer);
+    struct JagBuffer* ab = videoBuffer;
+    struct JagBuffer* next = videoBuffer->next;
+
+    while(next->next != ab) {
+        struct JagBuffer* temp = next->next;
+        free(next);
+        next = temp;
+    };
     free(sampleBuffer);
 }
 
@@ -275,7 +412,7 @@ __weak static PVJaguarGameCore *_current;
 
 - (const void *)videoBuffer
 {
-    return buffer;
+    return videoBuffer->buffer;
 }
 
 - (GLenum)pixelFormat

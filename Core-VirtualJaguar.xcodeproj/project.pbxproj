@@ -688,6 +688,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = B394C98C2060CAB80014A65D;
 			productRefGroup = B394C9972060CAB80014A65D /* Products */;

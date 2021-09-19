@@ -14,38 +14,24 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B3C89935206B7AF1005E7033"
-               BuildableName = "PVVirtualJaguar.framework"
-               BlueprintName = "PVVirtualJaguar-tvOS"
-               ReferencedContainer = "container:Core-VirtualJaguar.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B3C04A8B21077B3100E7AF79"
-               BuildableName = "PVLibrary.framework"
-               BlueprintName = "PVLibrary-tvOS"
-               ReferencedContainer = "container:../../PVLibrary/PVLibrary.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "B3C96E9D1D62C3A3003F1E93"
                BuildableName = "PVSupport.framework"
                BlueprintName = "PVSupport-tvOS"
                ReferencedContainer = "container:../../PVSupport/PVSupport.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B3C89935206B7AF1005E7033"
+               BuildableName = "PVVirtualJaguar.framework"
+               BlueprintName = "PVVirtualJaguar-tvOS"
+               ReferencedContainer = "container:Core-VirtualJaguar.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

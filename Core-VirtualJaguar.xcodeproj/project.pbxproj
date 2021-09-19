@@ -9,171 +9,133 @@
 /* Begin PBXBuildFile section */
 		B331406D2060CC3E001D3526 /* PVJaguarGameCore.m in Sources */ = {isa = PBXBuildFile; fileRef = B33140172060CC3E001D3526 /* PVJaguarGameCore.m */; };
 		B331406F2060CC3E001D3526 /* PVJaguarGameCore.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140192060CC3E001D3526 /* PVJaguarGameCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B33141172060CE21001D3526 /* dsp.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140C52060CE1B001D3526 /* dsp.c */; };
-		B33141182060CE21001D3526 /* jagdasm.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140C62060CE1B001D3526 /* jagdasm.h */; };
-		B33141192060CE21001D3526 /* cdrom.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140C72060CE1B001D3526 /* cdrom.h */; };
-		B331411A2060CE21001D3526 /* jagbios2.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140C82060CE1B001D3526 /* jagbios2.c */; };
-		B331411B2060CE21001D3526 /* tom.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140C92060CE1B001D3526 /* tom.c */; };
-		B331411C2060CE21001D3526 /* settings.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140CA2060CE1B001D3526 /* settings.h */; };
-		B331411D2060CE21001D3526 /* dac.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140CB2060CE1B001D3526 /* dac.c */; };
-		B331411E2060CE21001D3526 /* filedb.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140CC2060CE1B001D3526 /* filedb.c */; };
-		B331411F2060CE21001D3526 /* jagbios2.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140CD2060CE1B001D3526 /* jagbios2.h */; };
-		B33141202060CE21001D3526 /* blitter.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140CE2060CE1B001D3526 /* blitter.h */; };
-		B33141212060CE21001D3526 /* jagstub2bios.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140CF2060CE1B001D3526 /* jagstub2bios.h */; };
-		B33141222060CE21001D3526 /* vjag_memory.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D02060CE1B001D3526 /* vjag_memory.c */; };
-		B33141232060CE21001D3526 /* log.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140D12060CE1B001D3526 /* log.h */; };
-		B33141242060CE21001D3526 /* crc32.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140D22060CE1C001D3526 /* crc32.h */; };
-		B33141252060CE21001D3526 /* jagcdbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D32060CE1C001D3526 /* jagcdbios.c */; };
-		B33141262060CE21001D3526 /* jagdevcdbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D42060CE1C001D3526 /* jagdevcdbios.c */; };
-		B33141282060CE21001D3526 /* m68kinterface.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140D72060CE1C001D3526 /* m68kinterface.h */; };
-		B33141292060CE21001D3526 /* readcpu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D82060CE1C001D3526 /* readcpu.c */; };
-		B331412B2060CE21001D3526 /* cpudefs.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DA2060CE1C001D3526 /* cpudefs.c */; };
-		B331412C2060CE21001D3526 /* m68kdasm.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DB2060CE1C001D3526 /* m68kdasm.c */; };
-		B331412E2060CE21001D3526 /* cputbl.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140DD2060CE1C001D3526 /* cputbl.h */; };
-		B331412F2060CE21001D3526 /* cpuemu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DE2060CE1C001D3526 /* cpuemu.c */; };
-		B33141312060CE21001D3526 /* cpuextra.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E02060CE1C001D3526 /* cpuextra.h */; };
-		B33141322060CE21001D3526 /* m68kinterface.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E12060CE1C001D3526 /* m68kinterface.c */; };
-		B33141332060CE21001D3526 /* cpudefs.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E22060CE1C001D3526 /* cpudefs.h */; };
-		B33141342060CE21001D3526 /* readcpu.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E32060CE1C001D3526 /* readcpu.h */; };
-		B33141352060CE21001D3526 /* cpustbl.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E42060CE1C001D3526 /* cpustbl.c */; };
-		B33141362060CE21001D3526 /* inlines.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E52060CE1C001D3526 /* inlines.h */; };
-		B33141372060CE21001D3526 /* sysdeps.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E62060CE1C001D3526 /* sysdeps.h */; };
-		B33141382060CE21001D3526 /* cpuextra.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E72060CE1C001D3526 /* cpuextra.c */; };
-		B33141392060CE21001D3526 /* filedb.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E82060CE1C001D3526 /* filedb.h */; };
-		B331413A2060CE21001D3526 /* jagdasm.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E92060CE1C001D3526 /* jagdasm.c */; };
-		B331413B2060CE21001D3526 /* event.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EA2060CE1C001D3526 /* event.c */; };
-		B331413C2060CE21001D3526 /* settings.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EB2060CE1C001D3526 /* settings.c */; };
-		B331413D2060CE21001D3526 /* jagstub1bios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EC2060CE1C001D3526 /* jagstub1bios.c */; };
-		B331413E2060CE21001D3526 /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140ED2060CE1C001D3526 /* log.c */; };
-		B331413F2060CE21001D3526 /* wavetable.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EE2060CE1C001D3526 /* wavetable.c */; };
-		B33141402060CE21001D3526 /* vjag_memory.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140EF2060CE1C001D3526 /* vjag_memory.h */; };
-		B33141412060CE21001D3526 /* mmu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F02060CE1D001D3526 /* mmu.c */; };
-		B33141422060CE21001D3526 /* cdintf.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F12060CE1D001D3526 /* cdintf.c */; };
-		B33141432060CE21001D3526 /* eeprom.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140F22060CE1D001D3526 /* eeprom.h */; };
-		B33141442060CE21001D3526 /* event.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140F32060CE1D001D3526 /* event.h */; };
-		B33141452060CE21001D3526 /* gpu.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140F42060CE1D001D3526 /* gpu.h */; };
-		B33141462060CE21001D3526 /* joystick.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140F52060CE1D001D3526 /* joystick.h */; };
-		B33141472060CE21001D3526 /* op.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F62060CE1D001D3526 /* op.c */; };
-		B33141482060CE21001D3526 /* universalhdr.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140F72060CE1D001D3526 /* universalhdr.h */; };
-		B33141492060CE21001D3526 /* eeprom.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F82060CE1D001D3526 /* eeprom.c */; };
-		B331414A2060CE21001D3526 /* boolean.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140F92060CE1D001D3526 /* boolean.h */; };
-		B331414B2060CE21001D3526 /* jagstub1bios.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140FA2060CE1E001D3526 /* jagstub1bios.h */; };
-		B331414C2060CE21001D3526 /* file.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FB2060CE1E001D3526 /* file.c */; };
-		B331414D2060CE21001D3526 /* jagdevcdbios.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140FC2060CE1E001D3526 /* jagdevcdbios.h */; };
-		B331414E2060CE21001D3526 /* jaguar.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FD2060CE1E001D3526 /* jaguar.c */; };
-		B331414F2060CE21001D3526 /* state.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FE2060CE1E001D3526 /* state.c */; };
-		B33141502060CE21001D3526 /* cdrom.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FF2060CE1E001D3526 /* cdrom.c */; };
-		B33141512060CE21001D3526 /* cdintf.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141002060CE1E001D3526 /* cdintf.h */; };
-		B33141522060CE21001D3526 /* gpu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141012060CE1E001D3526 /* gpu.c */; };
-		B33141532060CE21001D3526 /* file.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141022060CE1E001D3526 /* file.h */; };
-		B33141542060CE21001D3526 /* jerry.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141032060CE1F001D3526 /* jerry.h */; };
-		B33141552060CE21001D3526 /* memtrack.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141042060CE1F001D3526 /* memtrack.h */; };
-		B33141562060CE21001D3526 /* wavetable.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141052060CE1F001D3526 /* wavetable.h */; };
-		B33141572060CE21001D3526 /* tom.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141062060CE1F001D3526 /* tom.h */; };
-		B33141582060CE21001D3526 /* memtrack.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141072060CE1F001D3526 /* memtrack.c */; };
-		B33141592060CE21001D3526 /* jagbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141082060CE1F001D3526 /* jagbios.c */; };
-		B331415A2060CE21001D3526 /* jerry.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141092060CE1F001D3526 /* jerry.c */; };
-		B331415B2060CE21001D3526 /* dsp.h in Headers */ = {isa = PBXBuildFile; fileRef = B331410A2060CE1F001D3526 /* dsp.h */; };
-		B331415C2060CE21001D3526 /* jaguar.h in Headers */ = {isa = PBXBuildFile; fileRef = B331410B2060CE1F001D3526 /* jaguar.h */; };
-		B331415D2060CE21001D3526 /* dac.h in Headers */ = {isa = PBXBuildFile; fileRef = B331410C2060CE20001D3526 /* dac.h */; };
-		B331415E2060CE21001D3526 /* mmu.h in Headers */ = {isa = PBXBuildFile; fileRef = B331410D2060CE20001D3526 /* mmu.h */; };
-		B331415F2060CE21001D3526 /* blitter.c in Sources */ = {isa = PBXBuildFile; fileRef = B331410E2060CE20001D3526 /* blitter.c */; };
-		B33141602060CE21001D3526 /* jagstub2bios.c in Sources */ = {isa = PBXBuildFile; fileRef = B331410F2060CE20001D3526 /* jagstub2bios.c */; };
-		B33141612060CE21001D3526 /* universalhdr.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141102060CE20001D3526 /* universalhdr.c */; };
-		B33141622060CE21001D3526 /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141112060CE20001D3526 /* crc32.c */; };
-		B33141632060CE21001D3526 /* jagbios.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141122060CE20001D3526 /* jagbios.h */; };
-		B33141642060CE21001D3526 /* jagcdbios.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141132060CE20001D3526 /* jagcdbios.h */; };
-		B33141652060CE21001D3526 /* state.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141142060CE21001D3526 /* state.h */; };
-		B33141662060CE21001D3526 /* joystick.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141152060CE21001D3526 /* joystick.c */; };
-		B33141672060CE21001D3526 /* op.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141162060CE21001D3526 /* op.h */; };
 		B33141692060DEB3001D3526 /* Core.plist in Resources */ = {isa = PBXBuildFile; fileRef = B33141682060DEB3001D3526 /* Core.plist */; };
 		B35D663F218019200005A992 /* PVSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35D663E218019200005A992 /* PVSupport.framework */; };
 		B35D6641218019350005A992 /* PVSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35D6640218019350005A992 /* PVSupport.framework */; };
+		B387DF4F26F717B700154D39 /* libjaguar-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B38DDE3126F710F800AC78C2 /* libjaguar-iOS.a */; };
+		B387DF5726F71AD600154D39 /* jagdevcdbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D42060CE1C001D3526 /* jagdevcdbios.c */; };
+		B387DF5826F71AD600154D39 /* op.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F62060CE1D001D3526 /* op.c */; };
+		B387DF5926F71AD600154D39 /* cdintf.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F12060CE1D001D3526 /* cdintf.c */; };
+		B387DF5A26F71AD600154D39 /* cpudefs.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DA2060CE1C001D3526 /* cpudefs.c */; };
+		B387DF5B26F71AD600154D39 /* memtrack.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141072060CE1F001D3526 /* memtrack.c */; };
+		B387DF5C26F71AD600154D39 /* blitter.c in Sources */ = {isa = PBXBuildFile; fileRef = B331410E2060CE20001D3526 /* blitter.c */; };
+		B387DF5D26F71AD600154D39 /* eeprom.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F82060CE1D001D3526 /* eeprom.c */; };
+		B387DF5E26F71AD600154D39 /* vjag_memory.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D02060CE1B001D3526 /* vjag_memory.c */; };
+		B387DF5F26F71AD600154D39 /* jagstub1bios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EC2060CE1C001D3526 /* jagstub1bios.c */; };
+		B387DF6026F71AD600154D39 /* jagstub2bios.c in Sources */ = {isa = PBXBuildFile; fileRef = B331410F2060CE20001D3526 /* jagstub2bios.c */; };
+		B387DF6126F71AD600154D39 /* m68kinterface.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E12060CE1C001D3526 /* m68kinterface.c */; };
+		B387DF6226F71AD600154D39 /* cpuemu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DE2060CE1C001D3526 /* cpuemu.c */; };
+		B387DF6326F71AD600154D39 /* jagdasm.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E92060CE1C001D3526 /* jagdasm.c */; };
+		B387DF6426F71AD600154D39 /* jagbios2.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140C82060CE1B001D3526 /* jagbios2.c */; };
+		B387DF6526F71AD600154D39 /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141112060CE20001D3526 /* crc32.c */; };
+		B387DF6626F71AD600154D39 /* state.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FE2060CE1E001D3526 /* state.c */; };
+		B387DF6726F71AD600154D39 /* settings.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EB2060CE1C001D3526 /* settings.c */; };
+		B387DF6826F71AD600154D39 /* jaguar.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FD2060CE1E001D3526 /* jaguar.c */; };
+		B387DF6926F71AD600154D39 /* universalhdr.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141102060CE20001D3526 /* universalhdr.c */; };
+		B387DF6A26F71AD600154D39 /* jerry.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141092060CE1F001D3526 /* jerry.c */; };
+		B387DF6B26F71AD600154D39 /* readcpu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D82060CE1C001D3526 /* readcpu.c */; };
+		B387DF6C26F71AD600154D39 /* cpustbl.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E42060CE1C001D3526 /* cpustbl.c */; };
+		B387DF6D26F71AD600154D39 /* m68kdasm.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DB2060CE1C001D3526 /* m68kdasm.c */; };
+		B387DF6E26F71AD600154D39 /* event.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EA2060CE1C001D3526 /* event.c */; };
+		B387DF6F26F71AD600154D39 /* jagbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141082060CE1F001D3526 /* jagbios.c */; };
+		B387DF7026F71AD600154D39 /* dsp.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140C52060CE1B001D3526 /* dsp.c */; };
+		B387DF7126F71AD600154D39 /* wavetable.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EE2060CE1C001D3526 /* wavetable.c */; };
+		B387DF7226F71AD600154D39 /* dac.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140CB2060CE1B001D3526 /* dac.c */; };
+		B387DF7326F71AD600154D39 /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140ED2060CE1C001D3526 /* log.c */; };
+		B387DF7426F71AD600154D39 /* cpuextra.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E72060CE1C001D3526 /* cpuextra.c */; };
+		B387DF7526F71AD600154D39 /* gpu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141012060CE1E001D3526 /* gpu.c */; };
+		B387DF7626F71AD600154D39 /* mmu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F02060CE1D001D3526 /* mmu.c */; };
+		B387DF7726F71AD600154D39 /* tom.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140C92060CE1B001D3526 /* tom.c */; };
+		B387DF7826F71AD600154D39 /* joystick.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141152060CE21001D3526 /* joystick.c */; };
+		B387DF7926F71AD600154D39 /* jagcdbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D32060CE1C001D3526 /* jagcdbios.c */; };
+		B387DF7A26F71AD600154D39 /* cdrom.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FF2060CE1E001D3526 /* cdrom.c */; };
+		B387DF7B26F71AD600154D39 /* file.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FB2060CE1E001D3526 /* file.c */; };
+		B387DF7C26F71AD600154D39 /* filedb.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140CC2060CE1B001D3526 /* filedb.c */; };
+		B387DF8426F71B0F00154D39 /* libjaguar-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B387DF8326F71AD600154D39 /* libjaguar-tvOS.a */; };
+		B387E08726F71F7B00154D39 /* CoreOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387E08626F71F7B00154D39 /* CoreOptions.swift */; };
+		B387E08826F71F7B00154D39 /* CoreOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387E08626F71F7B00154D39 /* CoreOptions.swift */; };
+		B38DDE3B26F7111300AC78C2 /* state.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FE2060CE1E001D3526 /* state.c */; };
+		B38DDE3C26F7111300AC78C2 /* jaguar.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FD2060CE1E001D3526 /* jaguar.c */; };
+		B38DDE3D26F7111300AC78C2 /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141112060CE20001D3526 /* crc32.c */; };
+		B38DDE3E26F7111300AC78C2 /* joystick.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141152060CE21001D3526 /* joystick.c */; };
+		B38DDE3F26F7111300AC78C2 /* readcpu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D82060CE1C001D3526 /* readcpu.c */; };
+		B38DDE4026F7111300AC78C2 /* file.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FB2060CE1E001D3526 /* file.c */; };
+		B38DDE4126F7111300AC78C2 /* op.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F62060CE1D001D3526 /* op.c */; };
+		B38DDE4226F7111300AC78C2 /* jerry.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141092060CE1F001D3526 /* jerry.c */; };
+		B38DDE4326F7111300AC78C2 /* event.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EA2060CE1C001D3526 /* event.c */; };
+		B38DDE4426F7111400AC78C2 /* wavetable.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EE2060CE1C001D3526 /* wavetable.c */; };
+		B38DDE4526F7111400AC78C2 /* blitter.c in Sources */ = {isa = PBXBuildFile; fileRef = B331410E2060CE20001D3526 /* blitter.c */; };
+		B38DDE4626F7111400AC78C2 /* jagstub2bios.c in Sources */ = {isa = PBXBuildFile; fileRef = B331410F2060CE20001D3526 /* jagstub2bios.c */; };
+		B38DDE4726F7111400AC78C2 /* jagbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141082060CE1F001D3526 /* jagbios.c */; };
+		B38DDE4826F7111400AC78C2 /* filedb.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140CC2060CE1B001D3526 /* filedb.c */; };
+		B38DDE4926F7111400AC78C2 /* m68kdasm.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DB2060CE1C001D3526 /* m68kdasm.c */; };
+		B38DDE4A26F7111400AC78C2 /* cdintf.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F12060CE1D001D3526 /* cdintf.c */; };
+		B38DDE4B26F7111400AC78C2 /* eeprom.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F82060CE1D001D3526 /* eeprom.c */; };
+		B38DDE4C26F7111400AC78C2 /* m68kinterface.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E12060CE1C001D3526 /* m68kinterface.c */; };
+		B38DDE4D26F7111400AC78C2 /* tom.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140C92060CE1B001D3526 /* tom.c */; };
+		B38DDE4E26F7111400AC78C2 /* settings.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EB2060CE1C001D3526 /* settings.c */; };
+		B38DDE4F26F7111400AC78C2 /* cpustbl.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E42060CE1C001D3526 /* cpustbl.c */; };
+		B38DDE5026F7111400AC78C2 /* universalhdr.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141102060CE20001D3526 /* universalhdr.c */; };
+		B38DDE5126F7111400AC78C2 /* jagbios2.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140C82060CE1B001D3526 /* jagbios2.c */; };
+		B38DDE5226F7111400AC78C2 /* cdrom.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FF2060CE1E001D3526 /* cdrom.c */; };
+		B38DDE5326F7111400AC78C2 /* dac.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140CB2060CE1B001D3526 /* dac.c */; };
+		B38DDE5426F7111400AC78C2 /* gpu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141012060CE1E001D3526 /* gpu.c */; };
+		B38DDE5526F7111400AC78C2 /* jagdasm.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E92060CE1C001D3526 /* jagdasm.c */; };
+		B38DDE5626F7111400AC78C2 /* jagdevcdbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D42060CE1C001D3526 /* jagdevcdbios.c */; };
+		B38DDE5726F7111400AC78C2 /* jagstub1bios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EC2060CE1C001D3526 /* jagstub1bios.c */; };
+		B38DDE5826F7111400AC78C2 /* cpuextra.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E72060CE1C001D3526 /* cpuextra.c */; };
+		B38DDE5926F7111400AC78C2 /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140ED2060CE1C001D3526 /* log.c */; };
+		B38DDE5A26F7111400AC78C2 /* cpuemu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DE2060CE1C001D3526 /* cpuemu.c */; };
+		B38DDE5B26F7111400AC78C2 /* memtrack.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141072060CE1F001D3526 /* memtrack.c */; };
+		B38DDE5C26F7111400AC78C2 /* dsp.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140C52060CE1B001D3526 /* dsp.c */; };
+		B38DDE5D26F7111400AC78C2 /* jagcdbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D32060CE1C001D3526 /* jagcdbios.c */; };
+		B38DDE5E26F7111400AC78C2 /* vjag_memory.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D02060CE1B001D3526 /* vjag_memory.c */; };
+		B38DDE5F26F7111400AC78C2 /* cpudefs.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DA2060CE1C001D3526 /* cpudefs.c */; };
+		B38DDE6026F7111400AC78C2 /* mmu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F02060CE1D001D3526 /* mmu.c */; };
 		B394C99B2060CAB80014A65D /* PVVirtualJaguar.h in Headers */ = {isa = PBXBuildFile; fileRef = B394C9992060CAB80014A65D /* PVVirtualJaguar.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B3A683B0206AF9410051AEE4 /* libretro.h in Headers */ = {isa = PBXBuildFile; fileRef = B3A68351206AF9380051AEE4 /* libretro.h */; };
-		B3C89960206B7BCF005E7033 /* memtrack.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141072060CE1F001D3526 /* memtrack.c */; };
-		B3C89961206B7BCF005E7033 /* op.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F62060CE1D001D3526 /* op.c */; };
-		B3C89962206B7BCF005E7033 /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140ED2060CE1C001D3526 /* log.c */; };
-		B3C89963206B7BCF005E7033 /* cpuemu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DE2060CE1C001D3526 /* cpuemu.c */; };
-		B3C89964206B7BCF005E7033 /* wavetable.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EE2060CE1C001D3526 /* wavetable.c */; };
-		B3C89965206B7BCF005E7033 /* cpudefs.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DA2060CE1C001D3526 /* cpudefs.c */; };
-		B3C89966206B7BCF005E7033 /* file.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FB2060CE1E001D3526 /* file.c */; };
-		B3C89967206B7BCF005E7033 /* cdintf.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F12060CE1D001D3526 /* cdintf.c */; };
-		B3C89968206B7BCF005E7033 /* jagstub2bios.c in Sources */ = {isa = PBXBuildFile; fileRef = B331410F2060CE20001D3526 /* jagstub2bios.c */; };
-		B3C89969206B7BCF005E7033 /* jagbios2.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140C82060CE1B001D3526 /* jagbios2.c */; };
-		B3C8996A206B7BCF005E7033 /* m68kdasm.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DB2060CE1C001D3526 /* m68kdasm.c */; };
-		B3C8996B206B7BCF005E7033 /* jagstub1bios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EC2060CE1C001D3526 /* jagstub1bios.c */; };
-		B3C8996C206B7BCF005E7033 /* filedb.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140CC2060CE1B001D3526 /* filedb.c */; };
-		B3C8996D206B7BCF005E7033 /* jerry.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141092060CE1F001D3526 /* jerry.c */; };
-		B3C8996E206B7BCF005E7033 /* jagcdbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D32060CE1C001D3526 /* jagcdbios.c */; };
-		B3C8996F206B7BCF005E7033 /* m68kinterface.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E12060CE1C001D3526 /* m68kinterface.c */; };
-		B3C89970206B7BCF005E7033 /* joystick.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141152060CE21001D3526 /* joystick.c */; };
-		B3C89971206B7BCF005E7033 /* mmu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F02060CE1D001D3526 /* mmu.c */; };
-		B3C89972206B7BCF005E7033 /* cdrom.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FF2060CE1E001D3526 /* cdrom.c */; };
 		B3C89973206B7BCF005E7033 /* PVJaguarGameCore.m in Sources */ = {isa = PBXBuildFile; fileRef = B33140172060CC3E001D3526 /* PVJaguarGameCore.m */; };
-		B3C89974206B7BCF005E7033 /* event.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EA2060CE1C001D3526 /* event.c */; };
-		B3C89975206B7BCF005E7033 /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141112060CE20001D3526 /* crc32.c */; };
-		B3C89976206B7BCF005E7033 /* settings.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EB2060CE1C001D3526 /* settings.c */; };
-		B3C89977206B7BCF005E7033 /* universalhdr.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141102060CE20001D3526 /* universalhdr.c */; };
-		B3C89978206B7BCF005E7033 /* cpustbl.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E42060CE1C001D3526 /* cpustbl.c */; };
-		B3C89979206B7BCF005E7033 /* jagdevcdbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D42060CE1C001D3526 /* jagdevcdbios.c */; };
-		B3C8997A206B7BCF005E7033 /* jaguar.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FD2060CE1E001D3526 /* jaguar.c */; };
-		B3C8997B206B7BCF005E7033 /* tom.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140C92060CE1B001D3526 /* tom.c */; };
-		B3C8997C206B7BCF005E7033 /* jagdasm.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E92060CE1C001D3526 /* jagdasm.c */; };
-		B3C8997D206B7BCF005E7033 /* cpuextra.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E72060CE1C001D3526 /* cpuextra.c */; };
-		B3C8997E206B7BCF005E7033 /* state.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FE2060CE1E001D3526 /* state.c */; };
-		B3C8997F206B7BCF005E7033 /* vjag_memory.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D02060CE1B001D3526 /* vjag_memory.c */; };
-		B3C89980206B7BCF005E7033 /* eeprom.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F82060CE1D001D3526 /* eeprom.c */; };
-		B3C89981206B7BCF005E7033 /* dsp.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140C52060CE1B001D3526 /* dsp.c */; };
-		B3C89982206B7BCF005E7033 /* blitter.c in Sources */ = {isa = PBXBuildFile; fileRef = B331410E2060CE20001D3526 /* blitter.c */; };
-		B3C89983206B7BCF005E7033 /* gpu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141012060CE1E001D3526 /* gpu.c */; };
-		B3C89984206B7BCF005E7033 /* readcpu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D82060CE1C001D3526 /* readcpu.c */; };
-		B3C89985206B7BCF005E7033 /* jagbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141082060CE1F001D3526 /* jagbios.c */; };
-		B3C89986206B7BCF005E7033 /* dac.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140CB2060CE1B001D3526 /* dac.c */; };
 		B3C89987206B7BF6005E7033 /* PVVirtualJaguar.h in Headers */ = {isa = PBXBuildFile; fileRef = B394C9992060CAB80014A65D /* PVVirtualJaguar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3C89988206B7C01005E7033 /* PVJaguarGameCore.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140192060CC3E001D3526 /* PVJaguarGameCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B3C89989206B7C15005E7033 /* jagbios.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141122060CE20001D3526 /* jagbios.h */; };
-		B3C8998A206B7C15005E7033 /* op.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141162060CE21001D3526 /* op.h */; };
-		B3C8998B206B7C15005E7033 /* state.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141142060CE21001D3526 /* state.h */; };
-		B3C8998C206B7C15005E7033 /* file.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141022060CE1E001D3526 /* file.h */; };
-		B3C8998D206B7C15005E7033 /* joystick.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140F52060CE1D001D3526 /* joystick.h */; };
-		B3C8998E206B7C15005E7033 /* boolean.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140F92060CE1D001D3526 /* boolean.h */; };
-		B3C8998F206B7C15005E7033 /* cdrom.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140C72060CE1B001D3526 /* cdrom.h */; };
-		B3C89990206B7C15005E7033 /* jaguar.h in Headers */ = {isa = PBXBuildFile; fileRef = B331410B2060CE1F001D3526 /* jaguar.h */; };
-		B3C89991206B7C15005E7033 /* mmu.h in Headers */ = {isa = PBXBuildFile; fileRef = B331410D2060CE20001D3526 /* mmu.h */; };
-		B3C89992206B7C15005E7033 /* eeprom.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140F22060CE1D001D3526 /* eeprom.h */; };
-		B3C89993206B7C15005E7033 /* crc32.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140D22060CE1C001D3526 /* crc32.h */; };
-		B3C89994206B7C15005E7033 /* vjag_memory.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140EF2060CE1C001D3526 /* vjag_memory.h */; };
-		B3C89995206B7C15005E7033 /* event.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140F32060CE1D001D3526 /* event.h */; };
-		B3C89996206B7C15005E7033 /* universalhdr.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140F72060CE1D001D3526 /* universalhdr.h */; };
-		B3C89997206B7C15005E7033 /* readcpu.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E32060CE1C001D3526 /* readcpu.h */; };
-		B3C89998206B7C15005E7033 /* jerry.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141032060CE1F001D3526 /* jerry.h */; };
-		B3C89999206B7C15005E7033 /* libretro.h in Headers */ = {isa = PBXBuildFile; fileRef = B3A68351206AF9380051AEE4 /* libretro.h */; };
-		B3C8999A206B7C15005E7033 /* settings.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140CA2060CE1B001D3526 /* settings.h */; };
-		B3C8999B206B7C15005E7033 /* jagbios2.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140CD2060CE1B001D3526 /* jagbios2.h */; };
-		B3C8999C206B7C15005E7033 /* cputbl.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140DD2060CE1C001D3526 /* cputbl.h */; };
-		B3C8999D206B7C15005E7033 /* blitter.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140CE2060CE1B001D3526 /* blitter.h */; };
-		B3C8999E206B7C15005E7033 /* inlines.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E52060CE1C001D3526 /* inlines.h */; };
-		B3C8999F206B7C15005E7033 /* filedb.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E82060CE1C001D3526 /* filedb.h */; };
-		B3C899A0206B7C15005E7033 /* dac.h in Headers */ = {isa = PBXBuildFile; fileRef = B331410C2060CE20001D3526 /* dac.h */; };
-		B3C899A1206B7C15005E7033 /* sysdeps.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E62060CE1C001D3526 /* sysdeps.h */; };
-		B3C899A2206B7C15005E7033 /* memtrack.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141042060CE1F001D3526 /* memtrack.h */; };
-		B3C899A3206B7C15005E7033 /* jagstub2bios.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140CF2060CE1B001D3526 /* jagstub2bios.h */; };
-		B3C899A4206B7C15005E7033 /* cdintf.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141002060CE1E001D3526 /* cdintf.h */; };
-		B3C899A5206B7C15005E7033 /* m68kinterface.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140D72060CE1C001D3526 /* m68kinterface.h */; };
-		B3C899A6206B7C15005E7033 /* gpu.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140F42060CE1D001D3526 /* gpu.h */; };
-		B3C899A7206B7C15005E7033 /* cpuextra.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E02060CE1C001D3526 /* cpuextra.h */; };
-		B3C899A8206B7C15005E7033 /* wavetable.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141052060CE1F001D3526 /* wavetable.h */; };
-		B3C899A9206B7C15005E7033 /* jagcdbios.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141132060CE20001D3526 /* jagcdbios.h */; };
-		B3C899AA206B7C15005E7033 /* tom.h in Headers */ = {isa = PBXBuildFile; fileRef = B33141062060CE1F001D3526 /* tom.h */; };
-		B3C899AB206B7C15005E7033 /* log.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140D12060CE1B001D3526 /* log.h */; };
-		B3C899AC206B7C15005E7033 /* cpudefs.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140E22060CE1C001D3526 /* cpudefs.h */; };
-		B3C899AD206B7C15005E7033 /* jagstub1bios.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140FA2060CE1E001D3526 /* jagstub1bios.h */; };
-		B3C899AE206B7C15005E7033 /* jagdevcdbios.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140FC2060CE1E001D3526 /* jagdevcdbios.h */; };
-		B3C899AF206B7C15005E7033 /* dsp.h in Headers */ = {isa = PBXBuildFile; fileRef = B331410A2060CE1F001D3526 /* dsp.h */; };
-		B3C899B0206B7C15005E7033 /* jagdasm.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140C62060CE1B001D3526 /* jagdasm.h */; };
 		B3C899B4206B8185005E7033 /* Core.plist in Resources */ = {isa = PBXBuildFile; fileRef = B33141682060DEB3001D3526 /* Core.plist */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B387DF5026F717B700154D39 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B394C98D2060CAB80014A65D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B38DDE3026F710F800AC78C2;
+			remoteInfo = jaguar;
+		};
+		B387DF8526F71B0F00154D39 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B394C98D2060CAB80014A65D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B387DF5526F71AD600154D39;
+			remoteInfo = "jaguar-tvOS";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B387DF7E26F71AD600154D39 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B38DDE2F26F710F800AC78C2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B33140172060CC3E001D3526 /* PVJaguarGameCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PVJaguarGameCore.m; sourceTree = "<group>"; };
@@ -184,7 +146,7 @@
 		B33140C82060CE1B001D3526 /* jagbios2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jagbios2.c; sourceTree = "<group>"; };
 		B33140C92060CE1B001D3526 /* tom.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tom.c; sourceTree = "<group>"; };
 		B33140CA2060CE1B001D3526 /* settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = settings.h; sourceTree = "<group>"; };
-		B33140CB2060CE1B001D3526 /* dac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dac.c; sourceTree = "<group>"; };
+		B33140CB2060CE1B001D3526 /* dac.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = dac.c; sourceTree = "<group>"; tabWidth = 2; };
 		B33140CC2060CE1B001D3526 /* filedb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = filedb.c; sourceTree = "<group>"; };
 		B33140CD2060CE1B001D3526 /* jagbios2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jagbios2.h; sourceTree = "<group>"; };
 		B33140CE2060CE1B001D3526 /* blitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blitter.h; sourceTree = "<group>"; };
@@ -197,13 +159,11 @@
 		B33140D62060CE1C001D3526 /* table68k */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = table68k; sourceTree = "<group>"; };
 		B33140D72060CE1C001D3526 /* m68kinterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = m68kinterface.h; sourceTree = "<group>"; };
 		B33140D82060CE1C001D3526 /* readcpu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = readcpu.c; sourceTree = "<group>"; };
-		B33140D92060CE1C001D3526 /* gencpu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gencpu.c; sourceTree = "<group>"; };
 		B33140DA2060CE1C001D3526 /* cpudefs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpudefs.c; sourceTree = "<group>"; };
 		B33140DB2060CE1C001D3526 /* m68kdasm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = m68kdasm.c; sourceTree = "<group>"; };
 		B33140DC2060CE1C001D3526 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		B33140DD2060CE1C001D3526 /* cputbl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cputbl.h; sourceTree = "<group>"; };
 		B33140DE2060CE1C001D3526 /* cpuemu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpuemu.c; sourceTree = "<group>"; };
-		B33140DF2060CE1C001D3526 /* build68k.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = build68k.c; sourceTree = "<group>"; };
 		B33140E02060CE1C001D3526 /* cpuextra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpuextra.h; sourceTree = "<group>"; };
 		B33140E12060CE1C001D3526 /* m68kinterface.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = m68kinterface.c; sourceTree = "<group>"; };
 		B33140E22060CE1C001D3526 /* cpudefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpudefs.h; sourceTree = "<group>"; };
@@ -262,6 +222,9 @@
 		B33141682060DEB3001D3526 /* Core.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Core.plist; sourceTree = "<group>"; };
 		B35D663E218019200005A992 /* PVSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PVSupport.framework; path = Carthage/Build/iOS/PVSupport.framework; sourceTree = "<group>"; };
 		B35D6640218019350005A992 /* PVSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PVSupport.framework; path = Carthage/Build/tvOS/PVSupport.framework; sourceTree = "<group>"; };
+		B387DF8326F71AD600154D39 /* libjaguar-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libjaguar-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B387E08626F71F7B00154D39 /* CoreOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreOptions.swift; sourceTree = "<group>"; };
+		B38DDE3126F710F800AC78C2 /* libjaguar-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libjaguar-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B394C9962060CAB80014A65D /* PVVirtualJaguar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PVVirtualJaguar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B394C9992060CAB80014A65D /* PVVirtualJaguar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PVVirtualJaguar.h; sourceTree = "<group>"; };
 		B394C99A2060CAB80014A65D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -286,11 +249,26 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B387DF7D26F71AD600154D39 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B38DDE2E26F710F800AC78C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B394C9922060CAB80014A65D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				B35D663F218019200005A992 /* PVSupport.framework in Frameworks */,
+				B387DF4F26F717B700154D39 /* libjaguar-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B35D6641218019350005A992 /* PVSupport.framework in Frameworks */,
+				B387DF8426F71B0F00154D39 /* libjaguar-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +289,7 @@
 			children = (
 				B33140192060CC3E001D3526 /* PVJaguarGameCore.h */,
 				B33140172060CC3E001D3526 /* PVJaguarGameCore.m */,
+				B387E08626F71F7B00154D39 /* CoreOptions.swift */,
 			);
 			path = VirtualJaguar;
 			sourceTree = "<group>";
@@ -400,13 +380,11 @@
 				B33140D62060CE1C001D3526 /* table68k */,
 				B33140D72060CE1C001D3526 /* m68kinterface.h */,
 				B33140D82060CE1C001D3526 /* readcpu.c */,
-				B33140D92060CE1C001D3526 /* gencpu.c */,
 				B33140DA2060CE1C001D3526 /* cpudefs.c */,
 				B33140DB2060CE1C001D3526 /* m68kdasm.c */,
 				B33140DC2060CE1C001D3526 /* Makefile */,
 				B33140DD2060CE1C001D3526 /* cputbl.h */,
 				B33140DE2060CE1C001D3526 /* cpuemu.c */,
-				B33140DF2060CE1C001D3526 /* build68k.c */,
 				B33140E02060CE1C001D3526 /* cpuextra.h */,
 				B33140E12060CE1C001D3526 /* m68kinterface.c */,
 				B33140E22060CE1C001D3526 /* cpudefs.h */,
@@ -435,6 +413,8 @@
 			children = (
 				B394C9962060CAB80014A65D /* PVVirtualJaguar.framework */,
 				B3C89936206B7AF1005E7033 /* PVVirtualJaguar.framework */,
+				B38DDE3126F710F800AC78C2 /* libjaguar-iOS.a */,
+				B387DF8326F71AD600154D39 /* libjaguar-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -529,47 +509,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B33141632060CE21001D3526 /* jagbios.h in Headers */,
-				B33141672060CE21001D3526 /* op.h in Headers */,
-				B33141652060CE21001D3526 /* state.h in Headers */,
-				B33141532060CE21001D3526 /* file.h in Headers */,
-				B33141462060CE21001D3526 /* joystick.h in Headers */,
-				B331414A2060CE21001D3526 /* boolean.h in Headers */,
-				B33141192060CE21001D3526 /* cdrom.h in Headers */,
-				B331415C2060CE21001D3526 /* jaguar.h in Headers */,
 				B331406F2060CC3E001D3526 /* PVJaguarGameCore.h in Headers */,
-				B331415E2060CE21001D3526 /* mmu.h in Headers */,
-				B33141432060CE21001D3526 /* eeprom.h in Headers */,
-				B33141242060CE21001D3526 /* crc32.h in Headers */,
-				B33141402060CE21001D3526 /* vjag_memory.h in Headers */,
-				B33141442060CE21001D3526 /* event.h in Headers */,
-				B33141482060CE21001D3526 /* universalhdr.h in Headers */,
-				B33141342060CE21001D3526 /* readcpu.h in Headers */,
-				B33141542060CE21001D3526 /* jerry.h in Headers */,
-				B3A683B0206AF9410051AEE4 /* libretro.h in Headers */,
-				B331411C2060CE21001D3526 /* settings.h in Headers */,
-				B331411F2060CE21001D3526 /* jagbios2.h in Headers */,
-				B331412E2060CE21001D3526 /* cputbl.h in Headers */,
-				B33141202060CE21001D3526 /* blitter.h in Headers */,
-				B33141362060CE21001D3526 /* inlines.h in Headers */,
-				B33141392060CE21001D3526 /* filedb.h in Headers */,
-				B331415D2060CE21001D3526 /* dac.h in Headers */,
-				B33141372060CE21001D3526 /* sysdeps.h in Headers */,
-				B33141552060CE21001D3526 /* memtrack.h in Headers */,
-				B33141212060CE21001D3526 /* jagstub2bios.h in Headers */,
-				B33141512060CE21001D3526 /* cdintf.h in Headers */,
-				B33141282060CE21001D3526 /* m68kinterface.h in Headers */,
-				B33141452060CE21001D3526 /* gpu.h in Headers */,
-				B33141312060CE21001D3526 /* cpuextra.h in Headers */,
-				B33141562060CE21001D3526 /* wavetable.h in Headers */,
-				B33141642060CE21001D3526 /* jagcdbios.h in Headers */,
-				B33141572060CE21001D3526 /* tom.h in Headers */,
-				B33141232060CE21001D3526 /* log.h in Headers */,
-				B33141332060CE21001D3526 /* cpudefs.h in Headers */,
-				B331414B2060CE21001D3526 /* jagstub1bios.h in Headers */,
-				B331414D2060CE21001D3526 /* jagdevcdbios.h in Headers */,
-				B331415B2060CE21001D3526 /* dsp.h in Headers */,
-				B33141182060CE21001D3526 /* jagdasm.h in Headers */,
 				B394C99B2060CAB80014A65D /* PVVirtualJaguar.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -578,54 +518,48 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3C899A8206B7C15005E7033 /* wavetable.h in Headers */,
-				B3C89991206B7C15005E7033 /* mmu.h in Headers */,
-				B3C8998C206B7C15005E7033 /* file.h in Headers */,
-				B3C899AB206B7C15005E7033 /* log.h in Headers */,
-				B3C899A4206B7C15005E7033 /* cdintf.h in Headers */,
-				B3C89993206B7C15005E7033 /* crc32.h in Headers */,
-				B3C899A0206B7C15005E7033 /* dac.h in Headers */,
-				B3C89998206B7C15005E7033 /* jerry.h in Headers */,
-				B3C899A3206B7C15005E7033 /* jagstub2bios.h in Headers */,
-				B3C899A6206B7C15005E7033 /* gpu.h in Headers */,
-				B3C8999B206B7C15005E7033 /* jagbios2.h in Headers */,
-				B3C89992206B7C15005E7033 /* eeprom.h in Headers */,
-				B3C89989206B7C15005E7033 /* jagbios.h in Headers */,
-				B3C899A2206B7C15005E7033 /* memtrack.h in Headers */,
-				B3C89994206B7C15005E7033 /* vjag_memory.h in Headers */,
-				B3C8998A206B7C15005E7033 /* op.h in Headers */,
-				B3C899AA206B7C15005E7033 /* tom.h in Headers */,
-				B3C8998F206B7C15005E7033 /* cdrom.h in Headers */,
-				B3C899B0206B7C15005E7033 /* jagdasm.h in Headers */,
-				B3C899AF206B7C15005E7033 /* dsp.h in Headers */,
-				B3C89990206B7C15005E7033 /* jaguar.h in Headers */,
-				B3C89999206B7C15005E7033 /* libretro.h in Headers */,
-				B3C89995206B7C15005E7033 /* event.h in Headers */,
-				B3C899A7206B7C15005E7033 /* cpuextra.h in Headers */,
 				B3C89987206B7BF6005E7033 /* PVVirtualJaguar.h in Headers */,
-				B3C899A9206B7C15005E7033 /* jagcdbios.h in Headers */,
-				B3C8999A206B7C15005E7033 /* settings.h in Headers */,
-				B3C89996206B7C15005E7033 /* universalhdr.h in Headers */,
-				B3C8998D206B7C15005E7033 /* joystick.h in Headers */,
-				B3C8999E206B7C15005E7033 /* inlines.h in Headers */,
-				B3C899A1206B7C15005E7033 /* sysdeps.h in Headers */,
-				B3C899AC206B7C15005E7033 /* cpudefs.h in Headers */,
-				B3C899AD206B7C15005E7033 /* jagstub1bios.h in Headers */,
-				B3C89997206B7C15005E7033 /* readcpu.h in Headers */,
-				B3C8999F206B7C15005E7033 /* filedb.h in Headers */,
-				B3C899AE206B7C15005E7033 /* jagdevcdbios.h in Headers */,
-				B3C8998B206B7C15005E7033 /* state.h in Headers */,
 				B3C89988206B7C01005E7033 /* PVJaguarGameCore.h in Headers */,
-				B3C8999C206B7C15005E7033 /* cputbl.h in Headers */,
-				B3C8999D206B7C15005E7033 /* blitter.h in Headers */,
-				B3C8998E206B7C15005E7033 /* boolean.h in Headers */,
-				B3C899A5206B7C15005E7033 /* m68kinterface.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		B387DF5526F71AD600154D39 /* jaguar-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B387DF7F26F71AD600154D39 /* Build configuration list for PBXNativeTarget "jaguar-tvOS" */;
+			buildPhases = (
+				B387DF5626F71AD600154D39 /* Sources */,
+				B387DF7D26F71AD600154D39 /* Frameworks */,
+				B387DF7E26F71AD600154D39 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "jaguar-tvOS";
+			productName = jaguar;
+			productReference = B387DF8326F71AD600154D39 /* libjaguar-tvOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		B38DDE3026F710F800AC78C2 /* jaguar-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B38DDE3726F710F800AC78C2 /* Build configuration list for PBXNativeTarget "jaguar-iOS" */;
+			buildPhases = (
+				B38DDE2D26F710F800AC78C2 /* Sources */,
+				B38DDE2E26F710F800AC78C2 /* Frameworks */,
+				B38DDE2F26F710F800AC78C2 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "jaguar-iOS";
+			productName = jaguar;
+			productReference = B38DDE3126F710F800AC78C2 /* libjaguar-iOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		B394C9952060CAB80014A65D /* PVVirtualJaguar-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B394C99E2060CAB80014A65D /* Build configuration list for PBXNativeTarget "PVVirtualJaguar-iOS" */;
@@ -638,6 +572,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				B387DF5126F717B700154D39 /* PBXTargetDependency */,
 			);
 			name = "PVVirtualJaguar-iOS";
 			productName = VirtualJaguar;
@@ -656,6 +591,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				B387DF8626F71B0F00154D39 /* PBXTargetDependency */,
 			);
 			name = "PVVirtualJaguar-tvOS";
 			productName = "PVVirtualJaguar tvOS";
@@ -673,12 +609,17 @@
 				LastUpgradeCheck = 1300;
 				ORGANIZATIONNAME = "Provenance Emu";
 				TargetAttributes = {
+					B38DDE3026F710F800AC78C2 = {
+						CreatedOnToolsVersion = 13.0;
+					};
 					B394C9952060CAB80014A65D = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1300;
 						ProvisioningStyle = Manual;
 					};
 					B3C89935206B7AF1005E7033 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1300;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -698,6 +639,8 @@
 			targets = (
 				B394C9952060CAB80014A65D /* PVVirtualJaguar-iOS */,
 				B3C89935206B7AF1005E7033 /* PVVirtualJaguar-tvOS */,
+				B38DDE3026F710F800AC78C2 /* jaguar-iOS */,
+				B387DF5526F71AD600154D39 /* jaguar-tvOS */,
 			);
 		};
 /* End PBXProject section */
@@ -722,49 +665,102 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B387DF5626F71AD600154D39 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B387DF5726F71AD600154D39 /* jagdevcdbios.c in Sources */,
+				B387DF5826F71AD600154D39 /* op.c in Sources */,
+				B387DF5926F71AD600154D39 /* cdintf.c in Sources */,
+				B387DF5A26F71AD600154D39 /* cpudefs.c in Sources */,
+				B387DF5B26F71AD600154D39 /* memtrack.c in Sources */,
+				B387DF5C26F71AD600154D39 /* blitter.c in Sources */,
+				B387DF5D26F71AD600154D39 /* eeprom.c in Sources */,
+				B387DF5E26F71AD600154D39 /* vjag_memory.c in Sources */,
+				B387DF5F26F71AD600154D39 /* jagstub1bios.c in Sources */,
+				B387DF6026F71AD600154D39 /* jagstub2bios.c in Sources */,
+				B387DF6126F71AD600154D39 /* m68kinterface.c in Sources */,
+				B387DF6226F71AD600154D39 /* cpuemu.c in Sources */,
+				B387DF6326F71AD600154D39 /* jagdasm.c in Sources */,
+				B387DF6426F71AD600154D39 /* jagbios2.c in Sources */,
+				B387DF6526F71AD600154D39 /* crc32.c in Sources */,
+				B387DF6626F71AD600154D39 /* state.c in Sources */,
+				B387DF6726F71AD600154D39 /* settings.c in Sources */,
+				B387DF6826F71AD600154D39 /* jaguar.c in Sources */,
+				B387DF6926F71AD600154D39 /* universalhdr.c in Sources */,
+				B387DF6A26F71AD600154D39 /* jerry.c in Sources */,
+				B387DF6B26F71AD600154D39 /* readcpu.c in Sources */,
+				B387DF6C26F71AD600154D39 /* cpustbl.c in Sources */,
+				B387DF6D26F71AD600154D39 /* m68kdasm.c in Sources */,
+				B387DF6E26F71AD600154D39 /* event.c in Sources */,
+				B387DF6F26F71AD600154D39 /* jagbios.c in Sources */,
+				B387DF7026F71AD600154D39 /* dsp.c in Sources */,
+				B387DF7126F71AD600154D39 /* wavetable.c in Sources */,
+				B387DF7226F71AD600154D39 /* dac.c in Sources */,
+				B387DF7326F71AD600154D39 /* log.c in Sources */,
+				B387DF7426F71AD600154D39 /* cpuextra.c in Sources */,
+				B387DF7526F71AD600154D39 /* gpu.c in Sources */,
+				B387DF7626F71AD600154D39 /* mmu.c in Sources */,
+				B387DF7726F71AD600154D39 /* tom.c in Sources */,
+				B387DF7826F71AD600154D39 /* joystick.c in Sources */,
+				B387DF7926F71AD600154D39 /* jagcdbios.c in Sources */,
+				B387DF7A26F71AD600154D39 /* cdrom.c in Sources */,
+				B387DF7B26F71AD600154D39 /* file.c in Sources */,
+				B387DF7C26F71AD600154D39 /* filedb.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B38DDE2D26F710F800AC78C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B38DDE5626F7111400AC78C2 /* jagdevcdbios.c in Sources */,
+				B38DDE4126F7111300AC78C2 /* op.c in Sources */,
+				B38DDE4A26F7111400AC78C2 /* cdintf.c in Sources */,
+				B38DDE5F26F7111400AC78C2 /* cpudefs.c in Sources */,
+				B38DDE5B26F7111400AC78C2 /* memtrack.c in Sources */,
+				B38DDE4526F7111400AC78C2 /* blitter.c in Sources */,
+				B38DDE4B26F7111400AC78C2 /* eeprom.c in Sources */,
+				B38DDE5E26F7111400AC78C2 /* vjag_memory.c in Sources */,
+				B38DDE5726F7111400AC78C2 /* jagstub1bios.c in Sources */,
+				B38DDE4626F7111400AC78C2 /* jagstub2bios.c in Sources */,
+				B38DDE4C26F7111400AC78C2 /* m68kinterface.c in Sources */,
+				B38DDE5A26F7111400AC78C2 /* cpuemu.c in Sources */,
+				B38DDE5526F7111400AC78C2 /* jagdasm.c in Sources */,
+				B38DDE5126F7111400AC78C2 /* jagbios2.c in Sources */,
+				B38DDE3D26F7111300AC78C2 /* crc32.c in Sources */,
+				B38DDE3B26F7111300AC78C2 /* state.c in Sources */,
+				B38DDE4E26F7111400AC78C2 /* settings.c in Sources */,
+				B38DDE3C26F7111300AC78C2 /* jaguar.c in Sources */,
+				B38DDE5026F7111400AC78C2 /* universalhdr.c in Sources */,
+				B38DDE4226F7111300AC78C2 /* jerry.c in Sources */,
+				B38DDE3F26F7111300AC78C2 /* readcpu.c in Sources */,
+				B38DDE4F26F7111400AC78C2 /* cpustbl.c in Sources */,
+				B38DDE4926F7111400AC78C2 /* m68kdasm.c in Sources */,
+				B38DDE4326F7111300AC78C2 /* event.c in Sources */,
+				B38DDE4726F7111400AC78C2 /* jagbios.c in Sources */,
+				B38DDE5C26F7111400AC78C2 /* dsp.c in Sources */,
+				B38DDE4426F7111400AC78C2 /* wavetable.c in Sources */,
+				B38DDE5326F7111400AC78C2 /* dac.c in Sources */,
+				B38DDE5926F7111400AC78C2 /* log.c in Sources */,
+				B38DDE5826F7111400AC78C2 /* cpuextra.c in Sources */,
+				B38DDE5426F7111400AC78C2 /* gpu.c in Sources */,
+				B38DDE6026F7111400AC78C2 /* mmu.c in Sources */,
+				B38DDE4D26F7111400AC78C2 /* tom.c in Sources */,
+				B38DDE3E26F7111300AC78C2 /* joystick.c in Sources */,
+				B38DDE5D26F7111400AC78C2 /* jagcdbios.c in Sources */,
+				B38DDE5226F7111400AC78C2 /* cdrom.c in Sources */,
+				B38DDE4026F7111300AC78C2 /* file.c in Sources */,
+				B38DDE4826F7111400AC78C2 /* filedb.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B394C9912060CAB80014A65D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B33141582060CE21001D3526 /* memtrack.c in Sources */,
-				B33141472060CE21001D3526 /* op.c in Sources */,
-				B331413E2060CE21001D3526 /* log.c in Sources */,
-				B331412F2060CE21001D3526 /* cpuemu.c in Sources */,
-				B331413F2060CE21001D3526 /* wavetable.c in Sources */,
-				B331412B2060CE21001D3526 /* cpudefs.c in Sources */,
-				B331414C2060CE21001D3526 /* file.c in Sources */,
-				B33141422060CE21001D3526 /* cdintf.c in Sources */,
-				B33141602060CE21001D3526 /* jagstub2bios.c in Sources */,
-				B331411A2060CE21001D3526 /* jagbios2.c in Sources */,
-				B331412C2060CE21001D3526 /* m68kdasm.c in Sources */,
-				B331413D2060CE21001D3526 /* jagstub1bios.c in Sources */,
-				B331411E2060CE21001D3526 /* filedb.c in Sources */,
-				B331415A2060CE21001D3526 /* jerry.c in Sources */,
-				B33141252060CE21001D3526 /* jagcdbios.c in Sources */,
-				B33141322060CE21001D3526 /* m68kinterface.c in Sources */,
-				B33141662060CE21001D3526 /* joystick.c in Sources */,
-				B33141412060CE21001D3526 /* mmu.c in Sources */,
-				B33141502060CE21001D3526 /* cdrom.c in Sources */,
 				B331406D2060CC3E001D3526 /* PVJaguarGameCore.m in Sources */,
-				B331413B2060CE21001D3526 /* event.c in Sources */,
-				B33141622060CE21001D3526 /* crc32.c in Sources */,
-				B331413C2060CE21001D3526 /* settings.c in Sources */,
-				B33141612060CE21001D3526 /* universalhdr.c in Sources */,
-				B33141352060CE21001D3526 /* cpustbl.c in Sources */,
-				B33141262060CE21001D3526 /* jagdevcdbios.c in Sources */,
-				B331414E2060CE21001D3526 /* jaguar.c in Sources */,
-				B331411B2060CE21001D3526 /* tom.c in Sources */,
-				B331413A2060CE21001D3526 /* jagdasm.c in Sources */,
-				B33141382060CE21001D3526 /* cpuextra.c in Sources */,
-				B331414F2060CE21001D3526 /* state.c in Sources */,
-				B33141222060CE21001D3526 /* vjag_memory.c in Sources */,
-				B33141492060CE21001D3526 /* eeprom.c in Sources */,
-				B33141172060CE21001D3526 /* dsp.c in Sources */,
-				B331415F2060CE21001D3526 /* blitter.c in Sources */,
-				B33141522060CE21001D3526 /* gpu.c in Sources */,
-				B33141292060CE21001D3526 /* readcpu.c in Sources */,
-				B33141592060CE21001D3526 /* jagbios.c in Sources */,
-				B331411D2060CE21001D3526 /* dac.c in Sources */,
+				B387E08726F71F7B00154D39 /* CoreOptions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -772,49 +768,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3C89965206B7BCF005E7033 /* cpudefs.c in Sources */,
-				B3C8996E206B7BCF005E7033 /* jagcdbios.c in Sources */,
-				B3C8996C206B7BCF005E7033 /* filedb.c in Sources */,
-				B3C89971206B7BCF005E7033 /* mmu.c in Sources */,
 				B3C89973206B7BCF005E7033 /* PVJaguarGameCore.m in Sources */,
-				B3C89967206B7BCF005E7033 /* cdintf.c in Sources */,
-				B3C8997A206B7BCF005E7033 /* jaguar.c in Sources */,
-				B3C89969206B7BCF005E7033 /* jagbios2.c in Sources */,
-				B3C8996D206B7BCF005E7033 /* jerry.c in Sources */,
-				B3C89963206B7BCF005E7033 /* cpuemu.c in Sources */,
-				B3C89974206B7BCF005E7033 /* event.c in Sources */,
-				B3C89979206B7BCF005E7033 /* jagdevcdbios.c in Sources */,
-				B3C8996F206B7BCF005E7033 /* m68kinterface.c in Sources */,
-				B3C89970206B7BCF005E7033 /* joystick.c in Sources */,
-				B3C89966206B7BCF005E7033 /* file.c in Sources */,
-				B3C8996B206B7BCF005E7033 /* jagstub1bios.c in Sources */,
-				B3C89977206B7BCF005E7033 /* universalhdr.c in Sources */,
-				B3C89962206B7BCF005E7033 /* log.c in Sources */,
-				B3C89964206B7BCF005E7033 /* wavetable.c in Sources */,
-				B3C89978206B7BCF005E7033 /* cpustbl.c in Sources */,
-				B3C89972206B7BCF005E7033 /* cdrom.c in Sources */,
-				B3C8997E206B7BCF005E7033 /* state.c in Sources */,
-				B3C89975206B7BCF005E7033 /* crc32.c in Sources */,
-				B3C89981206B7BCF005E7033 /* dsp.c in Sources */,
-				B3C89982206B7BCF005E7033 /* blitter.c in Sources */,
-				B3C8997B206B7BCF005E7033 /* tom.c in Sources */,
-				B3C8997D206B7BCF005E7033 /* cpuextra.c in Sources */,
-				B3C8996A206B7BCF005E7033 /* m68kdasm.c in Sources */,
-				B3C89961206B7BCF005E7033 /* op.c in Sources */,
-				B3C89985206B7BCF005E7033 /* jagbios.c in Sources */,
-				B3C8997C206B7BCF005E7033 /* jagdasm.c in Sources */,
-				B3C89983206B7BCF005E7033 /* gpu.c in Sources */,
-				B3C89976206B7BCF005E7033 /* settings.c in Sources */,
-				B3C89986206B7BCF005E7033 /* dac.c in Sources */,
-				B3C89960206B7BCF005E7033 /* memtrack.c in Sources */,
-				B3C8997F206B7BCF005E7033 /* vjag_memory.c in Sources */,
-				B3C89980206B7BCF005E7033 /* eeprom.c in Sources */,
-				B3C89984206B7BCF005E7033 /* readcpu.c in Sources */,
-				B3C89968206B7BCF005E7033 /* jagstub2bios.c in Sources */,
+				B387E08826F71F7B00154D39 /* CoreOptions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B387DF5126F717B700154D39 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B38DDE3026F710F800AC78C2 /* jaguar-iOS */;
+			targetProxy = B387DF5026F717B700154D39 /* PBXContainerItemProxy */;
+		};
+		B387DF8626F71B0F00154D39 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B387DF5526F71AD600154D39 /* jaguar-tvOS */;
+			targetProxy = B387DF8526F71B0F00154D39 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		B324C62621920967009F4EDC /* Archive */ = {
@@ -867,6 +839,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
+					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
@@ -879,6 +855,9 @@
 		B324C62721920967009F4EDC /* Archive */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -893,7 +872,11 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/VirtualJaguar/src\"/**";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
+					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -911,6 +894,7 @@
 				PRODUCT_NAME = PVVirtualJaguar;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Archive;
@@ -920,6 +904,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -934,7 +919,11 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/VirtualJaguar/src\"";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
+					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -947,7 +936,215 @@
 				PRODUCT_NAME = PVVirtualJaguar;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 12.1;
+			};
+			name = Archive;
+		};
+		B387DF8026F71AD600154D39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"INLINE=inline",
+					"USE_STRUCTS=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_UNROLL_LOOPS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
+					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.1;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-D__GCCUNIX__",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2,3,6";
+				TVOS_DEPLOYMENT_TARGET = 12.1;
+			};
+			name = Debug;
+		};
+		B387DF8126F71AD600154D39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"INLINE=inline",
+					"USE_STRUCTS=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_UNROLL_LOOPS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
+					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.1;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-D__GCCUNIX__",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2,3,6";
+				TVOS_DEPLOYMENT_TARGET = 12.1;
+			};
+			name = Release;
+		};
+		B387DF8226F71AD600154D39 /* Archive */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"INLINE=inline",
+					"USE_STRUCTS=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_UNROLL_LOOPS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
+					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.1;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-D__GCCUNIX__",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2,3,6";
+				TVOS_DEPLOYMENT_TARGET = 12.1;
+			};
+			name = Archive;
+		};
+		B38DDE3826F710F800AC78C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"INLINE=inline",
+					"USE_STRUCTS=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_UNROLL_LOOPS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
+					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.1;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-D__GCCUNIX__",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2,3,6";
+				TVOS_DEPLOYMENT_TARGET = 12.1;
+			};
+			name = Debug;
+		};
+		B38DDE3926F710F800AC78C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"INLINE=inline",
+					"USE_STRUCTS=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_UNROLL_LOOPS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
+					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.1;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-D__GCCUNIX__",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2,3,6";
+				TVOS_DEPLOYMENT_TARGET = 12.1;
+			};
+			name = Release;
+		};
+		B38DDE3A26F710F800AC78C2 /* Archive */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"INLINE=inline",
+					"USE_STRUCTS=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_UNROLL_LOOPS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
+					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.1;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-D__GCCUNIX__",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2,3,6";
 				TVOS_DEPLOYMENT_TARGET = 12.1;
 			};
 			name = Archive;
@@ -1004,6 +1201,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
+					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1063,6 +1264,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
+					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1076,6 +1281,9 @@
 		B394C99F2060CAB80014A65D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -1090,7 +1298,11 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/VirtualJaguar/src\"/**";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
+					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1108,6 +1320,8 @@
 				PRODUCT_NAME = PVVirtualJaguar;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
@@ -1115,6 +1329,9 @@
 		B394C9A02060CAB80014A65D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -1129,7 +1346,11 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/VirtualJaguar/src\"/**";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
+					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1147,6 +1368,7 @@
 				PRODUCT_NAME = PVVirtualJaguar;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Release;
@@ -1156,6 +1378,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -1170,7 +1393,11 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/VirtualJaguar/src\"";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
+					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1183,6 +1410,8 @@
 				PRODUCT_NAME = PVVirtualJaguar;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 12.1;
 			};
@@ -1193,6 +1422,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -1207,7 +1437,11 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/VirtualJaguar/src\"";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
+					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1220,6 +1454,7 @@
 				PRODUCT_NAME = PVVirtualJaguar;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 12.1;
 			};
@@ -1228,6 +1463,26 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B387DF7F26F71AD600154D39 /* Build configuration list for PBXNativeTarget "jaguar-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B387DF8026F71AD600154D39 /* Debug */,
+				B387DF8126F71AD600154D39 /* Release */,
+				B387DF8226F71AD600154D39 /* Archive */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B38DDE3726F710F800AC78C2 /* Build configuration list for PBXNativeTarget "jaguar-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B38DDE3826F710F800AC78C2 /* Debug */,
+				B38DDE3926F710F800AC78C2 /* Release */,
+				B38DDE3A26F710F800AC78C2 /* Archive */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B394C9902060CAB80014A65D /* Build configuration list for PBXProject "Core-VirtualJaguar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

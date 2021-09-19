@@ -15,4 +15,4 @@ FOUNDATION_EXPORT double PVVirtualJaguarVersionNumber;
 FOUNDATION_EXPORT const unsigned char PVVirtualJaguarVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <PVVirtualJaguar/PublicHeader.h>
-#import <PVVirtualJaguar/JaguarGameCore.h>
+#import <PVVirtualJaguar/PVJaguarGameCore.h>

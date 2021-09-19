@@ -724,3 +724,9 @@ typedef struct JagBuffer {
 }
 
 @end
+
+size_t audio_batch_cb(const int16_t * data, size_t frames) {
+	// TODO: Audio CB
+	DLOG("Audio callbacks: frames<%i>", frames);
+	return 0;
+}

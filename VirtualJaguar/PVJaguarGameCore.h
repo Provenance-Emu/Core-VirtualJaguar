@@ -33,4 +33,9 @@ __attribute__((visibility("default")))
 - (void)initVideo;
 - (int)getIndexForPVJaguarButton:(PVJaguarButton)btn;
 
+#pragma mark - Options
+@property (nonatomic, readonly) BOOL virtualjaguar_bios;
+@property (nonatomic, readonly) BOOL virtualjaguar_usefastblitter;
+@property (nonatomic, readonly) BOOL virtualjaguar_doom_res_hack;
+@property (nonatomic, readonly) BOOL virtualjaguar_pal;
 @end

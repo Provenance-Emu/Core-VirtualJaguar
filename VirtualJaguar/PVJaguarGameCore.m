@@ -31,9 +31,17 @@
 //#pragma clang diagnostic error "-Wall"
 
 __weak static PVJaguarGameCore *_current;
+retro_audio_sample_batch_t audio_batch_cb;
+void retro_set_audio_sample_batch(retro_audio_sample_batch_t cb) { audio_batch_cb = cb; }
+
+
+//retro_audio_sample_batch_t audio_batch_cb(const int16_t * data, size_t frames);
+
+int doom_res_hack=0; // Doom Hack to double pixel if pwidth==8 (163*2)
 
 @interface PVJaguarGameCore ()
 {
+	@public
     int videoWidth, videoHeight;
     double sampleRate;
     struct JagBuffer * videoBuffer;
@@ -44,10 +52,11 @@ __weak static PVJaguarGameCore *_current;
     dispatch_semaphore_t waitToBeginFrameSemaphore;
 
 }
-@end
 
+@end
 #define PARALLEL_GFX_AUDIO_CALLS 1
-#define SAMPLERATE 48000
+#define AUDIO_BIT_DEPTH 16
+#define AUDIO_SAMPLERATE 48000
 #define BUFPAL  1920
 #define BUFNTSC 1600
 #define BUFMAX (2048 * 2)
@@ -66,6 +75,26 @@ typedef struct JagBuffer {
     struct JagBuffer* next;
 };
 
+static size_t update_audio_batch(const int16_t *data, size_t frames)
+{
+	__strong PVJaguarGameCore* current = _current;
+	if(current == nil)
+		return 0;
+
+	dispatch_group_enter(current->renderGroup);
+	dispatch_async(current->audioQueue, ^{
+		float frameTime = vjs.hardwareTypeNTSC ? 1.0/60.0 : 1.0/50.0;
+		dispatch_time_t killTime = dispatch_time(DISPATCH_TIME_NOW, frameTime * NSEC_PER_SEC);
+		dispatch_semaphore_wait(current->waitToBeginFrameSemaphore, killTime);
+		[[current ringBufferAtIndex:0] write:data maxLength:frames << 2];
+
+//		[[current ringBufferAtIndex:0] write:data maxLength:frames * [current channelCount] * 2];
+		dispatch_group_leave(current->renderGroup);
+	});
+
+	return frames;
+}
+
 @implementation PVJaguarGameCore
 
 - (id)init
@@ -73,7 +102,7 @@ typedef struct JagBuffer {
     if (self = [super init]) {
         videoWidth = 1024;
         videoHeight = 512;
-        sampleRate = SAMPLERATE;
+        sampleRate = AUDIO_SAMPLERATE;
         
         dispatch_queue_attr_t priorityAttribute = dispatch_queue_attr_make_with_qos_class( DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INTERACTIVE, -1);
         audioQueue = dispatch_queue_create("com.provenance.jaguar.audio", priorityAttribute);
@@ -132,19 +161,21 @@ typedef struct JagBuffer {
 	// Look to see if user has copied a bios into the bios dir
 	NSFileManager *fm = [NSFileManager defaultManager];
 	NSString *biosPath = [self.BIOSPath stringByAppendingPathComponent:@"jagboot.rom"];
-	if ([fm fileExistsAtPath:biosPath]) {
+	if ([fm fileExistsAtPath:biosPath] && self.virtualjaguar_bios) {
 		ILOG(@"Using bios at path %@", biosPath);
 		strcpy(vjs.jagBootPath, biosPath.cString);
 		// No idea if this is working actually - does useJaguarBIOS do something?
-		vjs.useJaguarBIOS = false;
+		vjs.useJaguarBIOS = true;
 		externalBIOS = true;
 	} else {
 		ILOG(@"No external BIOS found. Using no BIOS.");
 		vjs.useJaguarBIOS = false;
+		externalBIOS = false;
 	}
 
-	//TODO: Make these core options
-	vjs.useFastBlitter = false;
+	vjs.useFastBlitter = self.virtualjaguar_usefastblitter;
+
+	retro_set_audio_sample_batch(update_audio_batch);
 
     JaguarInit();                                             // set up hardware
 	if (!externalBIOS) {
@@ -201,6 +232,10 @@ typedef struct JagBuffer {
     if (!externalBIOS && vjs.hardwareTypeAlpine) {
         biosPointer = jaguarDevBootROM2;
     }
+
+	if ([path.lowercaseString containsString:@"doom"]) {
+		doom_res_hack = 1;
+	} else { doom_res_hack = 0; }
     
     memcpy(jagMemSpace + 0xE00000, biosPointer, 0x20000);
     
@@ -245,7 +280,7 @@ typedef struct JagBuffer {
 
     u_long currentFrame = frameCount;
 
-    printf("executeFrameSkippingFrame: skip: %s\ttime:%lu\n", BS(skip), timeSinceLast);
+//    printf("executeFrameSkippingFrame: skip: %s\ttime:%lu\n", BS(skip), timeSinceLast);
 
     if (self.controller1 || self.controller2) {
         [self pollControllers];
@@ -261,11 +296,11 @@ typedef struct JagBuffer {
     dispatch_group_enter(renderGroup);
     dispatch_async(videoQueue, ^{
         vjs.frameSkip = skip || expired;
-        printf("will write frame %lul\written: %s\tread:%s\tlabel:%s\n", videoBuffer->frameNumber, BS(videoBuffer->written), BS(videoBuffer->read), videoBuffer->label);
+//        printf("will write frame %lul\written: %s\tread:%s\tlabel:%s\n", videoBuffer->frameNumber, BS(videoBuffer->written), BS(videoBuffer->read), videoBuffer->label);
         JaguarExecuteNew();
         videoBuffer->written = YES;
         videoBuffer->frameNumber = currentFrame;
-        printf("did write frame %lul\tskip: %s\texpired:%s\nlabel:%s\n", videoBuffer->frameNumber, BS(skip), BS(expired), videoBuffer->label);
+//        printf("did write frame %lul\tskip: %s\texpired:%s\nlabel:%s\n", videoBuffer->frameNumber, BS(skip), BS(expired), videoBuffer->label);
         dispatch_semaphore_signal(waitToBeginFrameSemaphore);
         dispatch_group_leave(renderGroup);
     });
@@ -275,7 +310,7 @@ typedef struct JagBuffer {
         dispatch_semaphore_wait(waitToBeginFrameSemaphore, killTime);
         SDLSoundCallback(NULL, sampleBuffer, bufferSize);
         [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
-        printf("wrote audio frame %lul\tlabel:%s\n", videoBuffer->frameNumber, videoBuffer->label);
+//        printf("wrote audio frame %lul\tlabel:%s\n", videoBuffer->frameNumber, videoBuffer->label);
         dispatch_group_leave(renderGroup);
     });
 //        // Don't block the frame draw waiting for audio
@@ -354,13 +389,13 @@ typedef struct JagBuffer {
 }
 
 - (void)swapBuffers {
-    printf("swap buffers: current: %s, count: %i, read: %s, written: %s, next: read: %s, written: %s",
-           videoBuffer->label,
-           videoBuffer->frameNumber,
-           BS(videoBuffer->read),
-           BS(videoBuffer->written),
-           BS(videoBuffer->next->read),
-           BS(videoBuffer->next->written));
+//    printf("swap buffers: current: %s, count: %i, read: %s, written: %s, next: read: %s, written: %s",
+//           videoBuffer->label,
+//           videoBuffer->frameNumber,
+//           BS(videoBuffer->read),
+//           BS(videoBuffer->written),
+//           BS(videoBuffer->next->read),
+//           BS(videoBuffer->next->written));
 
     videoBuffer->read = YES;
     videoBuffer = videoBuffer->next;
@@ -371,7 +406,7 @@ typedef struct JagBuffer {
 
 - (NSUInteger)audioBitDepth
 {
-    return 16;
+    return AUDIO_BIT_DEPTH;
 }
 
 - (void)setupEmulation
@@ -723,10 +758,24 @@ typedef struct JagBuffer {
 	return NO;
 }
 
-@end
-
-size_t audio_batch_cb(const int16_t * data, size_t frames) {
-	// TODO: Audio CB
-	DLOG("Audio callbacks: frames<%i>", frames);
-	return 0;
+-(void)virtualjaguar_bios:(BOOL)value {
+	_virtualjaguar_bios = value;
+	vjs.useJaguarBIOS = value;
 }
+
+-(void)virtualjaguar_usefastblitter:(BOOL)value {
+	_virtualjaguar_usefastblitter = value;
+	vjs.useFastBlitter = value;
+}
+
+-(void)virtualjaguar_doom_res_hack:(BOOL)value {
+	_virtualjaguar_doom_res_hack = value;
+	doom_res_hack = value;
+}
+
+-(void)virtualjaguar_pal:(BOOL)value {
+	_virtualjaguar_pal = value;
+	vjs.hardwareTypeNTSC = !value;
+}
+
+@end

@@ -27,48 +27,43 @@ import PVSupport
 //		case grayscale
 //	}
 //
-//	extension PVGBEmulatorCore: CoreOptional {
-//		public static var options: [CoreOption] = {
-//			var options = [CoreOption]()
-//
-//			let videoGroup = CoreOption.group(display: CoreOptionValueDisplay(title: "Video", description: nil), subOptions: [paletteOption])
-//
-//			options.append(videoGroup)
-//			return options
-//		}()
-//
-//		static let paletteValues: [CoreOptionMultiValue] = CoreOptionMultiValue.values(fromArray:
-//			[
-//				"Pea Soup Green",
-//				"GameBoy Pocket",
-//				"GameBoy Color - Blue",
-//				"GameBoy Color - Dark Blue",
-//				"GameBoy Color - Green",
-//				"GameBoy Color - Dark Green",
-//				"GameBoy Color - Brown",
-//				"GameBoy Color - Dark Brown",
-//				"GameBoy Color - Red",
-//				"GameBoy Color - Yellow",
-//				"GameBoy Color - Orange",
-//				"GameBoy Color - Pastel Mix",
-//				"GameBoy Color - Inverted",
-//				"GameBoy Color - Rom Title",
-//				"GameBoy Color - Grayscale"
-//		])
-//
-//		static var paletteOption: CoreOption = {
-//			let palletteOption = CoreOption.multi(display: CoreOptionValueDisplay(title: "GameBoy (non color) Palette", description: "The drawing palette to use"), values: paletteValues)
-//			return palletteOption
-//		}()
-//	}
-//
-//	@objc extension PVGBEmulatorCore {
-//		public func setPalette() {
-//			if
-//				let value = PVGBEmulatorCore.valueForOption(String.self, "Video.GameBoy (non color) Palette"),
-//				let index = PVGBEmulatorCore.paletteValues.firstIndex(where: { $0.title == value }),
-//				let enumValue = GBPalette(rawValue: index) {
-//				changeDisplayMode(enumValue.rawValue)
-//			}
-//		}
-//	}
+extension PVJaguarGameCore: CoreOptional {
+	public static var options: [CoreOption] = {
+		var options = [CoreOption]()
+
+		let biosGroup = CoreOption.group(display: CoreOptionValueDisplay(title: "Bios", description: nil),
+										 subOptions: [biosOption])
+
+		options.append(biosGroup)
+		return options
+	}()
+
+
+	static var biosOption: CoreOption = {
+		let biosOption = CoreOption.bool(display: .init(title: "Jaguar BIOS", description: "Use binary Jaguar BIOS file (you need to download this yourself) otherwise use emualted bios.", requiresRestart: true), defaultValue: false)
+		return biosOption
+	}()
+
+	static var blitterOption: CoreOption = {
+		let biosOption = CoreOption.bool(display: .init(title: "Use Fast Blitter", description: "Use fast but maybe more buggy bliter", requiresRestart: true), defaultValue: false)
+		return biosOption
+	}()
+}
+
+@objc extension PVJaguarGameCore {
+	public func setUSEBios(_ useBios: Bool) {
+		
+	}
+}
+
+extension PVJaguarGameCore: CoreActions {
+	public var coreActions: [CoreAction]? {
+		let bios = CoreAction(title: "Use Jaguar BIOS", options: nil)
+		let fastBlitter =  CoreAction(title: "Use fast blitter", options:nil)
+		return [bios, fastBlitter]
+	}
+
+	public func selected(action: CoreAction) {
+		DLOG("\(action.title), \(String(describing: action.options))")
+	}
+}

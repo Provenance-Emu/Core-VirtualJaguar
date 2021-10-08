@@ -31,10 +31,15 @@ extension PVJaguarGameCore: CoreOptional {
 	public static var options: [CoreOption] = {
 		var options = [CoreOption]()
 
-		let biosGroup = CoreOption.group(display: CoreOptionValueDisplay(title: "Bios", description: nil),
+		let biosGroup = CoreOption.group(display: CoreOptionValueDisplay(title: "BIOS", description: nil),
 										 subOptions: [biosOption])
+        
+        let hacksGroup = CoreOption.group(display: CoreOptionValueDisplay(title: "Hacks", description: "Performance hacks that work with some games better than others."),
+                                         subOptions: [blitterOption, doomResHackOption, forcePalOption])
 
 		options.append(biosGroup)
+        options.append(hacksGroup)
+
 		return options
 	}()
 
@@ -45,9 +50,19 @@ extension PVJaguarGameCore: CoreOptional {
 	}()
 
 	static var blitterOption: CoreOption = {
-		let biosOption = CoreOption.bool(display: .init(title: "Use Fast Blitter", description: "Use fast but maybe more buggy bliter", requiresRestart: true), defaultValue: false)
-		return biosOption
+		let blitterOption = CoreOption.bool(display: .init(title: "Use Fast Blitter", description: "Use fast but maybe more buggy bliter", requiresRestart: true), defaultValue: false)
+		return blitterOption
 	}()
+    
+    static var doomResHackOption: CoreOption = {
+        let doomResHackOption = CoreOption.bool(display: .init(title: "DOOM Res Hack", description: "For DOOM", requiresRestart: true), defaultValue: false)
+        return doomResHackOption
+    }()
+    
+    static var forcePalOption: CoreOption = {
+        let forcePalOption = CoreOption.bool(display: .init(title: "Force PAL", description: "Force PAL mode over NTSC. May fix ROMs that are misdetected or coded for NTSC.", requiresRestart: true), defaultValue: false)
+        return forcePalOption
+    }()
 }
 
 @objc extension PVJaguarGameCore {
@@ -55,6 +70,14 @@ extension PVJaguarGameCore: CoreOptional {
 		
 	}
 }
+
+@objc extension PVJaguarGameCore {
+    @objc var virtualjaguar_bios: Bool { PVJaguarGameCore.valueForOption(Bool.self, "Jaguar BIOS") ?? false }
+    @objc var virtualjaguar_usefastblitter: Bool { PVJaguarGameCore.valueForOption(Bool.self, "Use Fast Blitter") ?? false }
+    @objc var virtualjaguar_doom_res_hack: Bool { PVJaguarGameCore.valueForOption(Bool.self, "DOOM Res Hack") ?? false }
+    @objc var virtualjaguar_pal: Bool { PVJaguarGameCore.valueForOption(Bool.self, "Force PAL") ?? false }
+}
+
 
 extension PVJaguarGameCore: CoreActions {
 	public var coreActions: [CoreAction]? {

@@ -18,7 +18,6 @@
 #import "jagbios2.h"
 #include "jagstub2bios.h"
 #include "memory.h"
-#include "log.h"
 #include "tom.h"
 #include "dsp.h"
 #include "m68kinterface.h"
@@ -194,9 +193,9 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
 
         // If regular load failed, try just a straight file load
         // (Dev only! I don't want people to start getting lazy with their releases again! :-P)
-        if (!romLoaded) {
-            romLoaded = AlpineLoadFile((uint8_t*)alpineData.bytes, alpineData.length);
-        }
+//        if (!romLoaded) {
+//            romLoaded = AlpineLoadFile((uint8_t*)alpineData.bytes, alpineData.length);
+//        }
 
         if (romLoaded) {
             ILOG(@"Alpine Mode: Successfully loaded file \"%s\".\n", vjs.alpineROMPath);
@@ -240,7 +239,6 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
     memcpy(jagMemSpace + 0xE00000, biosPointer, 0x20000);
     
     JaguarReset();
-    DACPauseAudioThread(false);
     
     // We have to load our software *after* the Jaguar RESET
     BOOL cartridgeLoaded = JaguarLoadFile((uint8_t*)romData.bytes, romData.length);   // load rom
@@ -308,7 +306,7 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
     dispatch_group_enter(renderGroup);
     dispatch_async(audioQueue, ^{
         dispatch_semaphore_wait(waitToBeginFrameSemaphore, killTime);
-        SDLSoundCallback(NULL, sampleBuffer, bufferSize);
+        SoundCallback(NULL, sampleBuffer, bufferSize);
         [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
 //        printf("wrote audio frame %lul\tlabel:%s\n", videoBuffer->frameNumber, videoBuffer->label);
         dispatch_group_leave(renderGroup);

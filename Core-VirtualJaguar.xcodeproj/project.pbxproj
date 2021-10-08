@@ -25,23 +25,19 @@
 		B387DF6026F71AD600154D39 /* jagstub2bios.c in Sources */ = {isa = PBXBuildFile; fileRef = B331410F2060CE20001D3526 /* jagstub2bios.c */; };
 		B387DF6126F71AD600154D39 /* m68kinterface.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E12060CE1C001D3526 /* m68kinterface.c */; };
 		B387DF6226F71AD600154D39 /* cpuemu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DE2060CE1C001D3526 /* cpuemu.c */; };
-		B387DF6326F71AD600154D39 /* jagdasm.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E92060CE1C001D3526 /* jagdasm.c */; };
 		B387DF6426F71AD600154D39 /* jagbios2.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140C82060CE1B001D3526 /* jagbios2.c */; };
 		B387DF6526F71AD600154D39 /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141112060CE20001D3526 /* crc32.c */; };
-		B387DF6626F71AD600154D39 /* state.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FE2060CE1E001D3526 /* state.c */; };
 		B387DF6726F71AD600154D39 /* settings.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EB2060CE1C001D3526 /* settings.c */; };
 		B387DF6826F71AD600154D39 /* jaguar.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FD2060CE1E001D3526 /* jaguar.c */; };
 		B387DF6926F71AD600154D39 /* universalhdr.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141102060CE20001D3526 /* universalhdr.c */; };
 		B387DF6A26F71AD600154D39 /* jerry.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141092060CE1F001D3526 /* jerry.c */; };
 		B387DF6B26F71AD600154D39 /* readcpu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D82060CE1C001D3526 /* readcpu.c */; };
 		B387DF6C26F71AD600154D39 /* cpustbl.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E42060CE1C001D3526 /* cpustbl.c */; };
-		B387DF6D26F71AD600154D39 /* m68kdasm.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DB2060CE1C001D3526 /* m68kdasm.c */; };
 		B387DF6E26F71AD600154D39 /* event.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EA2060CE1C001D3526 /* event.c */; };
 		B387DF6F26F71AD600154D39 /* jagbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141082060CE1F001D3526 /* jagbios.c */; };
 		B387DF7026F71AD600154D39 /* dsp.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140C52060CE1B001D3526 /* dsp.c */; };
 		B387DF7126F71AD600154D39 /* wavetable.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EE2060CE1C001D3526 /* wavetable.c */; };
 		B387DF7226F71AD600154D39 /* dac.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140CB2060CE1B001D3526 /* dac.c */; };
-		B387DF7326F71AD600154D39 /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140ED2060CE1C001D3526 /* log.c */; };
 		B387DF7426F71AD600154D39 /* cpuextra.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E72060CE1C001D3526 /* cpuextra.c */; };
 		B387DF7526F71AD600154D39 /* gpu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141012060CE1E001D3526 /* gpu.c */; };
 		B387DF7626F71AD600154D39 /* mmu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F02060CE1D001D3526 /* mmu.c */; };
@@ -54,7 +50,6 @@
 		B387DF8426F71B0F00154D39 /* libjaguar-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B387DF8326F71AD600154D39 /* libjaguar-tvOS.a */; };
 		B387E08726F71F7B00154D39 /* CoreOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387E08626F71F7B00154D39 /* CoreOptions.swift */; };
 		B387E08826F71F7B00154D39 /* CoreOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387E08626F71F7B00154D39 /* CoreOptions.swift */; };
-		B38DDE3B26F7111300AC78C2 /* state.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FE2060CE1E001D3526 /* state.c */; };
 		B38DDE3C26F7111300AC78C2 /* jaguar.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FD2060CE1E001D3526 /* jaguar.c */; };
 		B38DDE3D26F7111300AC78C2 /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141112060CE20001D3526 /* crc32.c */; };
 		B38DDE3E26F7111300AC78C2 /* joystick.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141152060CE21001D3526 /* joystick.c */; };
@@ -68,7 +63,6 @@
 		B38DDE4626F7111400AC78C2 /* jagstub2bios.c in Sources */ = {isa = PBXBuildFile; fileRef = B331410F2060CE20001D3526 /* jagstub2bios.c */; };
 		B38DDE4726F7111400AC78C2 /* jagbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141082060CE1F001D3526 /* jagbios.c */; };
 		B38DDE4826F7111400AC78C2 /* filedb.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140CC2060CE1B001D3526 /* filedb.c */; };
-		B38DDE4926F7111400AC78C2 /* m68kdasm.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DB2060CE1C001D3526 /* m68kdasm.c */; };
 		B38DDE4A26F7111400AC78C2 /* cdintf.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F12060CE1D001D3526 /* cdintf.c */; };
 		B38DDE4B26F7111400AC78C2 /* eeprom.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F82060CE1D001D3526 /* eeprom.c */; };
 		B38DDE4C26F7111400AC78C2 /* m68kinterface.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E12060CE1C001D3526 /* m68kinterface.c */; };
@@ -80,11 +74,9 @@
 		B38DDE5226F7111400AC78C2 /* cdrom.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FF2060CE1E001D3526 /* cdrom.c */; };
 		B38DDE5326F7111400AC78C2 /* dac.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140CB2060CE1B001D3526 /* dac.c */; };
 		B38DDE5426F7111400AC78C2 /* gpu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141012060CE1E001D3526 /* gpu.c */; };
-		B38DDE5526F7111400AC78C2 /* jagdasm.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E92060CE1C001D3526 /* jagdasm.c */; };
 		B38DDE5626F7111400AC78C2 /* jagdevcdbios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140D42060CE1C001D3526 /* jagdevcdbios.c */; };
 		B38DDE5726F7111400AC78C2 /* jagstub1bios.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140EC2060CE1C001D3526 /* jagstub1bios.c */; };
 		B38DDE5826F7111400AC78C2 /* cpuextra.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140E72060CE1C001D3526 /* cpuextra.c */; };
-		B38DDE5926F7111400AC78C2 /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140ED2060CE1C001D3526 /* log.c */; };
 		B38DDE5A26F7111400AC78C2 /* cpuemu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DE2060CE1C001D3526 /* cpuemu.c */; };
 		B38DDE5B26F7111400AC78C2 /* memtrack.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141072060CE1F001D3526 /* memtrack.c */; };
 		B38DDE5C26F7111400AC78C2 /* dsp.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140C52060CE1B001D3526 /* dsp.c */; };
@@ -141,7 +133,6 @@
 		B33140172060CC3E001D3526 /* PVJaguarGameCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PVJaguarGameCore.m; sourceTree = "<group>"; };
 		B33140192060CC3E001D3526 /* PVJaguarGameCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVJaguarGameCore.h; sourceTree = "<group>"; };
 		B33140C52060CE1B001D3526 /* dsp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dsp.c; sourceTree = "<group>"; };
-		B33140C62060CE1B001D3526 /* jagdasm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jagdasm.h; sourceTree = "<group>"; };
 		B33140C72060CE1B001D3526 /* cdrom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cdrom.h; sourceTree = "<group>"; };
 		B33140C82060CE1B001D3526 /* jagbios2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jagbios2.c; sourceTree = "<group>"; };
 		B33140C92060CE1B001D3526 /* tom.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tom.c; sourceTree = "<group>"; };
@@ -152,16 +143,12 @@
 		B33140CE2060CE1B001D3526 /* blitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blitter.h; sourceTree = "<group>"; };
 		B33140CF2060CE1B001D3526 /* jagstub2bios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jagstub2bios.h; sourceTree = "<group>"; };
 		B33140D02060CE1B001D3526 /* vjag_memory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vjag_memory.c; sourceTree = "<group>"; };
-		B33140D12060CE1B001D3526 /* log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; };
 		B33140D22060CE1C001D3526 /* crc32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crc32.h; sourceTree = "<group>"; };
 		B33140D32060CE1C001D3526 /* jagcdbios.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jagcdbios.c; sourceTree = "<group>"; };
 		B33140D42060CE1C001D3526 /* jagdevcdbios.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jagdevcdbios.c; sourceTree = "<group>"; };
-		B33140D62060CE1C001D3526 /* table68k */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = table68k; sourceTree = "<group>"; };
 		B33140D72060CE1C001D3526 /* m68kinterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = m68kinterface.h; sourceTree = "<group>"; };
 		B33140D82060CE1C001D3526 /* readcpu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = readcpu.c; sourceTree = "<group>"; };
 		B33140DA2060CE1C001D3526 /* cpudefs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpudefs.c; sourceTree = "<group>"; };
-		B33140DB2060CE1C001D3526 /* m68kdasm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = m68kdasm.c; sourceTree = "<group>"; };
-		B33140DC2060CE1C001D3526 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		B33140DD2060CE1C001D3526 /* cputbl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cputbl.h; sourceTree = "<group>"; };
 		B33140DE2060CE1C001D3526 /* cpuemu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpuemu.c; sourceTree = "<group>"; };
 		B33140E02060CE1C001D3526 /* cpuextra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpuextra.h; sourceTree = "<group>"; };
@@ -173,11 +160,9 @@
 		B33140E62060CE1C001D3526 /* sysdeps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sysdeps.h; sourceTree = "<group>"; };
 		B33140E72060CE1C001D3526 /* cpuextra.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpuextra.c; sourceTree = "<group>"; };
 		B33140E82060CE1C001D3526 /* filedb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filedb.h; sourceTree = "<group>"; };
-		B33140E92060CE1C001D3526 /* jagdasm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jagdasm.c; sourceTree = "<group>"; };
 		B33140EA2060CE1C001D3526 /* event.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = event.c; sourceTree = "<group>"; };
 		B33140EB2060CE1C001D3526 /* settings.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = settings.c; sourceTree = "<group>"; };
 		B33140EC2060CE1C001D3526 /* jagstub1bios.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jagstub1bios.c; sourceTree = "<group>"; };
-		B33140ED2060CE1C001D3526 /* log.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = log.c; sourceTree = "<group>"; };
 		B33140EE2060CE1C001D3526 /* wavetable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wavetable.c; sourceTree = "<group>"; };
 		B33140EF2060CE1C001D3526 /* vjag_memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vjag_memory.h; sourceTree = "<group>"; };
 		B33140F02060CE1D001D3526 /* mmu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mmu.c; sourceTree = "<group>"; };
@@ -194,7 +179,6 @@
 		B33140FB2060CE1E001D3526 /* file.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = file.c; sourceTree = "<group>"; };
 		B33140FC2060CE1E001D3526 /* jagdevcdbios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jagdevcdbios.h; sourceTree = "<group>"; };
 		B33140FD2060CE1E001D3526 /* jaguar.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jaguar.c; sourceTree = "<group>"; };
-		B33140FE2060CE1E001D3526 /* state.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = state.c; sourceTree = "<group>"; };
 		B33140FF2060CE1E001D3526 /* cdrom.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cdrom.c; sourceTree = "<group>"; };
 		B33141002060CE1E001D3526 /* cdintf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cdintf.h; sourceTree = "<group>"; };
 		B33141012060CE1E001D3526 /* gpu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gpu.c; sourceTree = "<group>"; };
@@ -216,7 +200,6 @@
 		B33141112060CE20001D3526 /* crc32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crc32.c; sourceTree = "<group>"; };
 		B33141122060CE20001D3526 /* jagbios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jagbios.h; sourceTree = "<group>"; };
 		B33141132060CE20001D3526 /* jagcdbios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jagcdbios.h; sourceTree = "<group>"; };
-		B33141142060CE21001D3526 /* state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = state.h; sourceTree = "<group>"; };
 		B33141152060CE21001D3526 /* joystick.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = joystick.c; sourceTree = "<group>"; };
 		B33141162060CE21001D3526 /* op.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = op.h; sourceTree = "<group>"; };
 		B33141682060DEB3001D3526 /* Core.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Core.plist; sourceTree = "<group>"; };
@@ -326,8 +309,6 @@
 				B33140CD2060CE1B001D3526 /* jagbios2.h */,
 				B33140D32060CE1C001D3526 /* jagcdbios.c */,
 				B33141132060CE20001D3526 /* jagcdbios.h */,
-				B33140E92060CE1C001D3526 /* jagdasm.c */,
-				B33140C62060CE1B001D3526 /* jagdasm.h */,
 				B33140D42060CE1C001D3526 /* jagdevcdbios.c */,
 				B33140FC2060CE1E001D3526 /* jagdevcdbios.h */,
 				B33140EC2060CE1C001D3526 /* jagstub1bios.c */,
@@ -340,8 +321,6 @@
 				B33141032060CE1F001D3526 /* jerry.h */,
 				B33141152060CE21001D3526 /* joystick.c */,
 				B33140F52060CE1D001D3526 /* joystick.h */,
-				B33140ED2060CE1C001D3526 /* log.c */,
-				B33140D12060CE1B001D3526 /* log.h */,
 				B33140D52060CE1C001D3526 /* m68000 */,
 				B33141072060CE1F001D3526 /* memtrack.c */,
 				B33141042060CE1F001D3526 /* memtrack.h */,
@@ -351,8 +330,6 @@
 				B33141162060CE21001D3526 /* op.h */,
 				B33140EB2060CE1C001D3526 /* settings.c */,
 				B33140CA2060CE1B001D3526 /* settings.h */,
-				B33140FE2060CE1E001D3526 /* state.c */,
-				B33141142060CE21001D3526 /* state.h */,
 				B33140C92060CE1B001D3526 /* tom.c */,
 				B33141062060CE1F001D3526 /* tom.h */,
 				B33141102060CE20001D3526 /* universalhdr.c */,
@@ -377,12 +354,9 @@
 		B33140D52060CE1C001D3526 /* m68000 */ = {
 			isa = PBXGroup;
 			children = (
-				B33140D62060CE1C001D3526 /* table68k */,
 				B33140D72060CE1C001D3526 /* m68kinterface.h */,
 				B33140D82060CE1C001D3526 /* readcpu.c */,
 				B33140DA2060CE1C001D3526 /* cpudefs.c */,
-				B33140DB2060CE1C001D3526 /* m68kdasm.c */,
-				B33140DC2060CE1C001D3526 /* Makefile */,
 				B33140DD2060CE1C001D3526 /* cputbl.h */,
 				B33140DE2060CE1C001D3526 /* cpuemu.c */,
 				B33140E02060CE1C001D3526 /* cpuextra.h */,
@@ -681,23 +655,19 @@
 				B387DF6026F71AD600154D39 /* jagstub2bios.c in Sources */,
 				B387DF6126F71AD600154D39 /* m68kinterface.c in Sources */,
 				B387DF6226F71AD600154D39 /* cpuemu.c in Sources */,
-				B387DF6326F71AD600154D39 /* jagdasm.c in Sources */,
 				B387DF6426F71AD600154D39 /* jagbios2.c in Sources */,
 				B387DF6526F71AD600154D39 /* crc32.c in Sources */,
-				B387DF6626F71AD600154D39 /* state.c in Sources */,
 				B387DF6726F71AD600154D39 /* settings.c in Sources */,
 				B387DF6826F71AD600154D39 /* jaguar.c in Sources */,
 				B387DF6926F71AD600154D39 /* universalhdr.c in Sources */,
 				B387DF6A26F71AD600154D39 /* jerry.c in Sources */,
 				B387DF6B26F71AD600154D39 /* readcpu.c in Sources */,
 				B387DF6C26F71AD600154D39 /* cpustbl.c in Sources */,
-				B387DF6D26F71AD600154D39 /* m68kdasm.c in Sources */,
 				B387DF6E26F71AD600154D39 /* event.c in Sources */,
 				B387DF6F26F71AD600154D39 /* jagbios.c in Sources */,
 				B387DF7026F71AD600154D39 /* dsp.c in Sources */,
 				B387DF7126F71AD600154D39 /* wavetable.c in Sources */,
 				B387DF7226F71AD600154D39 /* dac.c in Sources */,
-				B387DF7326F71AD600154D39 /* log.c in Sources */,
 				B387DF7426F71AD600154D39 /* cpuextra.c in Sources */,
 				B387DF7526F71AD600154D39 /* gpu.c in Sources */,
 				B387DF7626F71AD600154D39 /* mmu.c in Sources */,
@@ -726,23 +696,19 @@
 				B38DDE4626F7111400AC78C2 /* jagstub2bios.c in Sources */,
 				B38DDE4C26F7111400AC78C2 /* m68kinterface.c in Sources */,
 				B38DDE5A26F7111400AC78C2 /* cpuemu.c in Sources */,
-				B38DDE5526F7111400AC78C2 /* jagdasm.c in Sources */,
 				B38DDE5126F7111400AC78C2 /* jagbios2.c in Sources */,
 				B38DDE3D26F7111300AC78C2 /* crc32.c in Sources */,
-				B38DDE3B26F7111300AC78C2 /* state.c in Sources */,
 				B38DDE4E26F7111400AC78C2 /* settings.c in Sources */,
 				B38DDE3C26F7111300AC78C2 /* jaguar.c in Sources */,
 				B38DDE5026F7111400AC78C2 /* universalhdr.c in Sources */,
 				B38DDE4226F7111300AC78C2 /* jerry.c in Sources */,
 				B38DDE3F26F7111300AC78C2 /* readcpu.c in Sources */,
 				B38DDE4F26F7111400AC78C2 /* cpustbl.c in Sources */,
-				B38DDE4926F7111400AC78C2 /* m68kdasm.c in Sources */,
 				B38DDE4326F7111300AC78C2 /* event.c in Sources */,
 				B38DDE4726F7111400AC78C2 /* jagbios.c in Sources */,
 				B38DDE5C26F7111400AC78C2 /* dsp.c in Sources */,
 				B38DDE4426F7111400AC78C2 /* wavetable.c in Sources */,
 				B38DDE5326F7111400AC78C2 /* dac.c in Sources */,
-				B38DDE5926F7111400AC78C2 /* log.c in Sources */,
 				B38DDE5826F7111400AC78C2 /* cpuextra.c in Sources */,
 				B38DDE5426F7111400AC78C2 /* gpu.c in Sources */,
 				B38DDE6026F7111400AC78C2 /* mmu.c in Sources */,

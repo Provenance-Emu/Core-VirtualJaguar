@@ -193,9 +193,9 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
 
         // If regular load failed, try just a straight file load
         // (Dev only! I don't want people to start getting lazy with their releases again! :-P)
-//        if (!romLoaded) {
-//            romLoaded = AlpineLoadFile((uint8_t*)alpineData.bytes, alpineData.length);
-//        }
+        if (!romLoaded) {
+            romLoaded = AlpineLoadFile((uint8_t*)alpineData.bytes, alpineData.length);
+        }
 
         if (romLoaded) {
             ILOG(@"Alpine Mode: Successfully loaded file \"%s\".\n", vjs.alpineROMPath);

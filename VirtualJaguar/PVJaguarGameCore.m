@@ -33,6 +33,7 @@ __weak static PVJaguarGameCore *_current;
 retro_audio_sample_batch_t audio_batch_cb;
 void retro_set_audio_sample_batch(retro_audio_sample_batch_t cb) { audio_batch_cb = cb; }
 
+extern uint16_t eeprom_ram[];
 
 //retro_audio_sample_batch_t audio_batch_cb(const int16_t * data, size_t frames);
 
@@ -53,7 +54,7 @@ int doom_res_hack=0; // Doom Hack to double pixel if pwidth==8 (163*2)
 }
 
 @end
-#define PARALLEL_GFX_AUDIO_CALLS 0
+#define PARALLEL_GFX_AUDIO_CALLS 1
 #define AUDIO_BIT_DEPTH 16
 #define AUDIO_SAMPLERATE 48000
 #define BUFPAL  1920
@@ -72,7 +73,7 @@ typedef struct JagBuffer {
 
     u_long frameNumber;
     struct JagBuffer* next;
-};
+} JagBuffer;
 
 static size_t update_audio_batch(const int16_t *data, size_t frames)
 {
@@ -103,7 +104,7 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
         videoHeight = 512;
         sampleRate = AUDIO_SAMPLERATE;
         
-        dispatch_queue_attr_t priorityAttribute = dispatch_queue_attr_make_with_qos_class( DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INTERACTIVE, -1);
+        dispatch_queue_attr_t priorityAttribute = dispatch_queue_attr_make_with_qos_class( DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INTERACTIVE, 0);
         audioQueue = dispatch_queue_create("com.provenance.jaguar.audio", priorityAttribute);
         videoQueue = dispatch_queue_create("com.provenance.jaguar.video", priorityAttribute);
         renderGroup = dispatch_group_create();
@@ -137,7 +138,9 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
 
     struct JagBuffer *buffer1 = malloc(sizeof(struct JagBuffer));
     struct JagBuffer *buffer2 = malloc(sizeof(struct JagBuffer));
-
+    memset(buffer1->sampleBuffer, 0, BUFMAX * sizeof(uint16_t));
+    memset(buffer2->sampleBuffer, 0, BUFMAX * sizeof(uint16_t));
+    
     strncpy( buffer1->label, "a", 256);
     strncpy( buffer2->label, "b", 256);
     buffer1->next = buffer2;
@@ -309,8 +312,8 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
     dispatch_async(audioQueue, ^{
         MAKESTRONG(self);
         dispatch_semaphore_wait(strongself->waitToBeginFrameSemaphore, killTime);
-        SoundCallback(NULL, sampleBuffer, bufferSize);
-        [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
+        SoundCallback(NULL, videoBuffer->sampleBuffer, bufferSize);
+        [[_current ringBufferAtIndex:0] write:videoBuffer->sampleBuffer maxLength:bufferSize*2];
 //        printf("wrote audio frame %lul\tlabel:%s\n", videoBuffer->frameNumber, videoBuffer->label);
         dispatch_group_leave(strongself->renderGroup);
     });
@@ -441,10 +444,10 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
 }
 
 -(void)delloc_sampleBuffer {
-    if (sampleBuffer != nil) {
-        free(sampleBuffer);
-    }
-    sampleBuffer = nil;
+//    if (sampleBuffer != nil) {
+//        free(sampleBuffer);
+//    }
+//    sampleBuffer = nil;
 }
 
 - (CGRect)screenRect
@@ -709,58 +712,128 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
     }
 }
 
-- (void)loadSaveFile:(NSString *)path forType:(int)type
+void *retro_get_memory_data(unsigned type)
 {
-//    size_t size = retro_get_memory_size(type);
-//    void *ramData = retro_get_memory_data(type);
-//
-//    if (size == 0 || !ramData)
-//    {
-//        return;
-//    }
-//
-//    NSData *data = [NSData dataWithContentsOfFile:path];
-//    if (!data || ![data length])
-//    {
-//        DLog(@"Couldn't load save file.");
-//    }
-//
-//    [data getBytes:ramData length:size];
+   if(type == RETRO_MEMORY_SYSTEM_RAM)
+      return jaguarMainRAM;
+   else if (type == RETRO_MEMORY_SAVE_RAM)
+      return eeprom_ram;
+   else return NULL;
 }
 
-- (void)writeSaveFile:(NSString *)path forType:(int)type
+size_t retro_get_memory_size(unsigned type)
 {
-//    size_t size = retro_get_memory_size(type);
-//    void *ramData = retro_get_memory_data(type);
+   if(type == RETRO_MEMORY_SYSTEM_RAM)
+      return 0x200000;
+   else if (type == RETRO_MEMORY_SAVE_RAM)
+      return 128;
+   else return 0;
+}
+
+- (BOOL)loadSaveFile:(NSString *)path forType:(int)type {
+    size_t size = retro_get_memory_size(type);
+    void *ramData = retro_get_memory_data(type);
+
+    if (size == 0 || !ramData)
+    {
+        return false;
+    }
+
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    if (!data || ![data length])
+    {
+        DLog(@"Couldn't load save file.");
+        return false;
+    }
+
+    [data getBytes:ramData length:size];
+    // TODO: Should instead use SET32 or a byte copy to jaguarMainRAM/eeprom?
+    return true;
+}
+
+- (BOOL)writeSaveFile:(NSString *)path forType:(int)type {
+    size_t size = retro_get_memory_size(type);
+    void *ramData = retro_get_memory_data(type);
+
+    if (ramData && (size > 0))
+    {
+        NSData *data = [NSData dataWithBytes:ramData length:size];
+        BOOL success = [data writeToFile:path atomically:YES];
+        if (!success)
+        {
+            DLog(@"Error writing save file");
+        }
+        return success;
+    } else { return false; }
+}
+
+//- (BOOL)saveStateToFileAtPath:(NSString *)fileName error:(NSError**)error   {
+//    NSAssert(NO, @"Shouldn't be here since we overwrite the async call");
+//}
 //
-//    if (ramData && (size > 0))
-//    {
-//        retro_serialize(ramData, size);
-//        NSData *data = [NSData dataWithBytes:ramData length:size];
-//        BOOL success = [data writeToFile:path atomically:YES];
-//        if (!success)
-//        {
-//            DLog(@"Error writing save file");
-//        }
-//    }
+//- (BOOL)loadStateFromFileAtPath:(NSString *)fileName error:(NSError**)error   {
+//    NSAssert(NO, @"Shouldn't be here since we overwrite the async call");
+//}
+
+- (void)saveStateToFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block {
+    __block BOOL wasPaused = [self isEmulationPaused];
+    [self setPauseEmulation:true];
+
+    BOOL status = [self writeSaveFile:[fileName stringByAppendingString:@"system"]
+                              forType:RETRO_MEMORY_SYSTEM_RAM];
+    if (status) {
+        status = [self writeSaveFile:[fileName stringByAppendingString:@"eeprom"]
+                                  forType:RETRO_MEMORY_SAVE_RAM];
+    }
+    [self setPauseEmulation:wasPaused];
+    if (block) {
+        NSError *error = nil;
+        if (!status) {
+            error = [NSError errorWithDomain:@"org.provenance.GameCore.ErrorDomain"
+                                                 code:-5
+                                             userInfo:@{
+                                                        NSLocalizedDescriptionKey : @"Jagar Could not save the current state.",
+                                                        NSFilePathErrorKey : fileName
+                                                        }];
+
+
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(status, error);
+        });
+    }
 }
 
-- (BOOL)saveStateToFileAtPath:(NSString *)fileName
-{
-    return NO;
+- (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block {
+    __block BOOL wasPaused = [self isEmulationPaused];
+    [self setPauseEmulation:true];
+
+    BOOL status = [self loadSaveFile:[fileName stringByAppendingString:@"system"]
+                             forType:RETRO_MEMORY_SYSTEM_RAM];
+    if (status) {
+        status = [self loadSaveFile:[fileName stringByAppendingString:@"eeprom"]
+                            forType:RETRO_MEMORY_SAVE_RAM];
+    }
+    [self setPauseEmulation:wasPaused];
+
+    if (block) {
+        NSError *error = nil;
+        if (!status) {
+            error = [NSError errorWithDomain:@"org.provenance.GameCore.ErrorDomain"
+                                                 code:-5
+                                             userInfo:@{
+                                                        NSLocalizedDescriptionKey : @"Jagar Could not load the current state.",
+                                                        NSFilePathErrorKey : fileName
+                                                        }];
+
+
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(status, error);
+        });
+    }
 }
 
-- (BOOL)loadStateFromFileAtPath:(NSString *)fileName
-{
-    return NO;
-}
-- (BOOL)saveStateToFileAtPath:(NSString *)path error:(NSError *__autoreleasing *)error {
-	return NO;
-}
-
-- (BOOL)loadStateFromFileAtPath:(NSString *)path error:(NSError**)error {
-	return NO;
-}
 
 -(BOOL)supportsSaveStates {
 	return NO;

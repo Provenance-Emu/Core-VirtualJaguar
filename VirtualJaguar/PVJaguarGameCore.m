@@ -53,7 +53,7 @@ int doom_res_hack=0; // Doom Hack to double pixel if pwidth==8 (163*2)
 }
 
 @end
-#define PARALLEL_GFX_AUDIO_CALLS 1
+#define PARALLEL_GFX_AUDIO_CALLS 0
 #define AUDIO_BIT_DEPTH 16
 #define AUDIO_SAMPLERATE 48000
 #define BUFPAL  1920
@@ -193,9 +193,9 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
 
         // If regular load failed, try just a straight file load
         // (Dev only! I don't want people to start getting lazy with their releases again! :-P)
-        if (!romLoaded) {
-            romLoaded = AlpineLoadFile((uint8_t*)alpineData.bytes, alpineData.length);
-        }
+//        if (!romLoaded) {
+//            romLoaded = AlpineLoadFile((uint8_t*)alpineData.bytes, alpineData.length);
+//        }
 
         if (romLoaded) {
             ILOG(@"Alpine Mode: Successfully loaded file \"%s\".\n", vjs.alpineROMPath);
@@ -218,7 +218,7 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
 - (BOOL)loadSoftware:(NSString *)path {
     NSData* romData = [NSData dataWithContentsOfFile:path];
 
-    uint8_t * biosPointer = jaguarBootROM;
+    const void * _Nullable biosPointer = jaguarBootROM;
 	NSFileManager *fm = [NSFileManager defaultManager];
 
 	NSString *biosPath = [self.BIOSPath stringByAppendingPathComponent:@"jagboot.rom"];
@@ -237,13 +237,13 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
 	} else { doom_res_hack = 0; }
     
     memcpy(jagMemSpace + 0xE00000, biosPointer, 0x20000);
+        
+    // We have to load our software *after* the Jaguar RESET
+    SET32(jaguarMainRAM, 0, 0x00200000);        // Set top of stack...
+    BOOL cartridgeLoaded = JaguarLoadFile((uint8_t*)romData.bytes, romData.length);   // load rom
     
     JaguarReset();
-    
-    // We have to load our software *after* the Jaguar RESET
-    BOOL cartridgeLoaded = JaguarLoadFile((uint8_t*)romData.bytes, romData.length);   // load rom
-    SET32(jaguarMainRAM, 0, 0x00200000);        // Set top of stack...
-    
+
     [self initVideo];
 
     // This is icky because we've already done it
@@ -291,25 +291,28 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
 
     struct JagBuffer*videoBuffer = self->videoBuffer;
 
+    MAKEWEAK(self);
     dispatch_group_enter(renderGroup);
     dispatch_async(videoQueue, ^{
+        MAKESTRONG(self);
         vjs.frameSkip = skip || expired;
 //        printf("will write frame %lul\written: %s\tread:%s\tlabel:%s\n", videoBuffer->frameNumber, BS(videoBuffer->written), BS(videoBuffer->read), videoBuffer->label);
         JaguarExecuteNew();
         videoBuffer->written = YES;
         videoBuffer->frameNumber = currentFrame;
 //        printf("did write frame %lul\tskip: %s\texpired:%s\nlabel:%s\n", videoBuffer->frameNumber, BS(skip), BS(expired), videoBuffer->label);
-        dispatch_semaphore_signal(waitToBeginFrameSemaphore);
-        dispatch_group_leave(renderGroup);
+        dispatch_semaphore_signal(strongself->waitToBeginFrameSemaphore);
+        dispatch_group_leave(strongself->renderGroup);
     });
 
     dispatch_group_enter(renderGroup);
     dispatch_async(audioQueue, ^{
-        dispatch_semaphore_wait(waitToBeginFrameSemaphore, killTime);
+        MAKESTRONG(self);
+        dispatch_semaphore_wait(strongself->waitToBeginFrameSemaphore, killTime);
         SoundCallback(NULL, sampleBuffer, bufferSize);
         [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
 //        printf("wrote audio frame %lul\tlabel:%s\n", videoBuffer->frameNumber, videoBuffer->label);
-        dispatch_group_leave(renderGroup);
+        dispatch_group_leave(strongself->renderGroup);
     });
 //        // Don't block the frame draw waiting for audio
 //    dispatch_group_enter(renderGroup);
@@ -325,7 +328,7 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
     JaguarExecuteNew();
     NSUInteger bufferSize = vjs.hardwareTypeNTSC ? BUFNTSC : BUFPAL;
 
-    SDLSoundCallback(NULL, sampleBuffer, bufferSize);
+    SoundCallback(NULL, sampleBuffer, bufferSize);
     [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
 #endif
 }
@@ -434,7 +437,14 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
         free(next);
         next = temp;
     };
-    free(sampleBuffer);
+    [self delloc_sampleBuffer];
+}
+
+-(void)delloc_sampleBuffer {
+    if (sampleBuffer != nil) {
+        free(sampleBuffer);
+    }
+    sampleBuffer = nil;
 }
 
 - (CGRect)screenRect

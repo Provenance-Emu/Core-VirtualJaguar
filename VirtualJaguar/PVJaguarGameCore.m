@@ -26,6 +26,8 @@
 #include "dac.h"
 #include "libretro.h"
 
+#import <PVVirtualJaguar/PVVirtualJaguar-Swift.h>
+
 //#pragma clang diagnostic push
 //#pragma clang diagnostic error "-Wall"
 
@@ -54,16 +56,19 @@ int doom_res_hack=0; // Doom Hack to double pixel if pwidth==8 (163*2)
 }
 
 @end
-#define PARALLEL_GFX_AUDIO_CALLS 1
+
 #define AUDIO_BIT_DEPTH 16
+#define AUDIO_CHANNELS 2
 #define AUDIO_SAMPLERATE 48000
 #define BUFPAL  1920
 #define BUFNTSC 1600
-#define BUFMAX (2048 * 2)
+#define BUFMAX (2048 * sizeof(uint16_t))
+#define VIDEO_WIDTH 1024
+#define VIDEO_HEIGHT 512
 
 typedef struct JagBuffer {
     char label[256];
-    uint32_t buffer[1024 * 512];
+    uint32_t buffer[VIDEO_WIDTH * VIDEO_HEIGHT];
     uint16_t * sampleBuffer[BUFMAX];
 
     bool read;
@@ -75,24 +80,35 @@ typedef struct JagBuffer {
     struct JagBuffer* next;
 } JagBuffer;
 
-static size_t update_audio_batch(const int16_t *data, size_t frames)
+JagBuffer* initJagBuffer(const char *label);
+JagBuffer* initJagBuffer(const char *label) {
+    JagBuffer* buffer = malloc(sizeof(*buffer));
+    if (buffer != NULL) {
+        memset(buffer->sampleBuffer, 0, BUFMAX);
+        strncpy( buffer->label, label, 256);
+    }
+    return buffer;
+}
+
+static const size_t update_audio_batch(const int16_t *data, const size_t frames)
 {
 	__strong PVJaguarGameCore* current = _current;
 	if(current == nil)
 		return 0;
 
-	dispatch_group_enter(current->renderGroup);
-	dispatch_async(current->audioQueue, ^{
+//	dispatch_group_enter(current->renderGroup);
+//	dispatch_async(current->audioQueue, ^{
 		float frameTime = vjs.hardwareTypeNTSC ? 1.0/60.0 : 1.0/50.0;
-		dispatch_time_t killTime = dispatch_time(DISPATCH_TIME_NOW, frameTime * NSEC_PER_SEC);
-		dispatch_semaphore_wait(current->waitToBeginFrameSemaphore, killTime);
-		[[current ringBufferAtIndex:0] write:data maxLength:frames << 2];
+//		dispatch_time_t killTime = dispatch_time(DISPATCH_TIME_NOW, frameTime * NSEC_PER_SEC);
+//		dispatch_semaphore_wait(current->waitToBeginFrameSemaphore, killTime);
+		return [[current ringBufferAtIndex:0] write:data maxLength:frames << 2];
+        //    [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
 
 //		[[current ringBufferAtIndex:0] write:data maxLength:frames * [current channelCount] * 2];
-		dispatch_group_leave(current->renderGroup);
-	});
+//		dispatch_group_leave(current->renderGroup);
+//	});
 
-	return frames;
+//	return frames;
 }
 
 @implementation PVJaguarGameCore
@@ -100,8 +116,8 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
 - (id)init
 {
     if (self = [super init]) {
-        videoWidth = 1024;
-        videoHeight = 512;
+        videoWidth = VIDEO_WIDTH;
+        videoHeight = VIDEO_HEIGHT;
         sampleRate = AUDIO_SAMPLERATE;
         
         dispatch_queue_attr_t priorityAttribute = dispatch_queue_attr_make_with_qos_class( DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INTERACTIVE, 0);
@@ -136,13 +152,9 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
     videoWidth           = 320;
     videoHeight          = 240;
 
-    struct JagBuffer *buffer1 = malloc(sizeof(struct JagBuffer));
-    struct JagBuffer *buffer2 = malloc(sizeof(struct JagBuffer));
-    memset(buffer1->sampleBuffer, 0, BUFMAX * sizeof(uint16_t));
-    memset(buffer2->sampleBuffer, 0, BUFMAX * sizeof(uint16_t));
+    struct JagBuffer *buffer1 = initJagBuffer("a");
+    struct JagBuffer *buffer2 = initJagBuffer("b");
     
-    strncpy( buffer1->label, "a", 256);
-    strncpy( buffer2->label, "b", 256);
     buffer1->next = buffer2;
     buffer2->next = buffer1;
 
@@ -286,7 +298,8 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
     if (self.controller1 || self.controller2) {
         [self pollControllers];
     }
-#if PARALLEL_GFX_AUDIO_CALLS
+    
+    if (self.virtualjaguar_mutlithreaded) {
     NSUInteger bufferSize = vjs.hardwareTypeNTSC ? BUFNTSC : BUFPAL;
     float frameTime = vjs.hardwareTypeNTSC ? 1.0/60.0 : 1.0/50.0;
     __block BOOL expired = NO;
@@ -313,7 +326,7 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
         MAKESTRONG(self);
         dispatch_semaphore_wait(strongself->waitToBeginFrameSemaphore, killTime);
         SoundCallback(NULL, videoBuffer->sampleBuffer, bufferSize);
-        [[_current ringBufferAtIndex:0] write:videoBuffer->sampleBuffer maxLength:bufferSize*2];
+//        [[_current ringBufferAtIndex:0] write:videoBuffer->sampleBuffer maxLength:bufferSize*2];
 //        printf("wrote audio frame %lul\tlabel:%s\n", videoBuffer->frameNumber, videoBuffer->label);
         dispatch_group_leave(strongself->renderGroup);
     });
@@ -327,13 +340,15 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
 
 //    dispatch_group_wait(renderGroup, killTime);
 //    expired = YES;
-#else
-    JaguarExecuteNew();
-    NSUInteger bufferSize = vjs.hardwareTypeNTSC ? BUFNTSC : BUFPAL;
+    } else {
+        vjs.frameSkip = skip;
+        JaguarExecuteNew();
+        NSUInteger bufferSize = vjs.hardwareTypeNTSC ? BUFNTSC : BUFPAL;
 
-    SoundCallback(NULL, sampleBuffer, bufferSize);
-    [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
-#endif
+        SoundCallback(NULL, sampleBuffer, bufferSize);
+    //    [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
+
+    }
 }
 
 //- (void)runRenderThread {
@@ -378,8 +393,7 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
     [self executeFrameSkippingFrame:NO];
 }
 
-- (void)initVideo
-{
+- (void)initVideo {
     JaguarSetScreenPitch(videoWidth);
     JaguarSetScreenBuffer(videoBuffer->buffer);
     for (int i = 0; i < videoWidth * videoHeight; ++i) {
@@ -389,7 +403,9 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
 }
 
 - (BOOL)isDoubleBuffered {
-    return YES;
+    BOOL f = self.virtualjaguar_double_buffer;
+    VLOG(@"double buffer %i". self.virtualjaguar_double_buffer);
+    return self.virtualjaguar_double_buffer;
 }
 
 - (void)swapBuffers {
@@ -408,29 +424,21 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
     JaguarSetScreenBuffer(videoBuffer->buffer);
 }
 
-- (NSUInteger)audioBitDepth
-{
-    return AUDIO_BIT_DEPTH;
-}
+- (NSUInteger)audioBitDepth { return AUDIO_BIT_DEPTH; }
 
-- (void)setupEmulation
-{
-}
+- (void)setupEmulation { }
 
-- (void)stopEmulation
-{
+- (void)stopEmulation {
     JaguarDone();
 
     [super stopEmulation];
 }
 
-- (void)resetEmulation
-{
+- (void)resetEmulation {
     JaguarReset();
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     _current = nil;
     struct JagBuffer* ab = videoBuffer;
     struct JagBuffer* next = videoBuffer->next;
@@ -450,33 +458,27 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
 //    sampleBuffer = nil;
 }
 
-- (CGRect)screenRect
-{
+- (CGRect)screenRect {
     return CGRectMake(0, 0, TOMGetVideoModeWidth(), TOMGetVideoModeHeight());
 }
 
-- (CGSize)bufferSize
-{
+- (CGSize)bufferSize {
     return CGSizeMake(videoWidth, videoHeight);
 }
 
-- (CGSize)aspectSize
-{
+- (CGSize)aspectSize {
     return CGSizeMake(videoWidth, videoHeight);
 }
 
-- (const void *)videoBuffer
-{
+- (const void *)videoBuffer {
     return videoBuffer->buffer;
 }
 
-- (GLenum)pixelFormat
-{
+- (GLenum)pixelFormat {
     return GL_BGRA;
 }
 
-- (GLenum)pixelType
-{
+- (GLenum)pixelType {
     return GL_UNSIGNED_BYTE;
 }
 
@@ -497,7 +499,7 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
 
 - (NSUInteger)channelCount
 {
-    return 2;
+    return AUDIO_CHANNELS;
 }
 
 #pragma mark Input

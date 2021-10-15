@@ -139,14 +139,14 @@ static const size_t update_audio_batch(const int16_t *data, const size_t frames)
 
 - (BOOL)loadFileAtPath:(NSString *)path
 {
-    NSString *batterySavesDirectory = [self batterySavesPath];
+    NSString *batterySavesDirectory = self.batterySavesPath;
     
     if([batterySavesDirectory length] != 0)
     {
         [[NSFileManager defaultManager] createDirectoryAtPath:batterySavesDirectory withIntermediateDirectories:YES attributes:nil error:NULL];
         
         NSString *filePath = [batterySavesDirectory stringByAppendingString:@"/"];
-        strcpy(vjs.EEPROMPath, [filePath UTF8String]);
+        strcpy(vjs.EEPROMPath, filePath.fileSystemRepresentation);
     }
     
     videoWidth           = 320;

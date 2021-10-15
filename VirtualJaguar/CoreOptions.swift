@@ -35,9 +35,13 @@ extension PVJaguarGameCore: CoreOptional {
 		let biosGroup = CoreOption.group(display: CoreOptionValueDisplay(title: "BIOS", description: nil),
 										 subOptions: [biosOption])
         
-        let hacksGroup = CoreOption.group(display: CoreOptionValueDisplay(title: "Hacks",
-                                                                          description: "Performance hacks that work with some games better than others."),
-                                         subOptions: [blitterOption, doomResHackOption, forcePalOption, mutliThreadedRenderingOption, doubleBufferOption])
+        let hacksGroup = CoreOption.group(
+            display: CoreOptionValueDisplay(title: "Hacks",
+                                            description: "Performance hacks that work with some games better than others."),
+            subOptions: [blitterOption,
+                         doomResHackOption,
+                         forcePalOption,
+                         mutliThreadedRenderingOption])
 
 		options.append(biosGroup)
         options.append(hacksGroup)

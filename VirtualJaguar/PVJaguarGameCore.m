@@ -403,9 +403,11 @@ static const size_t update_audio_batch(const int16_t *data, const size_t frames)
 }
 
 - (BOOL)isDoubleBuffered {
-    BOOL f = self.virtualjaguar_double_buffer;
-    VLOG(@"double buffer %i". self.virtualjaguar_double_buffer);
-    return self.virtualjaguar_double_buffer;
+//    BOOL f = self.virtualjaguar_double_buffer;
+//    VLOG(@"double buffer %i". self.virtualjaguar_double_buffer);
+//    return self.virtualjaguar_double_buffer;
+    // TODO: Fix graphics tearing when this is on
+    return false;
 }
 
 - (void)swapBuffers {

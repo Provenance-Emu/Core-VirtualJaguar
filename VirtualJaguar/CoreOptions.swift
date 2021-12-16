@@ -56,7 +56,7 @@ extension PVJaguarGameCore: CoreOptional {
 	}()
 
 	static var blitterOption: CoreOption = {
-		let blitterOption = CoreOption.bool(display: .init(title: "Use Fast Blitter", description: "Use fast but maybe more buggy bliter", requiresRestart: true), defaultValue: false)
+		let blitterOption = CoreOption.bool(display: .init(title: "Use Fast Blitter", description: "Use fast but maybe more buggy bliter", requiresRestart: true), defaultValue: true)
 		return blitterOption
 	}()
     

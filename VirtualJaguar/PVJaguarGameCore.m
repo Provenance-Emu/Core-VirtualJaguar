@@ -44,7 +44,9 @@ int doom_res_hack=0; // Doom Hack to double pixel if pwidth==8 (163*2)
 @interface PVJaguarGameCore ()
 {
 	@public
-    int videoWidth, videoHeight;
+    int videoWidth, videoHeight, bufferSize;
+	float frameTime;
+	bool multithreaded;
     double sampleRate;
     struct JagBuffer * videoBuffer;
     dispatch_queue_t audioQueue;
@@ -98,7 +100,6 @@ static const size_t update_audio_batch(const int16_t *data, const size_t frames)
 
 //	dispatch_group_enter(current->renderGroup);
 //	dispatch_async(current->audioQueue, ^{
-		float frameTime = vjs.hardwareTypeNTSC ? 1.0/60.0 : 1.0/50.0;
 //		dispatch_time_t killTime = dispatch_time(DISPATCH_TIME_NOW, frameTime * NSEC_PER_SEC);
 //		dispatch_semaphore_wait(current->waitToBeginFrameSemaphore, killTime);
 		return [[current ringBufferAtIndex:0] write:data maxLength:frames << 2];
@@ -127,6 +128,7 @@ static const size_t update_audio_batch(const int16_t *data, const size_t frames)
 
         waitToBeginFrameSemaphore = dispatch_semaphore_create(0);
 
+		multithreaded = self.virtualjaguar_mutlithreaded;
 //        buffer = (uint32_t*)calloc(sizeof(uint32_t), videoWidth * videoHeight);
 //        sampleBuffer = (uint16_t *)malloc(BUFMAX * sizeof(uint16_t));
 //        memset(sampleBuffer, 0, BUFMAX * sizeof(uint16_t));
@@ -269,6 +271,9 @@ static const size_t update_audio_batch(const int16_t *data, const size_t frames)
     
     m68k_pulse_reset();
 
+	bufferSize = vjs.hardwareTypeNTSC ? BUFNTSC : BUFPAL;
+	frameTime = vjs.hardwareTypeNTSC ? 1.0/60.0 : 1.0/50.0;
+
     return cartridgeLoaded;
 }
 
@@ -298,9 +303,7 @@ static const size_t update_audio_batch(const int16_t *data, const size_t frames)
         [self pollControllers];
     }
     
-    if (self.virtualjaguar_mutlithreaded) {
-    NSUInteger bufferSize = vjs.hardwareTypeNTSC ? BUFNTSC : BUFPAL;
-    float frameTime = vjs.hardwareTypeNTSC ? 1.0/60.0 : 1.0/50.0;
+    if (multithreaded) {
     __block BOOL expired = NO;
     dispatch_time_t killTime = dispatch_time(DISPATCH_TIME_NOW, frameTime * NSEC_PER_SEC);
 

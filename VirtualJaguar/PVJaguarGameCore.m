@@ -168,7 +168,7 @@ static const size_t update_audio_batch(const int16_t *data, const size_t frames)
 //    //LogInit("vj.log");                                      // initialize log file for debugging
     vjs.hardwareTypeNTSC = true;
 
-	strcpy(vjs.romName, path.lastPathComponent.cString);
+	strcpy(vjs.romName, [path.lastPathComponent cStringUsingEncoding:NSUTF8StringEncoding]);
 
 	BOOL externalBIOS = false;
 
@@ -177,7 +177,7 @@ static const size_t update_audio_batch(const int16_t *data, const size_t frames)
 	NSString *biosPath = [self.BIOSPath stringByAppendingPathComponent:@"jagboot.rom"];
 	if ([fm fileExistsAtPath:biosPath] && self.virtualjaguar_bios) {
 		ILOG(@"Using bios at path %@", biosPath);
-		strcpy(vjs.jagBootPath, biosPath.cString);
+		strcpy(vjs.jagBootPath, [biosPath cStringUsingEncoding:NSUTF8StringEncoding]);
 		// No idea if this is working actually - does useJaguarBIOS do something?
 		vjs.useJaguarBIOS = true;
 		externalBIOS = true;
@@ -285,14 +285,13 @@ static const size_t update_audio_batch(const int16_t *data, const size_t frames)
 
     frameCount++;
 
-    NSDate *last = [g_date copy];
     NSDate *now = [NSDate date];
 
-    NSTimeInterval timeSinceLast = [last timeIntervalSinceNow];
     g_date = now;
 
     u_long currentFrame = frameCount;
-
+//    NSDate *last = [g_date copy];
+//    NSTimeInterval timeSinceLast = [last timeIntervalSinceNow];
 //    printf("executeFrameSkippingFrame: skip: %s\ttime:%lu\n", BS(skip), timeSinceLast);
 
     if (self.controller1 || self.controller2) {
@@ -552,6 +551,11 @@ static const size_t update_audio_batch(const int16_t *data, const size_t frames)
         {
             controller = self.controller2;
             currentController = joypad1Buttons;
+        }
+        
+        if (currentController == nil) {
+            ELOG(@"currentController is nil");
+            continue;
         }
         
         if ([controller extendedGamepad]) {

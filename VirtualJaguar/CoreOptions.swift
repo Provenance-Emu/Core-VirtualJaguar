@@ -32,11 +32,11 @@ extension PVJaguarGameCore: CoreOptional {
 	public static var options: [CoreOption] = {
 		var options = [CoreOption]()
 
-		let biosGroup = CoreOption.group(display: CoreOptionValueDisplay(title: "BIOS", description: nil),
+		let biosGroup = CoreOption.group(.init(title: "BIOS", description: nil),
 										 subOptions: [biosOption])
         
         let hacksGroup = CoreOption.group(
-            display: CoreOptionValueDisplay(title: "Hacks",
+            .init(title: "Hacks",
                                             description: "Performance hacks that work with some games better than others."),
             subOptions: [blitterOption,
                          doomResHackOption,

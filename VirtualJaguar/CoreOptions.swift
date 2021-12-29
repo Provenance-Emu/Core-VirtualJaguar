@@ -51,43 +51,35 @@ extension PVJaguarGameCore: CoreOptional {
 
 
 	static var biosOption: CoreOption = {
-		let biosOption = CoreOption.bool(display: .init(title: "Jaguar BIOS", description: "Use binary Jaguar BIOS file (you need to download this yourself) otherwise use emualted bios.", requiresRestart: true), defaultValue: false)
-		return biosOption
+		.bool(.init(title: "Jaguar BIOS", description: "Use binary Jaguar BIOS file (you need to download this yourself) otherwise use emualted bios.", requiresRestart: true), defaultValue: false)
 	}()
 
 	static var blitterOption: CoreOption = {
-		let blitterOption = CoreOption.bool(display: .init(title: "Use Fast Blitter", description: "Use fast but maybe more buggy bliter", requiresRestart: true), defaultValue: true)
-		return blitterOption
+		.bool(.init(title: "Use Fast Blitter", description: "Use fast but maybe more buggy bliter", requiresRestart: true), defaultValue: true)
 	}()
     
     static var doomResHackOption: CoreOption = {
-        let doomResHackOption = CoreOption.bool(display: .init(title: "DOOM Res Hack", description: "For DOOM", requiresRestart: true), defaultValue: false)
-        return doomResHackOption
+		.bool(.init(title: "DOOM Res Hack", description: "For DOOM", requiresRestart: true), defaultValue: false)
     }()
     
     static var forcePalOption: CoreOption = {
-        let forcePalOption = CoreOption.bool(display: .init(title: "Force PAL", description: "Force PAL mode over NTSC. May fix ROMs that are misdetected or coded for NTSC.", requiresRestart: true), defaultValue: false)
-        return forcePalOption
+		.bool(.init(title: "Force PAL", description: "Force PAL mode over NTSC. May fix ROMs that are misdetected or coded for NTSC.", requiresRestart: true), defaultValue: false)
     }()
     
     static var mutliThreadedRenderingOption: CoreOption = {
-        let mutliThreadedRenderingOption = CoreOption.bool(
-            display: .init(
+        .bool(.init(
                 title: "Mutli-threaded Rendering",
                 description: "Render audio/video in seperate threads. May or may not improve performance.",
                 requiresRestart: true),
             defaultValue: false)
-        return mutliThreadedRenderingOption
     }()
     
     static var doubleBufferOption: CoreOption = {
-        let doubleBufferOption = CoreOption.bool(
-            display: .init(
+        .bool(.init(
                 title: "Double buffer Rendering",
                 description: "Render audio/video in a back buffer. May or may not improve peformance at a 1 frame delay cost.",
                 requiresRestart: true),
             defaultValue: true)
-        return doubleBufferOption
     }()
 }
 

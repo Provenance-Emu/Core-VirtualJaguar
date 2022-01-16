@@ -327,7 +327,7 @@ static const size_t update_audio_batch(const int16_t *data, const size_t frames)
     dispatch_async(audioQueue, ^{
         MAKESTRONG(self);
         dispatch_semaphore_wait(strongself->waitToBeginFrameSemaphore, killTime);
-        SoundCallback(NULL, videoBuffer->sampleBuffer, bufferSize);
+        SoundCallback(NULL, strongself->videoBuffer->sampleBuffer, bufferSize);
 //        [[_current ringBufferAtIndex:0] write:videoBuffer->sampleBuffer maxLength:bufferSize*2];
 //        printf("wrote audio frame %lul\tlabel:%s\n", videoBuffer->frameNumber, videoBuffer->label);
         dispatch_group_leave(strongself->renderGroup);

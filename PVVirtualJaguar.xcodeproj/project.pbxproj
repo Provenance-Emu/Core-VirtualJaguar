@@ -710,7 +710,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B394C9902060CAB80014A65D /* Build configuration list for PBXProject "Core-VirtualJaguar" */;
+			buildConfigurationList = B394C9902060CAB80014A65D /* Build configuration list for PBXProject "PVVirtualJaguar" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -1598,7 +1598,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B394C9902060CAB80014A65D /* Build configuration list for PBXProject "Core-VirtualJaguar" */ = {
+		B394C9902060CAB80014A65D /* Build configuration list for PBXProject "PVVirtualJaguar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B394C99C2060CAB80014A65D /* Debug */,

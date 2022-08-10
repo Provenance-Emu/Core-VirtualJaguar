@@ -942,9 +942,10 @@
 					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
 					"\"$(SRCROOT)/virtualjaguar-libretro/libretro-common/include\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				TVOS_DEPLOYMENT_TARGET = 13.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -978,7 +979,6 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1065,7 +1065,6 @@
 					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
 					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.1;
 				MTL_FAST_MATH = YES;
 				OTHER_CFLAGS = (
@@ -1102,7 +1101,6 @@
 					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
 					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.1;
 				MTL_FAST_MATH = YES;
 				OTHER_CFLAGS = (
@@ -1139,7 +1137,6 @@
 					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
 					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.1;
 				MTL_FAST_MATH = YES;
 				OTHER_CFLAGS = (
@@ -1176,7 +1173,6 @@
 					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
 					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.1;
 				MTL_FAST_MATH = YES;
 				OTHER_CFLAGS = (
@@ -1212,7 +1208,6 @@
 					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
 					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.1;
 				MTL_FAST_MATH = YES;
 				OTHER_CFLAGS = (
@@ -1248,7 +1243,6 @@
 					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
 					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.1;
 				MTL_FAST_MATH = YES;
 				OTHER_CFLAGS = (
@@ -1322,10 +1316,11 @@
 					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
 					"\"$(SRCROOT)/virtualjaguar-libretro/libretro-common/include\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				TVOS_DEPLOYMENT_TARGET = 13.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1390,10 +1385,11 @@
 					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
 					"\"$(SRCROOT)/virtualjaguar-libretro/libretro-common/include\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				TVOS_DEPLOYMENT_TARGET = 13.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1427,7 +1423,6 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1475,7 +1470,6 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

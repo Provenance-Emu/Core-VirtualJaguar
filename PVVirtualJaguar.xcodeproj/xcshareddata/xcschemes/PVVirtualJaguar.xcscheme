@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B3C96EBE1D62C5E7003F1E93"
                BuildableName = "PVSupport.framework"
-               BlueprintName = "PVSupport-iOS"
+               BlueprintName = "PVSupport"
                ReferencedContainer = "container:../../PVSupport/PVSupport.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -30,7 +30,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B394C9952060CAB80014A65D"
                BuildableName = "PVVirtualJaguar.framework"
-               BlueprintName = "PVVirtualJaguar-iOS"
+               BlueprintName = "PVVirtualJaguar"
                ReferencedContainer = "container:PVVirtualJaguar.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,7 +46,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B394C9952060CAB80014A65D"
             BuildableName = "PVVirtualJaguar.framework"
-            BlueprintName = "PVVirtualJaguar-iOS"
+            BlueprintName = "PVVirtualJaguar"
             ReferencedContainer = "container:PVVirtualJaguar.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -68,7 +68,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B394C9952060CAB80014A65D"
             BuildableName = "PVVirtualJaguar.framework"
-            BlueprintName = "PVVirtualJaguar-iOS"
+            BlueprintName = "PVVirtualJaguar"
             ReferencedContainer = "container:PVVirtualJaguar.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -84,7 +84,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B394C9952060CAB80014A65D"
             BuildableName = "PVVirtualJaguar.framework"
-            BlueprintName = "PVVirtualJaguar-iOS"
+            BlueprintName = "PVVirtualJaguar"
             ReferencedContainer = "container:PVVirtualJaguar.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

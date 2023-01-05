@@ -56,6 +56,7 @@
 		B38DDE5F26F7111400AC78C2 /* cpudefs.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DA2060CE1C001D3526 /* cpudefs.c */; };
 		B38DDE6026F7111400AC78C2 /* mmu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F02060CE1D001D3526 /* mmu.c */; };
 		B394C99B2060CAB80014A65D /* PVVirtualJaguar.h in Headers */ = {isa = PBXBuildFile; fileRef = B394C9992060CAB80014A65D /* PVVirtualJaguar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B3E5489D2966530D009BFDB9 /* PVEmulatorCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E5489C2966530D009BFDB9 /* PVEmulatorCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,6 +195,7 @@
 		B3A68359206AF9380051AEE4 /* Android.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = Android.mk; sourceTree = "<group>"; };
 		B3A6835A206AF9380051AEE4 /* Application.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = Application.mk; sourceTree = "<group>"; };
 		B3A6835B206AF9380051AEE4 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		B3E5489C2966530D009BFDB9 /* PVEmulatorCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVEmulatorCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +210,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3E5489D2966530D009BFDB9 /* PVEmulatorCore.framework in Frameworks */,
 				B35D663F218019200005A992 /* PVSupport.framework in Frameworks */,
 				B30D2ABE2717CD6D00E4F414 /* libjaguar.a in Frameworks */,
 			);
@@ -366,6 +369,7 @@
 		B33140C12060CC66001D3526 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B3E5489C2966530D009BFDB9 /* PVEmulatorCore.framework */,
 				B35D6640218019350005A992 /* PVSupport.framework */,
 				B35D663E218019200005A992 /* PVSupport.framework */,
 			);

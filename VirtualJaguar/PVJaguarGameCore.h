@@ -27,7 +27,7 @@
 @import Foundation;
 @import PVSupport;
 
-__attribute__((visibility("default")))
+PVCORE
 @interface PVJaguarGameCore : PVEmulatorCore <PVJaguarSystemResponderClient>
 
 - (void)initVideo;

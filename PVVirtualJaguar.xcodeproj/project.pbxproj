@@ -56,7 +56,7 @@
 		B38DDE5F26F7111400AC78C2 /* cpudefs.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DA2060CE1C001D3526 /* cpudefs.c */; };
 		B38DDE6026F7111400AC78C2 /* mmu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F02060CE1D001D3526 /* mmu.c */; };
 		B394C99B2060CAB80014A65D /* PVVirtualJaguar.h in Headers */ = {isa = PBXBuildFile; fileRef = B394C9992060CAB80014A65D /* PVVirtualJaguar.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B3E5489D2966530D009BFDB9 /* PVEmulatorCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E5489C2966530D009BFDB9 /* PVEmulatorCore.framework */; };
+		B3AFCF5E2977A69000A01010 /* PVLogging in Frameworks */ = {isa = PBXBuildFile; productRef = B3AFCF5D2977A69000A01010 /* PVLogging */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -210,7 +210,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3E5489D2966530D009BFDB9 /* PVEmulatorCore.framework in Frameworks */,
+				B3AFCF5E2977A69000A01010 /* PVLogging in Frameworks */,
 				B35D663F218019200005A992 /* PVSupport.framework in Frameworks */,
 				B30D2ABE2717CD6D00E4F414 /* libjaguar.a in Frameworks */,
 			);
@@ -554,6 +554,9 @@
 				B30D2AC02717CD6D00E4F414 /* PBXTargetDependency */,
 			);
 			name = PVVirtualJaguar;
+			packageProductDependencies = (
+				B3AFCF5D2977A69000A01010 /* PVLogging */,
+			);
 			productName = VirtualJaguar;
 			productReference = B394C9962060CAB80014A65D /* PVVirtualJaguar.framework */;
 			productType = "com.apple.product-type.framework";
@@ -1192,6 +1195,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B3AFCF5D2977A69000A01010 /* PVLogging */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PVLogging;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B394C98D2060CAB80014A65D /* Project object */;
 }

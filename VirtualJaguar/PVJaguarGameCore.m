@@ -1,6 +1,7 @@
 #import "PVJaguarGameCore.h"
 
 @import PVSupport;
+#import <PVLogging/PVLogging.h>
 
 #if !TARGET_OS_MACCATALYST && !TARGET_OS_OSX
 #import <OpenGLES/gltypes.h>

@@ -192,7 +192,7 @@ static const size_t update_audio_batch(const int16_t *data, const size_t frames)
 
 	vjs.useFastBlitter = self.virtualjaguar_usefastblitter;
 
-	retro_set_audio_sample_batch(update_audio_batch);
+	retro_set_audio_sample_batch((unsigned long (*)(const short *, unsigned long))update_audio_batch);
 
     JaguarInit();                                             // set up hardware
 	if (!externalBIOS) {

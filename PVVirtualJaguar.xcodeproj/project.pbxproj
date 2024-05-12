@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -570,7 +570,7 @@
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = PV;
 				LastUpgradeCheck = 1300;
-				ORGANIZATIONNAME = "Provenance Emu";
+				ORGANIZATIONNAME = "Provenance EMU";
 				TargetAttributes = {
 					B38DDE3026F710F800AC78C2 = {
 						CreatedOnToolsVersion = 13.0;
@@ -578,12 +578,11 @@
 					B394C9952060CAB80014A65D = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 1300;
-						ProvisioningStyle = Manual;
 					};
 				};
 			};
 			buildConfigurationList = B394C9902060CAB80014A65D /* Build configuration list for PBXProject "PVVirtualJaguar" */;
-			compatibilityVersion = "Xcode 12.0";
+			compatibilityVersion = "Xcode 15.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -591,6 +590,7 @@
 				Base,
 			);
 			mainGroup = B394C98C2060CAB80014A65D;
+			minimizedProjectReferenceProxies = 1;
 			productRefGroup = B394C9972060CAB80014A65D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

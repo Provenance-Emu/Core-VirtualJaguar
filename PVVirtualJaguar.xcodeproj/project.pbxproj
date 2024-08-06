@@ -3,11 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 63;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B30D2ABE2717CD6D00E4F414 /* libjaguar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B38DDE3126F710F800AC78C2 /* libjaguar.a */; };
 		B30D2AC62717CEC300E4F414 /* file_stream_transforms.c in Sources */ = {isa = PBXBuildFile; fileRef = B30D2AC42717CEC300E4F414 /* file_stream_transforms.c */; };
 		B30D2AC82717CEC300E4F414 /* file_stream.c in Sources */ = {isa = PBXBuildFile; fileRef = B30D2AC52717CEC300E4F414 /* file_stream.c */; };
 		B30D2AD52717CF0200E4F414 /* vfs_implementation.c in Sources */ = {isa = PBXBuildFile; fileRef = B30D2AD02717CEFD00E4F414 /* vfs_implementation.c */; };
@@ -16,11 +15,10 @@
 		B30D2AE72717CF7C00E4F414 /* rtime.c in Sources */ = {isa = PBXBuildFile; fileRef = B30D2ACE2717CEFD00E4F414 /* rtime.c */; };
 		B30D2AE92717CF9400E4F414 /* stdstring.c in Sources */ = {isa = PBXBuildFile; fileRef = B30D2AD32717CEFD00E4F414 /* stdstring.c */; };
 		B30D2AEB2717CFA400E4F414 /* encoding_utf.c in Sources */ = {isa = PBXBuildFile; fileRef = B30D2ADF2717CF6800E4F414 /* encoding_utf.c */; };
-		B331406D2060CC3E001D3526 /* PVJaguarGameCore.m in Sources */ = {isa = PBXBuildFile; fileRef = B33140172060CC3E001D3526 /* PVJaguarGameCore.m */; };
-		B331406F2060CC3E001D3526 /* PVJaguarGameCore.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140192060CC3E001D3526 /* PVJaguarGameCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B33141692060DEB3001D3526 /* Core.plist in Resources */ = {isa = PBXBuildFile; fileRef = B33141682060DEB3001D3526 /* Core.plist */; };
-		B35D663F218019200005A992 /* PVSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35D663E218019200005A992 /* PVSupport.framework */; };
-		B387E08726F71F7B00154D39 /* CoreOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387E08626F71F7B00154D39 /* CoreOptions.swift */; };
+		B3333EE02BF9C58600934EA3 /* CoreOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3333EDE2BF9C58600934EA3 /* CoreOptions.swift */; };
+		B34C7C9F2BFF15D70022833F /* settings.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140CA2060CE1B001D3526 /* settings.h */; };
+		B34C7CA12BFF18780022833F /* libjaguar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B38DDE3126F710F800AC78C2 /* libjaguar.a */; };
 		B38DDE3C26F7111300AC78C2 /* jaguar.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140FD2060CE1E001D3526 /* jaguar.c */; };
 		B38DDE3D26F7111300AC78C2 /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141112060CE20001D3526 /* crc32.c */; };
 		B38DDE3E26F7111300AC78C2 /* joystick.c in Sources */ = {isa = PBXBuildFile; fileRef = B33141152060CE21001D3526 /* joystick.c */; };
@@ -56,16 +54,23 @@
 		B38DDE5F26F7111400AC78C2 /* cpudefs.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140DA2060CE1C001D3526 /* cpudefs.c */; };
 		B38DDE6026F7111400AC78C2 /* mmu.c in Sources */ = {isa = PBXBuildFile; fileRef = B33140F02060CE1D001D3526 /* mmu.c */; };
 		B394C99B2060CAB80014A65D /* PVVirtualJaguar.h in Headers */ = {isa = PBXBuildFile; fileRef = B394C9992060CAB80014A65D /* PVVirtualJaguar.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B3AFCF5E2977A69000A01010 /* PVLogging in Frameworks */ = {isa = PBXBuildFile; productRef = B3AFCF5D2977A69000A01010 /* PVLogging */; };
+		B39595922BF47497004C5AA9 /* PVSupport in Frameworks */ = {isa = PBXBuildFile; productRef = B39595912BF47497004C5AA9 /* PVSupport */; };
+		B39595952BF474AC004C5AA9 /* PVLogging in Frameworks */ = {isa = PBXBuildFile; productRef = B39595942BF474AC004C5AA9 /* PVLogging */; };
+		B3B16FDF2BFDA1AE002B4623 /* PVJaguarGameCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B16FDE2BFDA1AE002B4623 /* PVJaguarGameCore.swift */; };
+		B3B16FE72BFDCA22002B4623 /* PVCoreBridge in Frameworks */ = {isa = PBXBuildFile; productRef = B3B16FE62BFDCA22002B4623 /* PVCoreBridge */; };
+		B3B16FE82BFDCA3F002B4623 /* PVJaguarGameCore.m in Sources */ = {isa = PBXBuildFile; fileRef = B33140172060CC3E001D3526 /* PVJaguarGameCore.m */; };
+		B3B16FEB2BFDD705002B4623 /* PVObjCUtils in Frameworks */ = {isa = PBXBuildFile; productRef = B3B16FEA2BFDD705002B4623 /* PVObjCUtils */; };
+		B3B16FED2BFDD8E0002B4623 /* PVEmulatorCore in Frameworks */ = {isa = PBXBuildFile; productRef = B3B16FEC2BFDD8E0002B4623 /* PVEmulatorCore */; };
+		B3B16FEF2BFE1873002B4623 /* PVJaguarGameCore.h in Headers */ = {isa = PBXBuildFile; fileRef = B33140192060CC3E001D3526 /* PVJaguarGameCore.h */; settings = {ATTRIBUTES = (Private, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		B30D2ABF2717CD6D00E4F414 /* PBXContainerItemProxy */ = {
+		B34C7CA22BFF18780022833F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B394C98D2060CAB80014A65D /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = B38DDE3026F710F800AC78C2;
-			remoteInfo = "jaguar-iOS";
+			remoteInfo = jaguar;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -77,6 +82,16 @@
 			dstSubfolderSpec = 16;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3B16FDB2BFACED2002B4623 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -171,9 +186,11 @@
 		B33141152060CE21001D3526 /* joystick.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = joystick.c; sourceTree = "<group>"; };
 		B33141162060CE21001D3526 /* op.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = op.h; sourceTree = "<group>"; };
 		B33141682060DEB3001D3526 /* Core.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Core.plist; sourceTree = "<group>"; };
+		B3333EDE2BF9C58600934EA3 /* CoreOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreOptions.swift; sourceTree = "<group>"; };
+		B34C7CA02BFF175D0022833F /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		B34C7CA62BFF2B8D0022833F /* PVVirtualJaguar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVVirtualJaguar.h; sourceTree = "<group>"; };
 		B35D663E218019200005A992 /* PVSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PVSupport.framework; path = Carthage/Build/iOS/PVSupport.framework; sourceTree = "<group>"; };
 		B35D6640218019350005A992 /* PVSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PVSupport.framework; path = Carthage/Build/tvOS/PVSupport.framework; sourceTree = "<group>"; };
-		B387E08626F71F7B00154D39 /* CoreOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreOptions.swift; sourceTree = "<group>"; };
 		B38DDE3126F710F800AC78C2 /* libjaguar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libjaguar.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B394C9962060CAB80014A65D /* PVVirtualJaguar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PVVirtualJaguar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B394C9992060CAB80014A65D /* PVVirtualJaguar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PVVirtualJaguar.h; sourceTree = "<group>"; };
@@ -195,6 +212,7 @@
 		B3A68359206AF9380051AEE4 /* Android.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = Android.mk; sourceTree = "<group>"; };
 		B3A6835A206AF9380051AEE4 /* Application.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = Application.mk; sourceTree = "<group>"; };
 		B3A6835B206AF9380051AEE4 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		B3B16FDE2BFDA1AE002B4623 /* PVJaguarGameCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PVJaguarGameCore.swift; sourceTree = "<group>"; };
 		B3E5489C2966530D009BFDB9 /* PVEmulatorCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVEmulatorCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -210,9 +228,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3AFCF5E2977A69000A01010 /* PVLogging in Frameworks */,
-				B35D663F218019200005A992 /* PVSupport.framework in Frameworks */,
-				B30D2ABE2717CD6D00E4F414 /* libjaguar.a in Frameworks */,
+				B3B16FEB2BFDD705002B4623 /* PVObjCUtils in Frameworks */,
+				B3B16FE72BFDCA22002B4623 /* PVCoreBridge in Frameworks */,
+				B3B16FED2BFDD8E0002B4623 /* PVEmulatorCore in Frameworks */,
+				B39595922BF47497004C5AA9 /* PVSupport in Frameworks */,
+				B39595952BF474AC004C5AA9 /* PVLogging in Frameworks */,
+				B34C7CA12BFF18780022833F /* libjaguar.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,9 +315,9 @@
 		B33140162060CC3E001D3526 /* VirtualJaguar */ = {
 			isa = PBXGroup;
 			children = (
+				B34C7CA72BFF2B8D0022833F /* include */,
 				B33140192060CC3E001D3526 /* PVJaguarGameCore.h */,
 				B33140172060CC3E001D3526 /* PVJaguarGameCore.m */,
-				B387E08626F71F7B00154D39 /* CoreOptions.swift */,
 			);
 			path = VirtualJaguar;
 			sourceTree = "<group>";
@@ -396,10 +417,29 @@
 			path = m68000;
 			sourceTree = "<group>";
 		};
+		B3333EDF2BF9C58600934EA3 /* VirtualJaguarSwift */ = {
+			isa = PBXGroup;
+			children = (
+				B3333EDE2BF9C58600934EA3 /* CoreOptions.swift */,
+				B3B16FDE2BFDA1AE002B4623 /* PVJaguarGameCore.swift */,
+			);
+			path = VirtualJaguarSwift;
+			sourceTree = "<group>";
+		};
+		B34C7CA72BFF2B8D0022833F /* include */ = {
+			isa = PBXGroup;
+			children = (
+				B34C7CA02BFF175D0022833F /* module.modulemap */,
+				B34C7CA62BFF2B8D0022833F /* PVVirtualJaguar.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 		B394C98C2060CAB80014A65D = {
 			isa = PBXGroup;
 			children = (
 				B33140162060CC3E001D3526 /* VirtualJaguar */,
+				B3333EDF2BF9C58600934EA3 /* VirtualJaguarSwift */,
 				B394C9982060CAB80014A65D /* Supporting Files */,
 				B3A68344206AF9370051AEE4 /* virtualjaguar-libretro */,
 				B394C9972060CAB80014A65D /* Products */,
@@ -514,8 +554,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B331406F2060CC3E001D3526 /* PVJaguarGameCore.h in Headers */,
+				B34C7C9F2BFF15D70022833F /* settings.h in Headers */,
 				B394C99B2060CAB80014A65D /* PVVirtualJaguar.h in Headers */,
+				B3B16FEF2BFE1873002B4623 /* PVJaguarGameCore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,15 +588,20 @@
 				B394C9912060CAB80014A65D /* Sources */,
 				B394C9922060CAB80014A65D /* Frameworks */,
 				B394C9942060CAB80014A65D /* Resources */,
+				B3B16FDB2BFACED2002B4623 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				B30D2AC02717CD6D00E4F414 /* PBXTargetDependency */,
+				B34C7CA32BFF18780022833F /* PBXTargetDependency */,
 			);
 			name = PVVirtualJaguar;
 			packageProductDependencies = (
-				B3AFCF5D2977A69000A01010 /* PVLogging */,
+				B39595912BF47497004C5AA9 /* PVSupport */,
+				B39595942BF474AC004C5AA9 /* PVLogging */,
+				B3B16FE62BFDCA22002B4623 /* PVCoreBridge */,
+				B3B16FEA2BFDD705002B4623 /* PVObjCUtils */,
+				B3B16FEC2BFDD8E0002B4623 /* PVEmulatorCore */,
 			);
 			productName = VirtualJaguar;
 			productReference = B394C9962060CAB80014A65D /* PVVirtualJaguar.framework */;
@@ -582,7 +628,7 @@
 				};
 			};
 			buildConfigurationList = B394C9902060CAB80014A65D /* Build configuration list for PBXProject "PVVirtualJaguar" */;
-			compatibilityVersion = "Xcode 15.3";
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -590,7 +636,13 @@
 				Base,
 			);
 			mainGroup = B394C98C2060CAB80014A65D;
-			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				B39595902BF47497004C5AA9 /* XCLocalSwiftPackageReference "../../PVSupport" */,
+				B39595932BF474AC004C5AA9 /* XCLocalSwiftPackageReference "../../PVLogging" */,
+				B3333EE12BF9C6D900934EA3 /* XCLocalSwiftPackageReference "../../PVEmulatorCore" */,
+				B317457E2BF9CD2F00E2376B /* XCLocalSwiftPackageReference "../../PVCoreBridge" */,
+				B3B16FE92BFDD705002B4623 /* XCLocalSwiftPackageReference "../../PVObjCUtils" */,
+			);
 			productRefGroup = B394C9972060CAB80014A65D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -666,18 +718,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B331406D2060CC3E001D3526 /* PVJaguarGameCore.m in Sources */,
-				B387E08726F71F7B00154D39 /* CoreOptions.swift in Sources */,
+				B3333EE02BF9C58600934EA3 /* CoreOptions.swift in Sources */,
+				B3B16FDF2BFDA1AE002B4623 /* PVJaguarGameCore.swift in Sources */,
+				B3B16FE82BFDCA3F002B4623 /* PVJaguarGameCore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		B30D2AC02717CD6D00E4F414 /* PBXTargetDependency */ = {
+		B34C7CA32BFF18780022833F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B38DDE3026F710F800AC78C2 /* jaguar */;
-			targetProxy = B30D2ABF2717CD6D00E4F414 /* PBXContainerItemProxy */;
+			targetProxy = B34C7CA22BFF18780022833F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -688,7 +741,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -721,7 +774,7 @@
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -740,6 +793,7 @@
 					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
 					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
 					"\"$(SRCROOT)/virtualjaguar-libretro/libretro-common/include\"",
+					"$(inherited)",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -765,7 +819,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"INLINE=inline",
 					"USE_STRUCTS=1",
@@ -816,6 +869,7 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -827,7 +881,7 @@
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
+					"\"$(SRCROOT)/VirtualJaguar/src\"",
 					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -854,6 +908,7 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -865,7 +920,7 @@
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
+					"\"$(SRCROOT)/VirtualJaguar/src\"",
 					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -879,6 +934,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "watchsimulator watchos macosx iphonesimulator iphoneos appletvsimulator appletvos";
 				SUPPORTS_MACCATALYST = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				TARGETED_DEVICE_FAMILY = "1,2,3,4,6";
 			};
 			name = Release;
@@ -892,6 +948,7 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -903,7 +960,7 @@
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
+					"\"$(SRCROOT)/VirtualJaguar/src\"",
 					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -917,6 +974,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "watchsimulator watchos macosx iphonesimulator iphoneos appletvsimulator appletvos";
 				SUPPORTS_MACCATALYST = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				TARGETED_DEVICE_FAMILY = "1,2,3,4,6";
 			};
 			name = Archive;
@@ -927,7 +985,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -960,7 +1018,7 @@
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -980,6 +1038,7 @@
 					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
 					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
 					"\"$(SRCROOT)/virtualjaguar-libretro/libretro-common/include\"",
+					"$(inherited)",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -997,7 +1056,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1030,7 +1089,7 @@
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1049,6 +1108,7 @@
 					"\"$(SRCROOT)/VirtualJaguar/src\"/**",
 					"\"$(SRCROOT)/virtualjaguar-libretro/src\"",
 					"\"$(SRCROOT)/virtualjaguar-libretro/libretro-common/include\"",
+					"$(inherited)",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -1075,7 +1135,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"INLINE=inline",
 					"USE_STRUCTS=1",
@@ -1131,7 +1190,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"INLINE=inline",
 					"USE_STRUCTS=1",
@@ -1208,10 +1266,50 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		B317457E2BF9CD2F00E2376B /* XCLocalSwiftPackageReference "../../PVCoreBridge" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../PVCoreBridge;
+		};
+		B3333EE12BF9C6D900934EA3 /* XCLocalSwiftPackageReference "../../PVEmulatorCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../PVEmulatorCore;
+		};
+		B39595902BF47497004C5AA9 /* XCLocalSwiftPackageReference "../../PVSupport" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../PVSupport;
+		};
+		B39595932BF474AC004C5AA9 /* XCLocalSwiftPackageReference "../../PVLogging" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../PVLogging;
+		};
+		B3B16FE92BFDD705002B4623 /* XCLocalSwiftPackageReference "../../PVObjCUtils" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../PVObjCUtils;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
-		B3AFCF5D2977A69000A01010 /* PVLogging */ = {
+		B39595912BF47497004C5AA9 /* PVSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PVSupport;
+		};
+		B39595942BF474AC004C5AA9 /* PVLogging */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PVLogging;
+		};
+		B3B16FE62BFDCA22002B4623 /* PVCoreBridge */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B317457E2BF9CD2F00E2376B /* XCLocalSwiftPackageReference "../../PVCoreBridge" */;
+			productName = PVCoreBridge;
+		};
+		B3B16FEA2BFDD705002B4623 /* PVObjCUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PVObjCUtils;
+		};
+		B3B16FEC2BFDD8E0002B4623 /* PVEmulatorCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PVEmulatorCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PVCoreIdentifier</key>
+	<string>com.provenance.core.jaguar</string>
+	<key>PVPrincipleClass</key>
+	<string>PVJaguarGameCore</string>
+	<key>PVSupportedSystems</key>
+	<array>
+		<string>com.provenance.jaguar</string>
+		<string>com.provenance.jaguarcd</string>
+	</array>
+	<key>PVProjectName</key>
+	<string>Virtual Jaguar</string>
+	<key>PVProjectURL</key>
+	<string>https://github.com/libretro/virtualjaguar-libretro</string>
+	<key>PVProjectVersion</key>
+	<string>2.1.2</string>
+</dict>
+</plist>

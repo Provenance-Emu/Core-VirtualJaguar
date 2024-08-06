@@ -2,8 +2,8 @@
 //  PVVirtualJaguar.h
 //  PVVirtualJaguar
 //
-//  Created by Joseph Mattiello on 3/20/18.
-//  Copyright © 2018 Joseph Mattiello. All rights reserved.
+//  Created by Joseph Mattiello on 5/23/24.
+//  Copyright © 2024 Joseph Mattiello. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -12,7 +12,8 @@
 FOUNDATION_EXPORT double PVVirtualJaguarVersionNumber;
 
 //! Project version string for PVVirtualJaguar.
-FOUNDATION_EXPORT const unsigned char PVVirtualJaguarVersionString[];
+FOUNDATION_EXPORT const unsigned char PVVirtualJaguarVersionNumberString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <PVVirtualJaguar/PublicHeader.h>
+
 #import <PVVirtualJaguar/PVJaguarGameCore.h>

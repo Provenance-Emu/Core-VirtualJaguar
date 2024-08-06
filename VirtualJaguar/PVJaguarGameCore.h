@@ -14,7 +14,7 @@
  
  THIS SOFTWARE IS PROVIDED BY OpenEmu Team ''AS IS'' AND ANY
  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ WARRANTIES OF MERCHANTABILITYj AND FITNESS FOR A PARTICULAR PURPOSE ARE
  DISCLAIMED. IN NO EVENT SHALL OpenEmu Team BE LIABLE FOR ANY
  DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
@@ -24,18 +24,22 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+
 @import Foundation;
-@import PVSupport;
 
-PVCORE
-@interface PVJaguarGameCore : PVEmulatorCore <PVJaguarSystemResponderClient>
+#define AUDIO_BIT_DEPTH 16
+#define AUDIO_CHANNELS 2
+#define AUDIO_SAMPLERATE 48000
+#define BUFPAL  1920
+#define BUFNTSC 1600
+#define BUFMAX (2048 * sizeof(uint16_t))
+#define VIDEO_WIDTH 1024
+#define VIDEO_HEIGHT 512
 
-- (void)initVideo;
-- (int)getIndexForPVJaguarButton:(PVJaguarButton)btn;
+NS_HEADER_AUDIT_BEGIN(nullability, sendability)
 
-#pragma mark - Options
-@property (nonatomic, readonly) BOOL virtualjaguar_bios;
-@property (nonatomic, readonly) BOOL virtualjaguar_usefastblitter;
-@property (nonatomic, readonly) BOOL virtualjaguar_doom_res_hack;
-@property (nonatomic, readonly) BOOL virtualjaguar_pal;
-@end
+extern uint16_t eeprom_ram[];
+
+int doom_res_hack=0; // Doom Hack to double pixel if pwidth==8 (163*2)
+
+NS_HEADER_AUDIT_END(nullability, sendability)

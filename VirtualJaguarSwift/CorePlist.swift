@@ -9,6 +9,7 @@ import Foundation
 import PVLogging
 public import PVCoreBridge
 internal import PVEmulatorCore
+import PVPlists
 
 #if SWIFT_PACKAGE
 public let VirtualJaguarBundle: Bundle = Bundle.module

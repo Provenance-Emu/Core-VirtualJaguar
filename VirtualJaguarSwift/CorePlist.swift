@@ -12,10 +12,14 @@ internal import PVEmulatorCore
 import PVPlists
 
 #if SWIFT_PACKAGE
-public let VirtualJaguarBundle: Bundle = Bundle.module
+public extension PVBundleFinder {
+    static public var VirtualJaguarModule: Bundle { Bundle.module }
+    static public var VirtualJaguarBundle: Bundle { Bundle(for: PVJaguarGameCore.self) }
+}
 #else
-internal class BundleFinder {}
-public let VirtualJaguarBundle: Bundle = Bundle(for: BundleFinder.self)
+public extension PVBundleFinder {
+    static public var VirtualJaguarBundle: Bundle { Bundle(for: PVJaguarGameCore.self) }
+}
 #endif
 
 @objc

@@ -151,7 +151,6 @@ let package = Package(
                 .headerSearchPath("../virtualjaguar-libretro/libretro-common/include"),
             ],
             plugins: [
-                // Disabled until SwiftGenPlugin support Swift 6 concurrency
                 .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin")
             ]
         ),
@@ -243,7 +242,7 @@ let package = Package(
             name: "PVVirtualJaguarTests",
             dependencies: ["PVVirtualJaguar"])
     ],
-    swiftLanguageVersions: [.v5, .v6],
+    swiftLanguageModes: [.v5, .v6],
     cLanguageStandard: .gnu11,
     cxxLanguageStandard: .gnucxx14
 )

@@ -1,3 +1,4 @@
+@import Foundation;
 @import PVCoreBridge;
 @import PVEmulatorCore;
 @import GameController;
@@ -66,11 +67,10 @@ __attribute__((objc_direct_members))
 __attribute__((visibility("default")))
 @implementation PVJaguarGameCore (ObjC)
 
-- (BOOL)loadFileAtPath:(NSString *)path {
+- (void)loadFileAtPath:(NSString *)path error:(NSError **)error {
     NSString *batterySavesDirectory = self.batterySavesPath;
 
-    if([batterySavesDirectory length] != 0)
-    {
+    if([batterySavesDirectory length] != 0) {
         [[NSFileManager defaultManager] createDirectoryAtPath:batterySavesDirectory withIntermediateDirectories:YES attributes:nil error:NULL];
 
         NSString *filePath = [batterySavesDirectory stringByAppendingString:@"/"];
@@ -128,8 +128,7 @@ __attribute__((visibility("default")))
     }
 
     // Load up the default ROM if in Alpine mode:
-    if (vjs.hardwareTypeAlpine)
-    {
+    if (vjs.hardwareTypeAlpine) {
         NSData* alpineData = [NSData dataWithContentsOfFile:@(vjs.alpineROMPath)];
 
         BOOL romLoaded = JaguarLoadFile((uint8_t*)alpineData.bytes, alpineData.length);

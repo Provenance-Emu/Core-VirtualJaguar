@@ -17,21 +17,21 @@ import libjaguar
 
 @objc
 @objcMembers
-final public class PVJaguarGameCore: PVEmulatorCore, @unchecked Sendable {
+open class PVJaguarGameCore: PVEmulatorCore, @unchecked Sendable {
 
-    @MainActor
+//    @MainActor
     public var jagVideoBuffer: UnsafeMutablePointer<JagBuffer>?
-    @MainActor
+//    @MainActor
     public var videoWidth: UInt32 = UInt32(VIDEO_WIDTH)
-    @MainActor
+//    @MainActor
     public var videoHeight: Int = Int(VIDEO_HEIGHT)
-    @MainActor
+//    @MainActor
     public var frameTime: Float = 0.0
     public var multithreaded: Bool { virtualjaguar_mutlithreaded }
 
     // MARK: Audio
     public override var sampleRate: Double { Double(AUDIO_SAMPLERATE) }
-    @MainActor
+//    @MainActor
     public var audioBufferSize: Int16 = 0
 
     // MARK: Queues
@@ -42,12 +42,12 @@ final public class PVJaguarGameCore: PVEmulatorCore, @unchecked Sendable {
     public let waitToBeginFrameSemaphore: DispatchSemaphore = .init(value: 0)
 
     // MARK: Controls
-    @MainActor
+//    @MainActor
     public init(valueChangedHandler: GCExtendedGamepadValueChangedHandler? = nil) {
         self.valueChangedHandler = valueChangedHandler
     }
 
-    @MainActor
+//    @MainActor
     public var valueChangedHandler: GCExtendedGamepadValueChangedHandler? = nil
 
     // MARK: Video
@@ -58,12 +58,12 @@ final public class PVJaguarGameCore: PVEmulatorCore, @unchecked Sendable {
         return false
     }
 
-    @MainActor
+//    @MainActor
     public override var videoBufferSize: CGSize {
         return .init(width: Int(videoWidth), height: videoHeight)
     }
 
-    @MainActor
+//    @MainActor
     public override var aspectSize: CGSize {
         return .init(width: Int(videoWidth), height: videoHeight)
     }
@@ -75,7 +75,7 @@ final public class PVJaguarGameCore: PVEmulatorCore, @unchecked Sendable {
     }
 }
 
-
+@objc
 public extension PVJaguarGameCore {
 
     enum BUTTON: Int {

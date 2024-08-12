@@ -6,16 +6,30 @@
 //
 
 import Testing
+import PVEmulatorCore
 @testable import PVVirtualJaguar;
 @testable import PVVirtualJaguarSwift;
 
 struct Test {
+    
+    let testRomFilename: String = "jag_240p_test_suite_v0.5.1.jag"
 
     @Test func VirtualJaguarTest() async throws {
         // Write your test here and use APIs like `#expect(...)` to check expected conditions.
         let core = PVJaguarGameCore()
-        await #expect(core != nil)
-//        core.jagVideoBuffer = .init(repeating: 0, count: 1024 * 768 * 4)
-//        #expect(core.jagVideoBuffer != nil)
+        #expect(core != nil)
+    }
+    
+    @Test func LoadFileTest() async throws {
+        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+        let core = PVJaguarGameCore()
+        #expect(core != nil)
+
+        do {
+            try core.loadFile(atPath: testRomFilename)
+        } catch {
+            print("Failed to load file: \(error.localizedDescription)")
+            throw error
+        }
     }
 }

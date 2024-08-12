@@ -240,7 +240,12 @@ let package = Package(
         // MARK: Tests
         .testTarget(
             name: "PVVirtualJaguarTests",
-            dependencies: ["PVVirtualJaguar"])
+            dependencies: [
+                "PVVirtualJaguar",
+                "PVEmulatorCore"],
+            resources: [
+                .copy("VirtualJaguarTests/Resources/jag_240p_test_suite_v0.5.1.jag")
+            ])
     ],
     swiftLanguageModes: [.v5, .v6],
     cLanguageStandard: .gnu11,

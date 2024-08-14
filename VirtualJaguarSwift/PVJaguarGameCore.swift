@@ -174,4 +174,25 @@ public extension PVJaguarGameCore {
         let index = getIndexForPVJaguarButton(button)
         setButtonValue(UInt32(player), at: Int32(index), to: 0x00)
      }
+    
+    @objc override var screenRect: CGRect {
+        return .init(x: 0, y: 0, width: Int(TOMGetVideoModeWidth()), height: Int(TOMGetVideoModeHeight()))
+    }
+    
+    @objc public override var supportsSaveStates: Bool { return false }
+    
+    @objc public override var pixelFormat: GLenum { GLenum(GL_BGRA) }
+    @objc public override var pixelType: GLenum { GLenum(GL_UNSIGNED_BYTE) }
+    @objc public override var internalPixelFormat: GLenum { GLenum(GL_RGBA) }
+    
+//    @objc override open var frameInterval: TimeInterval {
+//        return vjs.hardwareTypeNTSC ? 60.0 : 50.0
+//    }
+    
+//    @objc override public var videoBuffer: UnsafeMutableRawPointer<UInt16>? {
+//        guard let jagVideoBuffer = jagVideoBuffer else {
+//            return nil
+//        }
+//        return UnsafeMutableRawPointer(jagVideoBuffer.pointee.sampleBuffer)
+//    }
 }

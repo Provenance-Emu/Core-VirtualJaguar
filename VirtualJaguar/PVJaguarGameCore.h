@@ -47,7 +47,30 @@ extern uint16_t eeprom_ram[];
 int doom_res_hack=0; // Doom Hack to double pixel if pwidth==8 (163*2)
 
 @interface PVJaguarGameCore (ObjCCoreBridge) <ObjCCoreBridge>
--  (void)loadFileAtPath:(NSString *)path error:(NSError * __autoreleasing *)error;
+
+// MARK: Core
+- (void)loadFileAtPath:(NSString *)path error:(NSError * __autoreleasing *)error;
+- (void)executeFrameSkippingFrame:(BOOL)skip;
+- (void)executeFrame;
+- (void)swapBuffers;
+- (void)stopEmulation;
+- (void)resetEmulation;
+
+// MARK: Output
+- (CGRect)screenRect;
+- (const void *)videoBuffer;
+- (NSTimeInterval)frameInterval;
+- (BOOL)rendersToOpenGL;
+
+
+// MARK: Input
+- (void)pollControllers;
+
+// MARK: Save States
+- (void)saveStateToFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *)) __attribute__((noescape)) block;
+- (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *)) __attribute__((noescape)) block;
+
+
 @end
 //
 //@interface PVJaguarGameCoreObjCBridge : PVCoreObjCBridge

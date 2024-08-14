@@ -76,10 +76,6 @@ __attribute__((objc_direct_members))
 __attribute__((visibility("default")))
 @implementation PVJaguarGameCore (ObjCCoreBridge)
 
-- (void) test {
-    NSLog(@"Test CALLED!!!");
-}
-
 - (instancetype)init {
     if (self = [super init]) {
         self.videoWidth = VIDEO_WIDTH;
@@ -321,10 +317,10 @@ __attribute__((visibility("default")))
 
 - (void)initVideo {
     JaguarSetScreenPitch(self.videoWidth);
-    JaguarSetScreenBuffer(self.jagVideoBuffer->buffer);
+    JaguarSetScreenBuffer(self.jagVideoBuffer->videoBuffer);
     for (int i = 0; i < self.videoWidth * self.videoHeight; ++i) {
-        self.jagVideoBuffer->buffer[i] = 0xFF00FFFF;
-        self.jagVideoBuffer->next->buffer[i] = 0xFF00FFFF;
+        self.jagVideoBuffer->videoBuffer[i] = 0xFF00FFFF;
+        self.jagVideoBuffer->next->videoBuffer[i] = 0xFF00FFFF;
     }
 }
 
@@ -346,7 +342,7 @@ __attribute__((visibility("default")))
     self.jagVideoBuffer = self.jagVideoBuffer->next;
     self.jagVideoBuffer->written = NO;
     self.jagVideoBuffer->read = NO;
-    JaguarSetScreenBuffer(self.jagVideoBuffer->buffer);
+    JaguarSetScreenBuffer(self.jagVideoBuffer->videoBuffer);
 }
 
 - (NSUInteger)audioBitDepth { return AUDIO_BIT_DEPTH; }
@@ -398,7 +394,7 @@ __attribute__((visibility("default")))
 }
 
 - (const void *)videoBuffer {
-    return self.jagVideoBuffer->buffer;
+    return self.jagVideoBuffer->videoBuffer;
 }
 
 - (GLenum)pixelFormat {

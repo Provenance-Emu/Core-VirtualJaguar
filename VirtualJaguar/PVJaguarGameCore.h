@@ -26,6 +26,10 @@
 
 
 @import Foundation;
+@import PVCoreBridge;
+@import PVVirtualJaguarSwift;
+@import PVVirtualJaguarC;
+#import <PVCoreObjCBridge/PVCoreObjCBridge.h>
 
 #define AUDIO_BIT_DEPTH 16
 #define AUDIO_CHANNELS 2
@@ -41,5 +45,15 @@ NS_HEADER_AUDIT_BEGIN(nullability, sendability)
 extern uint16_t eeprom_ram[];
 
 int doom_res_hack=0; // Doom Hack to double pixel if pwidth==8 (163*2)
+
+@interface PVJaguarGameCore (ObjCCoreBridge) <ObjCCoreBridge>
+-  (void)loadFileAtPath:(NSString *)path error:(NSError * __autoreleasing *)error;
+@end
+//
+//@interface PVJaguarGameCoreObjCBridge : PVCoreObjCBridge
+//@end
+
+JagBuffer* initJagBuffer(const char *label);
+
 
 NS_HEADER_AUDIT_END(nullability, sendability)

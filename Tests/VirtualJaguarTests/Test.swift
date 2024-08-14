@@ -7,8 +7,8 @@
 
 import Testing
 import PVEmulatorCore
-@testable import PVVirtualJaguar;
-@testable import PVVirtualJaguarSwift;
+@testable import PVVirtualJaguarSwift
+@testable import PVVirtualJaguar
 
 struct Test {
     

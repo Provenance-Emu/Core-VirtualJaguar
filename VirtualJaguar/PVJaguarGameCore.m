@@ -4,6 +4,9 @@
 @import GameController;
 @import PVSupport;
 @import PVLoggingObjC;
+@import PVVirtualJaguarC;
+@import PVVirtualJaguarSwift;
+#import <PVCoreObjCBridge/PVCoreObjCBridge.h>
 
 #import "PVJaguarGameCore.h"
 
@@ -14,6 +17,8 @@
 @import libretro_common;
 #else
 #import <PVVirtualJaguar/PVVirtualJaguar-Swift.h>
+#import <PVVirtualJaguar/PVVirtualJaguarSwift-Swift.h>
+
 #endif
 
 #if !TARGET_OS_MACCATALYST && !TARGET_OS_OSX
@@ -34,12 +39,12 @@ void retro_set_audio_sample_batch_jaguar(retro_audio_sample_batch_t cb) { audio_
 
 __weak static PVJaguarGameCore *_current;
 
-JagBuffer* initJagBuffer(const char *label);
 JagBuffer* initJagBuffer(const char *label) {
     JagBuffer* buffer = malloc(sizeof(*buffer));
     if (buffer != NULL) {
+        JagBuffer* buffer = malloc(sizeof(*buffer));
         memset(buffer->sampleBuffer, 0, BUFMAX);
-        strncpy( buffer->label, label, 256);
+        strncpy(buffer->label, label, 256);
     }
     return buffer;
 }
@@ -63,11 +68,43 @@ static const size_t update_audio_batch(const int16_t *data, const size_t frames)
     //	return frames;
 }
 
+@interface PVJaguarGameCore (ObjCCoreBridge) <ObjCCoreBridge>
+
+@end
+
 __attribute__((objc_direct_members))
 __attribute__((visibility("default")))
-@implementation PVJaguarGameCore (ObjC)
+@implementation PVJaguarGameCore (ObjCCoreBridge)
 
-- (void)loadFileAtPath:(NSString *)path error:(NSError **)error {
+- (void) test {
+    NSLog(@"Test CALLED!!!");
+}
+
+- (instancetype)init {
+    if (self = [super init]) {
+        self.videoWidth = VIDEO_WIDTH;
+        self.videoHeight = VIDEO_HEIGHT;
+//        self.sampleRate = AUDIO_SAMPLERATE;
+        
+        dispatch_queue_attr_t priorityAttribute = dispatch_queue_attr_make_with_qos_class( DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INTERACTIVE, 0);
+//        self.audioQueue = dispatch_queue_create("com.provenance.jaguar.audio", priorityAttribute);
+//        self.videoQueue = dispatch_queue_create("com.provenance.jaguar.video", priorityAttribute);
+//        self.renderGroup = dispatch_group_create();
+//
+//        self.waitToBeginFrameSemaphore = dispatch_semaphore_create(0);
+
+//        self.multithreaded = self.virtualjaguar_mutlithreaded;
+//        buffer = (uint32_t*)calloc(sizeof(uint32_t), videoWidth * videoHeight);
+//        sampleBuffer = (uint16_t *)malloc(BUFMAX * sizeof(uint16_t));
+//        memset(sampleBuffer, 0, BUFMAX * sizeof(uint16_t));
+    }
+    
+    _current = self;
+    
+    return self;
+}
+
+-  (void)loadFileAtPath:(NSString *)path error:(NSError * __autoreleasing *)error {
     NSString *batterySavesDirectory = self.batterySavesPath;
 
     if([batterySavesDirectory length] != 0) {

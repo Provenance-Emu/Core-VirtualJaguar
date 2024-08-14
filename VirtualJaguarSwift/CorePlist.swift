@@ -13,8 +13,8 @@ import PVPlists
 
 #if SWIFT_PACKAGE
 public extension PVBundleFinder {
-    static public var VirtualJaguarModule: Bundle { Bundle.module }
-    static public var VirtualJaguarBundle: Bundle { Bundle(for: PVJaguarGameCore.self) }
+    static var VirtualJaguarModule: Bundle { Bundle.module }
+    static var VirtualJaguarBundle: Bundle { Bundle(for: PVJaguarGameCore.self) }
 }
 #else
 public extension PVBundleFinder {

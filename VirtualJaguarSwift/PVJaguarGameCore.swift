@@ -18,59 +18,63 @@ import libjaguar
 @objc
 @objcMembers
 open class PVJaguarGameCore: PVEmulatorCore, @unchecked Sendable {
+    
+//    public var core: any PVCoreBridge.ObjCBridgedCoreBridge
+    
 
 //    @MainActor
-    public var jagVideoBuffer: UnsafeMutablePointer<JagBuffer>?
+    @objc public var jagVideoBuffer: UnsafeMutablePointer<JagBuffer>?
 //    @MainActor
-    public var videoWidth: UInt32 = UInt32(VIDEO_WIDTH)
+    @objc public var videoWidth: UInt32 = UInt32(VIDEO_WIDTH)
 //    @MainActor
-    public var videoHeight: Int = Int(VIDEO_HEIGHT)
+    @objc public var videoHeight: Int = Int(VIDEO_HEIGHT)
 //    @MainActor
-    public var frameTime: Float = 0.0
-    public var multithreaded: Bool { virtualjaguar_mutlithreaded }
+    @objc public var frameTime: Float = 0.0
+    @objc public var multithreaded: Bool { virtualjaguar_mutlithreaded }
 
     // MARK: Audio
-    public override var sampleRate: Double { Double(AUDIO_SAMPLERATE) }
+    @objc public override var sampleRate: Double { Double(AUDIO_SAMPLERATE) }
 //    @MainActor
-    public var audioBufferSize: Int16 = 0
+    @objc public var audioBufferSize: Int16 = 0
 
     // MARK: Queues
-    public let audioQueue: DispatchQueue = .init(label: "com.provenance.jaguar.audio", qos: .userInteractive, autoreleaseFrequency: .inherit)
-    public let videoQueue: DispatchQueue = .init(label: "com.provenance.jaguar.video", qos: .userInteractive, autoreleaseFrequency: .inherit)
-    public let renderGroup: DispatchGroup = .init()
+    @objc  public let audioQueue: DispatchQueue = .init(label: "com.provenance.jaguar.audio", qos: .userInteractive, autoreleaseFrequency: .inherit)
+    @objc public let videoQueue: DispatchQueue = .init(label: "com.provenance.jaguar.video", qos: .userInteractive, autoreleaseFrequency: .inherit)
+    @objc public let renderGroup: DispatchGroup = .init()
 
-    public let waitToBeginFrameSemaphore: DispatchSemaphore = .init(value: 0)
+    @objc  public let waitToBeginFrameSemaphore: DispatchSemaphore = .init(value: 0)
 
     // MARK: Controls
 //    @MainActor
-    public init(valueChangedHandler: GCExtendedGamepadValueChangedHandler? = nil) {
+    @objc public init(valueChangedHandler: GCExtendedGamepadValueChangedHandler? = nil) {
         self.valueChangedHandler = valueChangedHandler
+//        self.core = PVJaguarCoreBridge(valueChangedHandler: valueChangedHandler)
     }
 
 //    @MainActor
-    public var valueChangedHandler: GCExtendedGamepadValueChangedHandler? = nil
+    @objc public var valueChangedHandler: GCExtendedGamepadValueChangedHandler? = nil
 
     // MARK: Video
 
-    public override var isDoubleBuffered: Bool {
+    @objc public override var isDoubleBuffered: Bool {
         // TODO: Fix graphics tearing when this is on
         // return self.virtualjaguar_double_buffer
         return false
     }
 
 //    @MainActor
-    public override var videoBufferSize: CGSize {
+    @objc public override var videoBufferSize: CGSize {
         return .init(width: Int(videoWidth), height: videoHeight)
     }
 
 //    @MainActor
-    public override var aspectSize: CGSize {
+    @objc public override var aspectSize: CGSize {
         return .init(width: Int(videoWidth), height: videoHeight)
     }
 
     // MARK: Lifecycle
 
-    public required init() {
+    @objc public required init() {
         super.init()
     }
 }
@@ -78,7 +82,7 @@ open class PVJaguarGameCore: PVEmulatorCore, @unchecked Sendable {
 @objc
 public extension PVJaguarGameCore {
 
-    enum BUTTON: Int {
+    @objc(BUTTON_SWIFT) enum BUTTON: Int {
         case u = 0
         case d = 1
         case l = 2
@@ -105,7 +109,7 @@ public extension PVJaguarGameCore {
         static var last: BUTTON { .pause }
     }
 
-    func getIndexForPVJaguarButton(_ btn: PVJaguarButton) -> Int {
+    @objc func getIndexForPVJaguarButton(_ btn: PVJaguarButton) -> Int {
         switch btn {
         case .up:
             return BUTTON.u.rawValue
@@ -155,7 +159,7 @@ public extension PVJaguarGameCore {
     }
 
 
-    func didReleaseJaguarButton(_ button: PVJaguarButton, forPlayer player: Int) {
+    @objc func didReleaseJaguarButton(_ button: PVJaguarButton, forPlayer player: Int) {
 
         // Function to set a value at a specific index
         func setButtonValue(_ player: UInt32, at index: Int32, to value: UInt8) {

@@ -28,7 +28,7 @@ extern uint8_t joypad1Buttons[21];
 typedef struct JagBuffer {
     char label[256];
     uint32_t buffer[VIDEO_WIDTH * VIDEO_HEIGHT];
-    uint16_t * sampleBuffer; //[BUFMAX];
+    uint16_t * sampleBuffer[BUFMAX];
 
     bool read;
     bool written;

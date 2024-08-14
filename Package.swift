@@ -60,22 +60,22 @@ let package = Package(
         .tvOS("15.4"),
         .watchOS(.v9),
         .macOS(.v11),
-        .macCatalyst(.v14),
+        .macCatalyst(.v17),
         .visionOS(.v1)
     ],
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
             name: "PVVirtualJaguar",
-            targets: ["PVVirtualJaguar"]),
+            targets: ["PVVirtualJaguar", "PVVirtualJaguarSwift"]),
         .library(
             name: "PVVirtualJaguar-Dynamic",
             type: .dynamic,
-            targets: ["PVVirtualJaguar"]),
+            targets: ["PVVirtualJaguar", "PVVirtualJaguarSwift"]),
         .library(
             name: "PVVirtualJaguar-Static",
             type: .static,
-            targets: ["PVVirtualJaguar"]),
+            targets: ["PVVirtualJaguar", "PVVirtualJaguarSwift"]),
 
     ],
     dependencies: [
@@ -241,8 +241,11 @@ let package = Package(
         .testTarget(
             name: "PVVirtualJaguarTests",
             dependencies: [
-                "PVVirtualJaguar",
-                "PVEmulatorCore"],
+                "PVVirtualJaguarSwift",
+                "PVCoreBridge",
+                "PVEmulatorCore",
+                "PVVirtualJaguar"
+            ],
             resources: [
                 .copy("VirtualJaguarTests/Resources/jag_240p_test_suite_v0.5.1.jag")
             ])

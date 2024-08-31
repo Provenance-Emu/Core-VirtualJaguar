@@ -1,7 +1,9 @@
 @import Foundation;
 @import PVCoreBridge;
 @import PVEmulatorCore;
+#if !TARGET_OS_WATCH
 @import GameController;
+#endif
 @import PVSupport;
 @import PVLoggingObjC;
 @import PVVirtualJaguarC;
@@ -21,12 +23,12 @@
 
 #endif
 
-#if !TARGET_OS_MACCATALYST && !TARGET_OS_OSX
+#if __has_include(<OpenGLES/ES3/gl.h>)
 #import <OpenGLES/gltypes.h>
 #import <OpenGLES/ES3/gl.h>
 #import <OpenGLES/ES3/glext.h>
 #import <OpenGLES/EAGL.h>
-#else
+#elif __has_include(<OpenGL/OpenGL.h>)
 #import <OpenGL/OpenGL.h>
 #import <GLUT/GLUT.h>
 #endif
@@ -257,10 +259,12 @@ __attribute__((visibility("default")))
     //    NSTimeInterval timeSinceLast = [last timeIntervalSinceNow];
     //    printf("executeFrameSkippingFrame: skip: %s\ttime:%lu\n", BS(skip), timeSinceLast);
 
+#if !TARGET_OS_WATCH
     if (self.controller1 || self.controller2) {
         [self pollControllers];
     }
-
+#endif
+    
     if (self.multithreaded) {
         __block BOOL expired = NO;
         dispatch_time_t killTime = dispatch_time(DISPATCH_TIME_NOW, self.frameTime * NSEC_PER_SEC);
@@ -397,6 +401,8 @@ __attribute__((visibility("default")))
     return self.jagVideoBuffer->videoBuffer;
 }
 
+#if !TARGET_OS_WATCH
+
 - (GLenum)pixelFormat {
     return GL_BGRA;
 }
@@ -409,6 +415,7 @@ __attribute__((visibility("default")))
 {
     return GL_RGBA;
 }
+#endif
 
 - (double)audioSampleRate
 {
@@ -424,6 +431,8 @@ __attribute__((visibility("default")))
 {
     return AUDIO_CHANNELS;
 }
+
+#if !TARGET_OS_WATCH
 
 #pragma mark Input
 - (void)pollControllers {
@@ -521,6 +530,8 @@ __attribute__((visibility("default")))
 #endif
     }
 }
+
+#endif
 
 - (int)getIndexForPVJaguarButton:(PVJaguarButton)btn {
     switch (btn) {

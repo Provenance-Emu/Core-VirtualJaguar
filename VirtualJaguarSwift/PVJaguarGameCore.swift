@@ -8,7 +8,13 @@
 
 import Foundation
 import PVCoreBridge
+#if canImport(GameController)
 import GameController
+#endif
+#if canImport(OpenGLES)
+import OpenGLES
+import OpenGLES.ES3
+#endif
 import PVLogging
 import PVAudio
 public import PVEmulatorCore
@@ -33,7 +39,10 @@ open class PVJaguarGameCore: PVEmulatorCore, @unchecked Sendable {
     @objc public var multithreaded: Bool { virtualjaguar_mutlithreaded }
 
     // MARK: Audio
-    @objc public override var sampleRate: Double { Double(AUDIO_SAMPLERATE) }
+    @objc public override var sampleRate: Double {
+        get { Double(AUDIO_SAMPLERATE) }
+        set {}
+    }
 //    @MainActor
     @objc public var audioBufferSize: Int16 = 0
 
@@ -44,6 +53,7 @@ open class PVJaguarGameCore: PVEmulatorCore, @unchecked Sendable {
 
     @objc  public let waitToBeginFrameSemaphore: DispatchSemaphore = .init(value: 0)
 
+#if canImport(GameController)
     // MARK: Controls
 //    @MainActor
     @objc public init(valueChangedHandler: GCExtendedGamepadValueChangedHandler? = nil) {
@@ -53,7 +63,7 @@ open class PVJaguarGameCore: PVEmulatorCore, @unchecked Sendable {
 
 //    @MainActor
     @objc public var valueChangedHandler: GCExtendedGamepadValueChangedHandler? = nil
-
+#endif
     // MARK: Video
 
     @objc public override var isDoubleBuffered: Bool {
@@ -181,10 +191,11 @@ public extension PVJaguarGameCore {
     
     @objc public override var supportsSaveStates: Bool { return false }
     
+#if canImport(OpenGLES) || canImport(OpenGL)
     @objc public override var pixelFormat: GLenum { GLenum(GL_BGRA) }
     @objc public override var pixelType: GLenum { GLenum(GL_UNSIGNED_BYTE) }
     @objc public override var internalPixelFormat: GLenum { GLenum(GL_RGBA) }
-    
+#endif
 //    @objc override open var frameInterval: TimeInterval {
 //        return vjs.hardwareTypeNTSC ? 60.0 : 50.0
 //    }

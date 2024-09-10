@@ -5,13 +5,15 @@
 //  Created by Joseph Mattiello on 5/27/24.
 //
 
+#pragma once
+
 #ifndef JaguarBuffer_h
 #define JaguarBuffer_h
 
-#include <sys/types.h>
+//#include <sys/types.h>
 
-#import <jaguar.h>
-#import <libretro.h>
+//#import <jaguar.h>
+//#import <libretro.h>
 
 #define AUDIO_BIT_DEPTH 16
 #define AUDIO_CHANNELS 2
@@ -39,7 +41,7 @@ typedef struct JagBuffer {
     struct JagBuffer* next;
 } JagBuffer;
 
-static INLINE void SetJoyPadValue(uint32_t joypad, int index, uint8_t value) {
+static inline void SetJoyPadValue(uint32_t joypad, int index, uint8_t value) {
     if(joypad == 0) {
         joypad0Buttons[index] = value;
     } else {

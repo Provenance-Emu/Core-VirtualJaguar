@@ -1,0 +1,5 @@
+module PVVirtualJaguarGameCoreBridge {
+    header "PVJaguarGameCoreBridge.h"
+    header "JaguarBuffer.h"
+    export *
+}

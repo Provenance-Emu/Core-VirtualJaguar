@@ -17,23 +17,29 @@ import OpenGLES.ES3
 #endif
 import PVLogging
 import PVAudio
-public import PVEmulatorCore
-import PVVirtualJaguarC
+import PVEmulatorCore
+import PVCoreObjCBridge
+import PVVirtualJaguarGameCoreBridge
 import libjaguar
 
 @objc
 @objcMembers
-open class PVJaguarGameCore: PVEmulatorCore, @unchecked Sendable {
+open class PVJaguarGameCore: PVEmulatorCore, ObjCBridgedCore, @unchecked Sendable {
     
-//    public var core: any PVCoreBridge.ObjCBridgedCoreBridge
-    
+    // PVEmulatorCoreBridged
+    public typealias Bridge = PVJaguarGameCoreBridge
+    public lazy var bridge: Bridge = {
+        let core = PVJaguarGameCoreBridge()
+        return core
+    }()
+
 
 //    @MainActor
-    @objc public var jagVideoBuffer: UnsafeMutablePointer<JagBuffer>?
+//    @objc public var jagVideoBuffer: UnsafeMutablePointer<JagBuffer>?
 //    @MainActor
-    @objc public var videoWidth: UInt32 = UInt32(VIDEO_WIDTH)
+//    @objc public var videoWidth: UInt32 = UInt32(VIDEO_WIDTH)
 //    @MainActor
-    @objc public var videoHeight: Int = Int(VIDEO_HEIGHT)
+//    @objc public var videoHeight: Int = Int(VIDEO_HEIGHT)
 //    @MainActor
     @objc public var frameTime: Float = 0.0
     @objc public var multithreaded: Bool { virtualjaguar_mutlithreaded }
@@ -43,6 +49,9 @@ open class PVJaguarGameCore: PVEmulatorCore, @unchecked Sendable {
         get { Double(AUDIO_SAMPLERATE) }
         set {}
     }
+
+    @objc dynamic public override var audioBufferCount: UInt { 1 }
+
 //    @MainActor
     @objc public var audioBufferSize: Int16 = 0
 
@@ -71,21 +80,34 @@ open class PVJaguarGameCore: PVEmulatorCore, @unchecked Sendable {
         // return self.virtualjaguar_double_buffer
         return false
     }
+    
+    @objc public override dynamic var rendersToOpenGL: Bool { false }
+
 
 //    @MainActor
-    @objc public override var videoBufferSize: CGSize {
-        return .init(width: Int(videoWidth), height: videoHeight)
-    }
+//    @objc public override var videoBufferSize: CGSize { .init(width: Int(videoWidth), height: videoHeight) }
 
 //    @MainActor
-    @objc public override var aspectSize: CGSize {
-        return .init(width: Int(videoWidth), height: videoHeight)
-    }
+    @objc public override var aspectSize: CGSize { .init(width: Int(TOMGetVideoModeWidth()), height: Int(TOMGetVideoModeHeight())) }
 
     // MARK: Lifecycle
 
     @objc public required init() {
         super.init()
+    }
+    
+    open override func executeFrame() {
+        bridge.executeFrame()
+    }
+}
+
+extension PVJaguarGameCore: PVJaguarSystemResponderClient {
+    public func didPush(jaguarButton button: PVCoreBridge.PVJaguarButton, forPlayer player: Int) {
+        (bridge as! PVJaguarSystemResponderClient).didPush(jaguarButton: button, forPlayer: player)
+    }
+    
+    public func didRelease(jaguarButton button: PVCoreBridge.PVJaguarButton, forPlayer player: Int) {
+        (bridge as! PVJaguarSystemResponderClient).didRelease(jaguarButton: button, forPlayer: player)
     }
 }
 
@@ -169,32 +191,32 @@ public extension PVJaguarGameCore {
     }
 
 
-    @objc func didReleaseJaguarButton(_ button: PVJaguarButton, forPlayer player: Int) {
-
-        // Function to set a value at a specific index
-        func setButtonValue(_ player: UInt32, at index: Int32, to value: UInt8) {
-            guard index >= 0 && index < 21 else {
-                print("Index out of bounds")
-                return
-            }
-
-            SetJoyPadValue(player, index, value)
-        }
-
-        let index = getIndexForPVJaguarButton(button)
-        setButtonValue(UInt32(player), at: Int32(index), to: 0x00)
-     }
+//    @objc func didReleaseJaguarButton(_ button: PVJaguarButton, forPlayer player: Int) {
+//
+//        // Function to set a value at a specific index
+//        func setButtonValue(_ player: UInt32, at index: Int32, to value: UInt8) {
+//            guard index >= 0 && index < 21 else {
+//                print("Index out of bounds")
+//                return
+//            }
+//
+//            SetJoyPadValue(player, index, value)
+//        }
+//
+//        let index = getIndexForPVJaguarButton(button)
+//        setButtonValue(UInt32(player), at: Int32(index), to: 0x00)
+//     }
     
     @objc override var screenRect: CGRect {
         return .init(x: 0, y: 0, width: Int(TOMGetVideoModeWidth()), height: Int(TOMGetVideoModeHeight()))
     }
     
-    @objc public override var supportsSaveStates: Bool { return false }
+    @objc override var supportsSaveStates: Bool { return false }
     
 #if canImport(OpenGLES) || canImport(OpenGL)
-    @objc public override var pixelFormat: GLenum { GLenum(GL_BGRA) }
-    @objc public override var pixelType: GLenum { GLenum(GL_UNSIGNED_BYTE) }
-    @objc public override var internalPixelFormat: GLenum { GLenum(GL_RGBA) }
+    @objc override var pixelFormat: GLenum { GLenum(GL_BGRA) }
+    @objc override var pixelType: GLenum { GLenum(GL_UNSIGNED_BYTE) }
+    @objc override var internalPixelFormat: GLenum { GLenum(GL_RGBA) }
 #endif
 //    @objc override open var frameInterval: TimeInterval {
 //        return vjs.hardwareTypeNTSC ? 60.0 : 50.0

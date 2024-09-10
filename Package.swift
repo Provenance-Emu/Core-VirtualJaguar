@@ -67,19 +67,20 @@ let package = Package(
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
             name: "PVVirtualJaguar",
-            targets: ["PVVirtualJaguar", "PVVirtualJaguarSwift"]),
+            targets: ["PVVirtualJaguar"]),
         .library(
             name: "PVVirtualJaguar-Dynamic",
             type: .dynamic,
-            targets: ["PVVirtualJaguar", "PVVirtualJaguarSwift"]),
+            targets: ["PVVirtualJaguar"]),
         .library(
             name: "PVVirtualJaguar-Static",
             type: .static,
-            targets: ["PVVirtualJaguar", "PVVirtualJaguarSwift"]),
+            targets: ["PVVirtualJaguar"]),
 
     ],
     dependencies: [
         .package(path: "../../PVCoreBridge"),
+        .package(path: "../../PVCoreObjCBridge"),
         .package(path: "../../PVPlists"),
         .package(path: "../../PVEmulatorCore"),
         .package(path: "../../PVSupport"),
@@ -96,46 +97,15 @@ let package = Package(
         .target(
             name: "PVVirtualJaguar",
             dependencies: [
-                "libjaguar",
                 "PVEmulatorCore",
                 "PVCoreBridge",
-                "PVSupport",
-                "PVPlists",
-                "PVObjCUtils",
-                "PVVirtualJaguarSwift"
-            ],
-            path: "VirtualJaguar",
-            resources: [
-                .process("Resources/Core.plist")
-            ],
-            publicHeadersPath: "include",
-            cSettings: [
-                .define("INLINE", to: "inline"),
-                .define("USE_STRUCTS", to: "1"),
-                .define("__LIBRETRO__", to: "1"),
-                .define("HAVE_COCOATOJUCH", to: "1"),
-                .define("__GCCUNIX__", to: "1"),
-                .headerSearchPath("../virtualjaguar-libretro/src"),
-                .headerSearchPath("../virtualjaguar-libretro/src/m68000"),
-                .headerSearchPath("../virtualjaguar-libretro/libretro-common"),
-                .headerSearchPath("../virtualjaguar-libretro/libretro-common/include"),
-            ]
-        ),
-
-        // MARK: --------- PVVirtualJaguarSwift ---------- //
-
-        .target(
-            name: "PVVirtualJaguarSwift",
-            dependencies: [
-                "PVEmulatorCore",
-                "PVCoreBridge",
+                "PVCoreObjCBridge",
                 "PVLogging",
                 "PVAudio",
                 "PVSupport",
                 "libjaguar",
-                "PVVirtualJaguarC"
+                "PVVirtualJaguarGameCoreBridge"
             ],
-            path: "VirtualJaguarSwift",
             resources: [
                 .process("Resources/Core.plist")
             ],
@@ -143,7 +113,7 @@ let package = Package(
                 .define("INLINE", to: "inline"),
                 .define("USE_STRUCTS", to: "1"),
                 .define("__LIBRETRO__", to: "1"),
-                .define("HAVE_COCOATOJUCH", to: "1"),
+                .define("HAVE_COCOATOUCH", to: "1"),
                 .define("__GCCUNIX__", to: "1"),
                 .headerSearchPath("../virtualjaguar-libretro/src"),
                 .headerSearchPath("../virtualjaguar-libretro/src/m68000"),
@@ -154,32 +124,41 @@ let package = Package(
                 .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin")
             ]
         ),
-
-        // MARK: --------- PVVirtualJaguarC ---------- //
+        
+        // MARK: --------- PVVirtualJaguarGameCoreBridge ---------- //
 
         .target(
-            name: "PVVirtualJaguarC",
+            name: "PVVirtualJaguarGameCoreBridge",
             dependencies: [
+                "libjaguar",
                 "PVEmulatorCore",
                 "PVCoreBridge",
-                "PVLogging",
-                "PVAudio",
+                "PVCoreObjCBridge",
                 "PVSupport",
-                "libjaguar"
+                "PVPlists",
+                "PVObjCUtils",
             ],
-            path: "VirtualJaguarC",
-            publicHeadersPath: "./",
-            packageAccess: true,
+            publicHeadersPath: "",
             cSettings: [
+                .unsafeFlags([
+                    "-fmodules",
+                    "-fcxx-modules"
+                ]),
                 .define("INLINE", to: "inline"),
                 .define("USE_STRUCTS", to: "1"),
                 .define("__LIBRETRO__", to: "1"),
-                .define("HAVE_COCOATOJUCH", to: "1"),
+                .define("HAVE_COCOATOUCH", to: "1"),
                 .define("__GCCUNIX__", to: "1"),
                 .headerSearchPath("../virtualjaguar-libretro/src"),
                 .headerSearchPath("../virtualjaguar-libretro/src/m68000"),
                 .headerSearchPath("../virtualjaguar-libretro/libretro-common"),
                 .headerSearchPath("../virtualjaguar-libretro/libretro-common/include"),
+            ],
+            cxxSettings: [
+                .unsafeFlags([
+                    "-fmodules",
+                    "-fcxx-modules"
+                ])
             ]
         ),
 
@@ -188,7 +167,7 @@ let package = Package(
         .target(
             name: "libjaguar",
             dependencies: ["libretro-common"],
-            path: "virtualjaguar-libretro/src",
+            path: "Sources/virtualjaguar-libretro/src",
             exclude: [
             ],
             sources: Sources.libjaguar,
@@ -198,8 +177,9 @@ let package = Package(
             cSettings: [
                 .define("INLINE", to: "inline"),
                 .define("USE_STRUCTS", to: "1"),
+//                .define("USE_SSE", to: "1"),
                 .define("__LIBRETRO__", to: "1"),
-                .define("HAVE_COCOATOJUCH", to: "1"),
+                .define("HAVE_COCOATOUCH", to: "1"),
                 .define("__GCCUNIX__", to: "1"),
                 .headerSearchPath("virtualjaguar-libretro/src"),
                 .headerSearchPath("src"),
@@ -211,7 +191,7 @@ let package = Package(
 
         .target(
             name: "libretro-common",
-            path: "virtualjaguar-libretro/libretro-common",
+            path: "Sources/virtualjaguar-libretro/libretro-common",
             exclude: [
                 "include/vfs/vfs_implementation_cdrom.h"
             ],
@@ -231,7 +211,7 @@ let package = Package(
                 .define("INLINE", to: "inline"),
                 .define("USE_STRUCTS", to: "1"),
                 .define("__LIBRETRO__", to: "1"),
-                .define("HAVE_COCOATOJUCH", to: "1"),
+                .define("HAVE_COCOATOUCH", to: "1"),
                 .define("__GCCUNIX__", to: "1"),
                 .headerSearchPath("./"),
                 .headerSearchPath("./include"),
@@ -241,10 +221,10 @@ let package = Package(
         .testTarget(
             name: "PVVirtualJaguarTests",
             dependencies: [
-                "PVVirtualJaguarSwift",
+                "PVVirtualJaguar",
                 "PVCoreBridge",
                 "PVEmulatorCore",
-                "PVVirtualJaguar"
+                "libjaguar"
             ],
             resources: [
                 .copy("VirtualJaguarTests/Resources/jag_240p_test_suite_v0.5.1.jag")

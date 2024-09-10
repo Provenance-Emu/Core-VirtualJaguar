@@ -9,11 +9,8 @@
 import Foundation
 //import PVSupport
 import PVCoreBridge
-internal import PVEmulatorCore
-
-#if SWIFT_PACKAGE
-import PVVirtualJaguarC
-#endif
+import PVCoreObjCBridge
+import PVEmulatorCore
 
 internal final class JaguarCoreOptions: Sendable {
 

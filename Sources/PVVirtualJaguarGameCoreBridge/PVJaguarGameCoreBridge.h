@@ -26,10 +26,9 @@
 
 
 @import Foundation;
-@import PVCoreBridge;
-@import PVVirtualJaguarSwift;
-@import PVVirtualJaguarC;
-#import <PVCoreObjCBridge/PVCoreObjCBridge.h>
+@import PVCoreObjCBridge;
+
+#import "JaguarBuffer.h"
 
 #define AUDIO_BIT_DEPTH 16
 #define AUDIO_CHANNELS 2
@@ -40,13 +39,29 @@
 #define VIDEO_WIDTH 1024
 #define VIDEO_HEIGHT 512
 
+@protocol ObjCBridgedCoreBridge;
+@protocol PVJaguarSystemResponderClient;
+typedef enum PVJaguarButton: NSInteger PVJaguarButton;
+
+
 NS_HEADER_AUDIT_BEGIN(nullability, sendability)
 
 extern uint16_t eeprom_ram[];
 
 int doom_res_hack=0; // Doom Hack to double pixel if pwidth==8 (163*2)
 
-@interface PVJaguarGameCore (ObjCCoreBridge) <ObjCCoreBridge>
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Weverything" // Silence "Cannot find protocol definition" warning due to forward declaration.
+@interface PVJaguarGameCoreBridge: PVCoreObjCBridge <ObjCBridgedCoreBridge, PVJaguarSystemResponderClient>
+#pragma clang diagnostic pop
+
+// Init
++ (instancetype)sharedInstance;
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
+
+// MARK: Options
+@property (nonatomic, assign ) BOOL virtualjaguar_bios;
+@property (nonatomic, assign ) BOOL virtualjaguar_usefastblitter;
 
 // MARK: Core
 - (void)loadFileAtPath:(NSString *)path error:(NSError * __autoreleasing *)error;
@@ -70,13 +85,17 @@ int doom_res_hack=0; // Doom Hack to double pixel if pwidth==8 (163*2)
 - (void)saveStateToFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *)) __attribute__((noescape)) block;
 - (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *)) __attribute__((noescape)) block;
 
+- (void)didPushJaguarButton:(PVJaguarButton)button forPlayer:(NSInteger)player;
+- (void)didReleaseJaguarButton:(PVJaguarButton)button forPlayer:(NSInteger)player;
 
 @end
+
 //
-//@interface PVJaguarGameCoreObjCBridge : PVCoreObjCBridge
+//@interface PVJaguarGameCoreBridge (PVJaguarSystemResponderClient) <PVJaguarSystemResponderClient>
+//- (void)didPushJaguarButton:(PVJaguarButton)button forPlayer:(NSInteger)player;
+//- (void)didReleaseJaguarButton:(PVJaguarButton)button forPlayer:(NSInteger)player;
 //@end
 
 JagBuffer* initJagBuffer(const char *label);
-
 
 NS_HEADER_AUDIT_END(nullability, sendability)

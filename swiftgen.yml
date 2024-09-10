@@ -1,4 +1,4 @@
-input_dir: VirtualJaguarSwift/Resources/
+input_dir: Sources/PVVirtualJaguar/Resources/
 #output_dir: VirtualJaguarSwift/
 output_dir: ${DERIVED_SOURCES_DIR}
 
@@ -11,4 +11,3 @@ plist:
         publicAccess: true
         enumName: CorePlist
         forceFileNameEnum: false
-

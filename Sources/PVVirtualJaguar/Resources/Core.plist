@@ -5,7 +5,7 @@
 	<key>PVCoreIdentifier</key>
 	<string>com.provenance.core.jaguar</string>
 	<key>PVPrincipleClass</key>
-	<string>PVJaguarGameCore</string>
+	<string>PVVirtualJaguar.PVJaguarGameCore</string>
 	<key>PVSupportedSystems</key>
 	<array>
 		<string>com.provenance.jaguar</string>

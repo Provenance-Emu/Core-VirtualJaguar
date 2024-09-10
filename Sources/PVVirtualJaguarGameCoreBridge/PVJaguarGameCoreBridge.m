@@ -1,27 +1,16 @@
 @import Foundation;
-@import PVCoreBridge;
+//@import PVCoreBridge;
 @import PVEmulatorCore;
 #if !TARGET_OS_WATCH
 @import GameController;
 #endif
 @import PVSupport;
 @import PVLoggingObjC;
-@import PVVirtualJaguarC;
-@import PVVirtualJaguarSwift;
-#import <PVCoreObjCBridge/PVCoreObjCBridge.h>
-
-#import "PVJaguarGameCore.h"
-
-#if SWIFT_PACKAGE
-@import PVVirtualJaguarSwift;
-@import PVVirtualJaguarC;
+@import PVCoreObjCBridge;
 @import libjaguar;
 @import libretro_common;
-#else
-#import <PVVirtualJaguar/PVVirtualJaguar-Swift.h>
-#import <PVVirtualJaguar/PVVirtualJaguarSwift-Swift.h>
 
-#endif
+#import "PVJaguarGameCoreBridge.h"
 
 #if __has_include(<OpenGLES/ES3/gl.h>)
 #import <OpenGLES/gltypes.h>
@@ -39,7 +28,7 @@ void retro_set_audio_sample_batch_jaguar(retro_audio_sample_batch_t cb) { audio_
 @import PVAudio;
 @import PVObjCUtils;
 
-__weak static PVJaguarGameCore *_current;
+__weak static PVJaguarGameCoreBridge *_current;
 
 JagBuffer* initJagBuffer(const char *label) {
     JagBuffer* buffer = malloc(sizeof(*buffer));
@@ -52,7 +41,7 @@ JagBuffer* initJagBuffer(const char *label) {
 }
 
 static const size_t update_audio_batch(const int16_t *data, const size_t frames) {
-    __strong PVJaguarGameCore* current = _current;
+    __strong PVJaguarGameCoreBridge* current = _current;
     if(current == nil)
         return 0;
 
@@ -70,18 +59,41 @@ static const size_t update_audio_batch(const int16_t *data, const size_t frames)
     //	return frames;
 }
 
-@interface PVJaguarGameCore (ObjCCoreBridge) <ObjCCoreBridge>
+@interface PVJaguarGameCoreBridge () <ObjCBridgedCoreBridge>
+{
+    @public
+    int videoWidth, videoHeight, videoBufferSize;
+    float frameTime;
+    bool multithreaded;
+    double sampleRate;
+    struct JagBuffer * videoBuffer;
+    dispatch_queue_t audioQueue;
+    dispatch_queue_t videoQueue;
+    dispatch_group_t renderGroup;
+
+    dispatch_semaphore_t waitToBeginFrameSemaphore;
+}
 
 @end
 
-__attribute__((objc_direct_members))
+//__attribute__((objc_direct_members))
 __attribute__((visibility("default")))
-@implementation PVJaguarGameCore (ObjCCoreBridge)
+@implementation PVJaguarGameCoreBridge
+//@synthesize valueChangedHandler;
+
++ (instancetype)sharedInstance {
+    static PVJaguarGameCoreBridge *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[PVJaguarGameCoreBridge alloc] init];
+    });
+    return sharedInstance;
+}
 
 - (instancetype)init {
     if (self = [super init]) {
-        self.videoWidth = VIDEO_WIDTH;
-        self.videoHeight = VIDEO_HEIGHT;
+        videoWidth = VIDEO_WIDTH;
+        videoHeight = VIDEO_HEIGHT;
 //        self.sampleRate = AUDIO_SAMPLERATE;
         
         dispatch_queue_attr_t priorityAttribute = dispatch_queue_attr_make_with_qos_class( DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INTERACTIVE, 0);
@@ -102,18 +114,25 @@ __attribute__((visibility("default")))
     return self;
 }
 
--  (void)loadFileAtPath:(NSString *)path error:(NSError * __autoreleasing *)error {
+-  (BOOL)loadFileAtPath:(NSString *)path error:(NSError * __nullable __autoreleasing * __nullable)error {
     NSString *batterySavesDirectory = self.batterySavesPath;
 
     if([batterySavesDirectory length] != 0) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:batterySavesDirectory withIntermediateDirectories:YES attributes:nil error:NULL];
-
+        NSError *fileError;
+        [[NSFileManager defaultManager] createDirectoryAtPath:batterySavesDirectory
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil
+                                                        error:&fileError];
+        if (fileError != nil) {
+            *error = fileError;
+            return false;
+        }
         NSString *filePath = [batterySavesDirectory stringByAppendingString:@"/"];
         strcpy(vjs.EEPROMPath, filePath.fileSystemRepresentation);
     }
 
-    self.videoWidth           = 320;
-    self.videoHeight          = 240;
+    self->videoWidth           = 320;
+    self->videoHeight          = 240;
 
     struct JagBuffer *buffer1 = initJagBuffer("a");
     struct JagBuffer *buffer2 = initJagBuffer("b");
@@ -121,7 +140,7 @@ __attribute__((visibility("default")))
     buffer1->next = buffer2;
     buffer2->next = buffer1;
 
-    self.jagVideoBuffer = buffer1;
+    self->videoBuffer = buffer1;
     //    frontBuffer  = (uint32_t *)calloc(sizeof(uint32_t), 1024 * 512);
     //    backBuffer  = (uint32_t *)calloc(sizeof(uint32_t), 1024 * 512);
 
@@ -186,7 +205,8 @@ __attribute__((visibility("default")))
 
         return romLoaded;
     } else {
-        return [self loadSoftware:path];
+        BOOL romLoaded = [self loadSoftware:path];
+        return romLoaded;
     }
 
     return NO;
@@ -231,8 +251,8 @@ __attribute__((visibility("default")))
 
     m68k_pulse_reset();
 
-    self.audioBufferSize = vjs.hardwareTypeNTSC ? BUFNTSC : BUFPAL;
-    self.frameTime = vjs.hardwareTypeNTSC ? 1.0/60.0 : 1.0/50.0;
+    self->videoBufferSize = vjs.hardwareTypeNTSC ? BUFNTSC : BUFPAL;
+    self->frameTime = vjs.hardwareTypeNTSC ? 1.0/60.0 : 1.0/50.0;
 
     return cartridgeLoaded;
 }
@@ -265,15 +285,15 @@ __attribute__((visibility("default")))
     }
 #endif
     
-    if (self.multithreaded) {
+    if (self->multithreaded) {
         __block BOOL expired = NO;
-        dispatch_time_t killTime = dispatch_time(DISPATCH_TIME_NOW, self.frameTime * NSEC_PER_SEC);
+        dispatch_time_t killTime = dispatch_time(DISPATCH_TIME_NOW, self->frameTime * NSEC_PER_SEC);
 
-        struct JagBuffer*videoBuffer = self.jagVideoBuffer;
+        struct JagBuffer*videoBuffer = self->videoBuffer;
 
         MAKEWEAK(self);
-        dispatch_group_enter(self.renderGroup);
-        dispatch_async(self.videoQueue, ^{
+        dispatch_group_enter(self->renderGroup);
+        dispatch_async(self->videoQueue, ^{
             MAKESTRONG(self);
             vjs.frameSkip = skip || expired;
             //        printf("will write frame %lul\written: %s\tread:%s\tlabel:%s\n", videoBuffer->frameNumber, BS(videoBuffer->written), BS(videoBuffer->read), videoBuffer->label);
@@ -281,18 +301,18 @@ __attribute__((visibility("default")))
             videoBuffer->written = YES;
             videoBuffer->frameNumber = currentFrame;
             //        printf("did write frame %lul\tskip: %s\texpired:%s\nlabel:%s\n", videoBuffer->frameNumber, BS(skip), BS(expired), videoBuffer->label);
-            dispatch_semaphore_signal(strongself.waitToBeginFrameSemaphore);
-            dispatch_group_leave(strongself.renderGroup);
+            dispatch_semaphore_signal(strongself->waitToBeginFrameSemaphore);
+            dispatch_group_leave(strongself->renderGroup);
         });
 
-        dispatch_group_enter(self.renderGroup);
-        dispatch_async(self.audioQueue, ^{
+        dispatch_group_enter(self->renderGroup);
+        dispatch_async(self->audioQueue, ^{
             MAKESTRONG(self);
-            dispatch_semaphore_wait(strongself.waitToBeginFrameSemaphore, killTime);
-            SoundCallback(NULL, strongself.jagVideoBuffer->sampleBuffer, strongself.audioBufferSize);
+            dispatch_semaphore_wait(strongself->waitToBeginFrameSemaphore, killTime);
+            SoundCallback(NULL, ( uint16_t *) strongself->videoBuffer->sampleBuffer, strongself->videoBufferSize);
             //        [[_current ringBufferAtIndex:0] write:videoBuffer->sampleBuffer maxLength:bufferSize*2];
             //        printf("wrote audio frame %lul\tlabel:%s\n", videoBuffer->frameNumber, videoBuffer->label);
-            dispatch_group_leave(strongself.renderGroup);
+            dispatch_group_leave(strongself->renderGroup);
         });
         //        // Don't block the frame draw waiting for audio
         //    dispatch_group_enter(renderGroup);
@@ -320,11 +340,11 @@ __attribute__((visibility("default")))
 }
 
 - (void)initVideo {
-    JaguarSetScreenPitch(self.videoWidth);
-    JaguarSetScreenBuffer(self.jagVideoBuffer->videoBuffer);
-    for (int i = 0; i < self.videoWidth * self.videoHeight; ++i) {
-        self.jagVideoBuffer->videoBuffer[i] = 0xFF00FFFF;
-        self.jagVideoBuffer->next->videoBuffer[i] = 0xFF00FFFF;
+    JaguarSetScreenPitch(self->videoWidth);
+    JaguarSetScreenBuffer(self->videoBuffer->videoBuffer);
+    for (int i = 0; i < self->videoWidth * self->videoHeight; ++i) {
+        self->videoBuffer->videoBuffer[i] = 0xFF00FFFF;
+        self->videoBuffer->next->videoBuffer[i] = 0xFF00FFFF;
     }
 }
 
@@ -342,11 +362,11 @@ __attribute__((visibility("default")))
     // remove the double pointers?
     // Also need to test with doubleBuffer to true then @JoeMatt
 
-    self.jagVideoBuffer->read = YES;
-    self.jagVideoBuffer = self.jagVideoBuffer->next;
-    self.jagVideoBuffer->written = NO;
-    self.jagVideoBuffer->read = NO;
-    JaguarSetScreenBuffer(self.jagVideoBuffer->videoBuffer);
+    videoBuffer->read = YES;
+    videoBuffer = videoBuffer->next;
+    videoBuffer->written = NO;
+    videoBuffer->read = NO;
+    JaguarSetScreenBuffer(videoBuffer->videoBuffer);
 }
 
 - (NSUInteger)audioBitDepth { return AUDIO_BIT_DEPTH; }
@@ -368,10 +388,10 @@ __attribute__((visibility("default")))
 
     // wait on main to release buffer memory
     dispatch_sync(dispatch_get_main_queue(), ^{
-        struct JagBuffer* ab = self.jagVideoBuffer;
+        struct JagBuffer* ab = self->videoBuffer;
 
         if(ab != nil) {
-            struct JagBuffer* next = self.jagVideoBuffer->next;
+            struct JagBuffer* next = self->videoBuffer->next;
 
             while(next->next != ab) {
                 struct JagBuffer* temp = next->next;
@@ -382,7 +402,7 @@ __attribute__((visibility("default")))
         }
         [self delloc_sampleBuffer];
 
-        self.jagVideoBuffer = nil;
+        self->videoBuffer = nil;
     });
 }
 
@@ -398,7 +418,7 @@ __attribute__((visibility("default")))
 }
 
 - (const void *)videoBuffer {
-    return self.jagVideoBuffer->videoBuffer;
+    return self->videoBuffer->videoBuffer;
 }
 
 #if !TARGET_OS_WATCH
@@ -419,7 +439,7 @@ __attribute__((visibility("default")))
 
 - (double)audioSampleRate
 {
-    return self.sampleRate;
+    return self->sampleRate;
 }
 
 - (NSTimeInterval)frameInterval
@@ -724,9 +744,17 @@ size_t retro_get_memory_size_jaguar(unsigned type)
     vjs.hardwareTypeNTSC = !value;
 }
 
+- (BOOL)rendersToOpenGL {
+    return false;
+}
+
+- (nonnull instancetype)initWithCore:(PVEmulatorCore * _Nonnull)core { 
+    self = [ self init ];
+}
+
 @end
 
-@implementation PVJaguarGameCore (PVJaguarSystemResponderClient)
+@implementation PVJaguarGameCoreBridge (PVJaguarSystemResponderClient)
 
 - (void)didPushJaguarButton:(PVJaguarButton)button forPlayer:(NSInteger)player {
     uint8_t *currentController;
@@ -762,19 +790,19 @@ size_t retro_get_memory_size_jaguar(unsigned type)
     }
 }
 
-//- (void)didReleaseJaguarButton:(PVJaguarButton)button forPlayer:(NSInteger)player {
-//    uint8_t *currentController;
-//
-//    if (player == 0) {
-//        currentController = joypad0Buttons;
-//    } else if (player == 1) {
-//        currentController = joypad1Buttons;
-//    } else {
-//        return;
-//    }
-//
-//    int index = [self getIndexForPVJaguarButton:button];
-//    currentController[index] = 0x00;
-//}
+- (void)didReleaseJaguarButton:(PVJaguarButton)button forPlayer:(NSInteger)player {
+    uint8_t *currentController;
+
+    if (player == 0) {
+        currentController = joypad0Buttons;
+    } else if (player == 1) {
+        currentController = joypad1Buttons;
+    } else {
+        return;
+    }
+
+    int index = [self getIndexForPVJaguarButton:button];
+    currentController[index] = 0x00;
+}
 
 @end

@@ -1,3 +1,3 @@
 [submodule "virtualjaguar-libretro"]
-	path = virtualjaguar-libretro
+	path = Sources/virtualjaguar-libretro
 	url = https://github.com/Provenance-Emu/virtualjaguar-libretro.git

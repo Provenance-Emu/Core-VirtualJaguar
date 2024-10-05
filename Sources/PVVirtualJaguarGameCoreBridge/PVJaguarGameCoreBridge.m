@@ -49,7 +49,7 @@ static const size_t update_audio_batch(const int16_t *data, const size_t frames)
     //	dispatch_async(current->audioQueue, ^{
     //		dispatch_time_t killTime = dispatch_time(DISPATCH_TIME_NOW, frameTime * NSEC_PER_SEC);
     //		dispatch_semaphore_wait(current->waitToBeginFrameSemaphore, killTime);
-    return [[current ringBufferAtIndex:0] writeBuffer:data maxLength:frames << 2];
+    return [[current ringBufferAtIndex:0] write:data size:frames << 2];
     //    [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
 
     //		[[current ringBufferAtIndex:0] write:data maxLength:frames * [current channelCount] * 2];
@@ -62,7 +62,7 @@ static const size_t update_audio_batch(const int16_t *data, const size_t frames)
 @interface PVJaguarGameCoreBridge () <ObjCBridgedCoreBridge>
 {
     @public
-    int videoWidth, videoHeight, videoBufferSize;
+    int videoWidth, videoHeight, audioBufferSize;
     float frameTime;
     bool multithreaded;
     double sampleRate;
@@ -94,16 +94,18 @@ __attribute__((visibility("default")))
     if (self = [super init]) {
         videoWidth = VIDEO_WIDTH;
         videoHeight = VIDEO_HEIGHT;
-//        self.sampleRate = AUDIO_SAMPLERATE;
+        sampleRate = AUDIO_SAMPLERATE;
         
         dispatch_queue_attr_t priorityAttribute = dispatch_queue_attr_make_with_qos_class( DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INTERACTIVE, 0);
-//        self.audioQueue = dispatch_queue_create("com.provenance.jaguar.audio", priorityAttribute);
-//        self.videoQueue = dispatch_queue_create("com.provenance.jaguar.video", priorityAttribute);
-//        self.renderGroup = dispatch_group_create();
+        audioQueue = dispatch_queue_create("com.provenance.jaguar.audio", priorityAttribute);
+        videoQueue = dispatch_queue_create("com.provenance.jaguar.video", priorityAttribute);
+        renderGroup = dispatch_group_create();
 //
-//        self.waitToBeginFrameSemaphore = dispatch_semaphore_create(0);
+        waitToBeginFrameSemaphore = dispatch_semaphore_create(0);
 
-//        self.multithreaded = self.virtualjaguar_mutlithreaded;
+        // TODO: Add option getter
+//        multithreaded = self.virtualjaguar_mutlithreaded;
+
 //        buffer = (uint32_t*)calloc(sizeof(uint32_t), videoWidth * videoHeight);
 //        sampleBuffer = (uint16_t *)malloc(BUFMAX * sizeof(uint16_t));
 //        memset(sampleBuffer, 0, BUFMAX * sizeof(uint16_t));
@@ -251,7 +253,7 @@ __attribute__((visibility("default")))
 
     m68k_pulse_reset();
 
-    self->videoBufferSize = vjs.hardwareTypeNTSC ? BUFNTSC : BUFPAL;
+    self->audioBufferSize = vjs.hardwareTypeNTSC ? BUFNTSC : BUFPAL;
     self->frameTime = vjs.hardwareTypeNTSC ? 1.0/60.0 : 1.0/50.0;
 
     return cartridgeLoaded;
@@ -309,8 +311,8 @@ __attribute__((visibility("default")))
         dispatch_async(self->audioQueue, ^{
             MAKESTRONG(self);
             dispatch_semaphore_wait(strongself->waitToBeginFrameSemaphore, killTime);
-            SoundCallback(NULL, ( uint16_t *) strongself->videoBuffer->sampleBuffer, strongself->videoBufferSize);
-            //        [[_current ringBufferAtIndex:0] write:videoBuffer->sampleBuffer maxLength:bufferSize*2];
+            SoundCallback(NULL, ( uint16_t *) strongself->videoBuffer->sampleBuffer, strongself->audioBufferSize);
+            //        [[_current ringBufferAtIndex:0] write:videoBuffer->sampleBuffer maxLength:audioBufferSize*2];
             //        printf("wrote audio frame %lul\tlabel:%s\n", videoBuffer->frameNumber, videoBuffer->label);
             dispatch_group_leave(strongself->renderGroup);
         });
@@ -327,9 +329,8 @@ __attribute__((visibility("default")))
     } else {
         vjs.frameSkip = skip;
         JaguarExecuteNew();
-        int bufferSize = vjs.hardwareTypeNTSC ? BUFNTSC : BUFPAL;
 
-        SoundCallback(NULL, sampleBuffer, bufferSize);
+        SoundCallback(NULL, sampleBuffer, audioBufferSize);
         //    [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
 
     }
@@ -387,7 +388,7 @@ __attribute__((visibility("default")))
     _current = nil;
 
     // wait on main to release buffer memory
-    dispatch_sync(dispatch_get_main_queue(), ^{
+//    dispatch_sync(dispatch_get_main_queue(), ^{
         struct JagBuffer* ab = self->videoBuffer;
 
         if(ab != nil) {
@@ -403,7 +404,7 @@ __attribute__((visibility("default")))
         [self delloc_sampleBuffer];
 
         self->videoBuffer = nil;
-    });
+//    });
 }
 
 -(void)delloc_sampleBuffer {
@@ -415,6 +416,14 @@ __attribute__((visibility("default")))
 
 - (CGRect)screenRect {
     return CGRectMake(0, 0, TOMGetVideoModeWidth(), TOMGetVideoModeHeight());
+}
+
+- (CGSize)bufferSize {
+    return CGSizeMake(videoWidth, videoHeight);
+}
+
+- (CGSize)aspectSize {
+    return CGSizeMake(videoWidth, videoHeight);
 }
 
 - (const void *)videoBuffer {
@@ -746,10 +755,6 @@ size_t retro_get_memory_size_jaguar(unsigned type)
 
 - (BOOL)rendersToOpenGL {
     return false;
-}
-
-- (nonnull instancetype)initWithCore:(PVEmulatorCore * _Nonnull)core { 
-    self = [ self init ];
 }
 
 @end

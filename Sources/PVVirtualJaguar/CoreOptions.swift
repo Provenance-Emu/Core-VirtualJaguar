@@ -12,7 +12,7 @@ import PVCoreBridge
 import PVCoreObjCBridge
 import PVEmulatorCore
 
-internal final class JaguarCoreOptions: Sendable {
+internal final class JaguarCoreOptions: CoreOptions, Sendable {
 
     public static var options: [CoreOption] {
         var options = [CoreOption]()

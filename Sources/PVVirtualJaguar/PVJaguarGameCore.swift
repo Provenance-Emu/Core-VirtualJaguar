@@ -24,55 +24,18 @@ import libjaguar
 
 @objc
 @objcMembers
-open class PVJaguarGameCore: PVEmulatorCore, ObjCBridgedCore, @unchecked Sendable {
+public class PVJaguarGameCore: PVEmulatorCore {
     
-    // PVEmulatorCoreBridged
-    public typealias Bridge = PVJaguarGameCoreBridge
-    public lazy var bridge: Bridge = {
-        let core = PVJaguarGameCoreBridge()
-        return core
-    }()
-
-
-//    @MainActor
-//    @objc public var jagVideoBuffer: UnsafeMutablePointer<JagBuffer>?
-//    @MainActor
-//    @objc public var videoWidth: UInt32 = UInt32(VIDEO_WIDTH)
-//    @MainActor
-//    @objc public var videoHeight: Int = Int(VIDEO_HEIGHT)
-//    @MainActor
-    @objc public var frameTime: Float = 0.0
     @objc public var multithreaded: Bool { virtualjaguar_mutlithreaded }
 
     // MARK: Audio
-    @objc public override var sampleRate: Double {
-        get { Double(AUDIO_SAMPLERATE) }
-        set {}
-    }
-
-    @objc dynamic public override var audioBufferCount: UInt { 1 }
-
-//    @MainActor
-    @objc public var audioBufferSize: Int16 = 0
+//    @objc public override var sampleRate: Double {
+//        get { Double(AUDIO_SAMPLERATE) }
+//        set {}
+//    }
 
     // MARK: Queues
-    @objc  public let audioQueue: DispatchQueue = .init(label: "com.provenance.jaguar.audio", qos: .userInteractive, autoreleaseFrequency: .inherit)
-    @objc public let videoQueue: DispatchQueue = .init(label: "com.provenance.jaguar.video", qos: .userInteractive, autoreleaseFrequency: .inherit)
-    @objc public let renderGroup: DispatchGroup = .init()
 
-    @objc  public let waitToBeginFrameSemaphore: DispatchSemaphore = .init(value: 0)
-
-#if canImport(GameController)
-    // MARK: Controls
-//    @MainActor
-    @objc public init(valueChangedHandler: GCExtendedGamepadValueChangedHandler? = nil) {
-        self.valueChangedHandler = valueChangedHandler
-//        self.core = PVJaguarCoreBridge(valueChangedHandler: valueChangedHandler)
-    }
-
-//    @MainActor
-    @objc public var valueChangedHandler: GCExtendedGamepadValueChangedHandler? = nil
-#endif
     // MARK: Video
 
     @objc public override var isDoubleBuffered: Bool {
@@ -88,26 +51,24 @@ open class PVJaguarGameCore: PVEmulatorCore, ObjCBridgedCore, @unchecked Sendabl
 //    @objc public override var videoBufferSize: CGSize { .init(width: Int(videoWidth), height: videoHeight) }
 
 //    @MainActor
-    @objc public override var aspectSize: CGSize { .init(width: Int(TOMGetVideoModeWidth()), height: Int(TOMGetVideoModeHeight())) }
+//    @objc public override var aspectSize: CGSize { .init(width: Int(TOMGetVideoModeWidth()), height: Int(TOMGetVideoModeHeight())) }
 
     // MARK: Lifecycle
-
-    @objc public required init() {
-        super.init()
-    }
+    package var _bridge: PVJaguarGameCoreBridge = .init()
     
-    open override func executeFrame() {
-        bridge.executeFrame()
+    public required init() {
+        super.init()
+        self.bridge = _bridge as! any ObjCBridgedCoreBridge
     }
 }
 
 extension PVJaguarGameCore: PVJaguarSystemResponderClient {
     public func didPush(jaguarButton button: PVCoreBridge.PVJaguarButton, forPlayer player: Int) {
-        (bridge as! PVJaguarSystemResponderClient).didPush(jaguarButton: button, forPlayer: player)
+        (_bridge as! PVJaguarSystemResponderClient).didPush(jaguarButton: button, forPlayer: player)
     }
     
     public func didRelease(jaguarButton button: PVCoreBridge.PVJaguarButton, forPlayer player: Int) {
-        (bridge as! PVJaguarSystemResponderClient).didRelease(jaguarButton: button, forPlayer: player)
+        (_bridge as! PVJaguarSystemResponderClient).didRelease(jaguarButton: button, forPlayer: player)
     }
 }
 
@@ -207,9 +168,9 @@ public extension PVJaguarGameCore {
 //        setButtonValue(UInt32(player), at: Int32(index), to: 0x00)
 //     }
     
-    @objc override var screenRect: CGRect {
-        return .init(x: 0, y: 0, width: Int(TOMGetVideoModeWidth()), height: Int(TOMGetVideoModeHeight()))
-    }
+//    @objc override var screenRect: CGRect {
+//        return .init(x: 0, y: 0, width: Int(TOMGetVideoModeWidth()), height: Int(TOMGetVideoModeHeight()))
+//    }
     
     @objc override var supportsSaveStates: Bool { return false }
     

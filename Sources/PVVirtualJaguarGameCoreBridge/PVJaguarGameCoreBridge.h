@@ -43,7 +43,6 @@
 @protocol PVJaguarSystemResponderClient;
 typedef enum PVJaguarButton: NSInteger PVJaguarButton;
 
-
 NS_HEADER_AUDIT_BEGIN(nullability, sendability)
 
 extern uint16_t eeprom_ram[];

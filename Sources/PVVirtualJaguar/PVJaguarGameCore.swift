@@ -58,7 +58,7 @@ public class PVJaguarGameCore: PVEmulatorCore {
     
     public required init() {
         super.init()
-        self.bridge = _bridge as! any ObjCBridgedCoreBridge
+        self.bridge = (_bridge as! any ObjCBridgedCoreBridge)
     }
 }
 

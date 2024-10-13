@@ -54,7 +54,7 @@ enum Sources {
 }
 
 let package = Package(
-    name: "PVVirtualJaguar",
+    name: "PVCoreVirtualJaguar",
     platforms: [
         .iOS(.v17),
         .tvOS("15.4"),

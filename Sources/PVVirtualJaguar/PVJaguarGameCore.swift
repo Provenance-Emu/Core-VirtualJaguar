@@ -28,9 +28,10 @@ public class PVJaguarGameCore: PVEmulatorCore {
     
     @objc public var multithreaded: Bool { virtualjaguar_mutlithreaded }
 
+    override public var alwaysUseMetal: Bool { true }
     // MARK: Audio
 //    @objc public override var sampleRate: Double {
-//        get { Double(AUDIO_SAMPLERATE) }
+//        get { Double(AUDIO_SAMPLERATE) }s
 //        set {}
 //    }
 
@@ -66,7 +67,6 @@ extension PVJaguarGameCore: PVJaguarSystemResponderClient {
     public func didPush(jaguarButton button: PVCoreBridge.PVJaguarButton, forPlayer player: Int) {
         (_bridge as! PVJaguarSystemResponderClient).didPush(jaguarButton: button, forPlayer: player)
     }
-    
     public func didRelease(jaguarButton button: PVCoreBridge.PVJaguarButton, forPlayer player: Int) {
         (_bridge as! PVJaguarSystemResponderClient).didRelease(jaguarButton: button, forPlayer: player)
     }

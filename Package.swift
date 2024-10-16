@@ -57,7 +57,7 @@ let package = Package(
     name: "PVCoreVirtualJaguar",
     platforms: [
         .iOS(.v17),
-        .tvOS("15.4"),
+        .tvOS(.v17),
         .watchOS(.v9),
         .macOS(.v11),
         .macCatalyst(.v17),
@@ -111,7 +111,7 @@ let package = Package(
             ],
             cSettings: [
                 .define("INLINE", to: "inline"),
-                .define("USE_STRUCTS", to: "1"),
+//                .define("USE_STRUCTS", to: "1"),
                 .define("__LIBRETRO__", to: "1"),
                 .define("HAVE_COCOATOUCH", to: "1"),
                 .define("__GCCUNIX__", to: "1"),
@@ -145,7 +145,7 @@ let package = Package(
                     "-fcxx-modules"
                 ]),
                 .define("INLINE", to: "inline"),
-                .define("USE_STRUCTS", to: "1"),
+//                .define("USE_STRUCTS", to: "1"),
                 .define("__LIBRETRO__", to: "1"),
                 .define("HAVE_COCOATOUCH", to: "1"),
                 .define("__GCCUNIX__", to: "1"),
@@ -176,7 +176,7 @@ let package = Package(
             packageAccess: true,
             cSettings: [
                 .define("INLINE", to: "inline"),
-                .define("USE_STRUCTS", to: "1"),
+//                .define("USE_STRUCTS", to: "1"),
 //                .define("USE_SSE", to: "1"),
                 .define("__LIBRETRO__", to: "1"),
                 .define("HAVE_COCOATOUCH", to: "1"),
@@ -209,7 +209,7 @@ let package = Package(
             packageAccess: false,
             cSettings: [
                 .define("INLINE", to: "inline"),
-                .define("USE_STRUCTS", to: "1"),
+//                .define("USE_STRUCTS", to: "1"),
                 .define("__LIBRETRO__", to: "1"),
                 .define("HAVE_COCOATOUCH", to: "1"),
                 .define("__GCCUNIX__", to: "1"),

@@ -28,7 +28,7 @@ public class PVJaguarGameCore: PVEmulatorCore {
     
     @objc public var multithreaded: Bool { virtualjaguar_mutlithreaded }
 
-    override public var alwaysUseMetal: Bool { true }
+    override public var alwaysUseMetal: Bool { false }
     // MARK: Audio
 //    @objc public override var sampleRate: Double {
 //        get { Double(AUDIO_SAMPLERATE) }s

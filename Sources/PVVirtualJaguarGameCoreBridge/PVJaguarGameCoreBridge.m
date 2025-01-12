@@ -538,10 +538,16 @@ __attribute__((visibility("default")))
             // Option
             currentController[[self getIndexForPVJaguarButton:PVJaguarButtonOption]] = gamepad.rightTrigger.isPressed ? 0xFF : 0x00;
 
-            // # & * (used by some games like NBA Jam to exit game)
-            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonPause]] =  gamepad.leftShoulder.isPressed ? 0xFF : 0x00;
-            currentController[[self getIndexForPVJaguarButton:PVJaguarButtonOption]] = gamepad.rightShoulder.isPressed ? 0xFF : 0x00;
-
+            //numbers
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButton1]] = gamepad.rightThumbstick.left.isPressed ? 0xFF : 0x00;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButton2]] = gamepad.rightThumbstick.up.isPressed ? 0xFF : 0x00;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButton3]] = gamepad.rightThumbstick.right.isPressed ? 0xFF : 0x00;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButton4]] = gamepad.rightThumbstick.down.isPressed ? 0xFF : 0x00;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButton5]] = gamepad.leftThumbstickButton != nil && gamepad.leftThumbstickButton.isPressed ? 0xFF : 0x00;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButton6]] = gamepad.rightThumbstickButton != nil && gamepad.rightThumbstickButton.isPressed ? 0xFF : 0x00;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButton7]] =  gamepad.leftShoulder.isPressed ? 0xFF : 0x00;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButton8]] = gamepad.buttonY.isPressed ? 0xFF : 0x00;
+            currentController[[self getIndexForPVJaguarButton:PVJaguarButton9]] = gamepad.rightShoulder.isPressed ? 0xFF : 0x00;
         }
 #if TARGET_OS_TV
         else if ([controller microGamepad]) {

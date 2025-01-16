@@ -25,11 +25,11 @@ import libjaguar
 @objc
 @objcMembers
 public class PVJaguarGameCore: PVEmulatorCore {
-    
+
     @objc public var multithreaded: Bool { virtualjaguar_mutlithreaded }
 
-    override public var alwaysUseMetal: Bool { false }
-    override public var alwaysUseGL: Bool { true }
+//    override public var alwaysUseMetal: Bool { false }
+//    override public var alwaysUseGL: Bool { true }
     // MARK: Audio
 //    @objc public override var sampleRate: Double {
 //        get { Double(AUDIO_SAMPLERATE) }s
@@ -45,7 +45,7 @@ public class PVJaguarGameCore: PVEmulatorCore {
         // return self.virtualjaguar_double_buffer
         return false
     }
-    
+
     @objc public override dynamic var rendersToOpenGL: Bool { false }
 
 
@@ -57,10 +57,48 @@ public class PVJaguarGameCore: PVEmulatorCore {
 
     // MARK: Lifecycle
     package var _bridge: PVJaguarGameCoreBridge = .init()
-    
+
     public required init() {
         super.init()
         self.bridge = (_bridge as! any ObjCBridgedCoreBridge)
+    }
+
+    /// The actual video buffer size from the core
+    @objc public override var bufferSize: CGSize {
+        // Use TOM's dimensions for the actual content size
+        let width = Int(TOMGetVideoModeWidth())
+        let height = Int(TOMGetVideoModeHeight())
+        let size = CGSize(width: width, height: height)
+        ILOG("Jaguar buffer size: \(size)")
+        return size
+    }
+
+    /// The visible screen area
+    @objc public override var screenRect: CGRect {
+        // Use TOM's dimensions for the visible area
+        let width = Int(TOMGetVideoModeWidth())
+        let height = Int(TOMGetVideoModeHeight())
+        let rect = CGRect(x: 0, y: 0, width: width, height: height)
+        ILOG("Jaguar screen rect: \(rect)")
+        return rect
+    }
+
+    /// The actual bytes per pixel based on our pixel format
+    private var bytesPerPixel: Int {
+        switch pixelType {
+        case GLenum(GL_UNSIGNED_BYTE): return 4  // RGBA8
+        case GLenum(GL_UNSIGNED_INT): return 4   // 32-bit
+        default: return 4
+        }
+    }
+
+    /// Log video buffer details when it's accessed
+    @objc override public var videoBuffer: UnsafeMutableRawPointer? {
+        let buffer = super.videoBuffer
+        if let buffer = buffer {
+            ILOG("Jaguar video buffer: address=\(String(describing: buffer)), expectedSize=\(expectedBytesPerRow * Int(bufferSize.height))")
+        }
+        return buffer
     }
 }
 
@@ -168,22 +206,44 @@ public extension PVJaguarGameCore {
 //        let index = getIndexForPVJaguarButton(button)
 //        setButtonValue(UInt32(player), at: Int32(index), to: 0x00)
 //     }
-    
+
 //    @objc override var screenRect: CGRect {
 //        return .init(x: 0, y: 0, width: Int(TOMGetVideoModeWidth()), height: Int(TOMGetVideoModeHeight()))
 //    }
-    
+
     @objc override var supportsSaveStates: Bool { return false }
-    
+
 #if canImport(OpenGLES) || canImport(OpenGL)
-    @objc override var pixelFormat: GLenum { GLenum(GL_BGRA) }
+    /// Core outputs in XRGB8888 format
+    @objc override var pixelFormat: GLenum { GLenum(GL_RGBA) }
+
+    /// For 8-bit per channel (32-bit total), we use UNSIGNED_BYTE
     @objc override var pixelType: GLenum { GLenum(GL_UNSIGNED_BYTE) }
+
+    /// Internal format should match the input format
     @objc override var internalPixelFormat: GLenum { GLenum(GL_RGBA) }
+
+    /// Calculate aligned bytes per row
+    private var alignedBytesPerRow: Int {
+        // Use actual content width for stride
+        let width = Int(TOMGetVideoModeWidth())
+        let alignedWidth = (width + 3) & ~3  // Align to 4 bytes
+        let bytes = alignedWidth * bytesPerPixel
+        ILOG("Jaguar aligned bytes per row: \(bytes) (content width: \(width), aligned width: \(alignedWidth))")
+        return bytes
+    }
+
+    /// Use aligned row bytes for expected bytes per row
+    private var expectedBytesPerRow: Int {
+        let bytes = alignedBytesPerRow
+        ILOG("Jaguar expected bytes per row: \(bytes) (aligned width: \((bytes/bytesPerPixel)) * bytesPerPixel: \(bytesPerPixel))")
+        return bytes
+    }
 #endif
 //    @objc override open var frameInterval: TimeInterval {
 //        return vjs.hardwareTypeNTSC ? 60.0 : 50.0
 //    }
-    
+
 //    @objc override public var videoBuffer: UnsafeMutableRawPointer<UInt16>? {
 //        guard let jagVideoBuffer = jagVideoBuffer else {
 //            return nil

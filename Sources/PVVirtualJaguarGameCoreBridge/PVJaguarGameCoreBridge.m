@@ -31,11 +31,24 @@ void retro_set_audio_sample_batch_jaguar(retro_audio_sample_batch_t cb) { audio_
 __weak static PVJaguarGameCoreBridge *_current;
 
 JagBuffer* initJagBuffer(const char *label) {
-    JagBuffer* buffer = malloc(sizeof(*buffer));
+    JagBuffer* buffer = malloc(sizeof(JagBuffer));
     if (buffer != NULL) {
-        JagBuffer* buffer = malloc(sizeof(*buffer));
-        memset(buffer->sampleBuffer, 0, BUFMAX);
+        // Allocate buffer using actual content dimensions
+        const size_t width = TOMGetVideoModeWidth();
+        const size_t height = TOMGetVideoModeHeight();
+        const size_t alignedWidth = (width + 3) & ~3;
+        const size_t bufferSize = alignedWidth * height * sizeof(uint32_t);
+
+        buffer->videoBuffer = (uint32_t *)calloc(1, bufferSize);
+        memset(buffer->videoBuffer, 0, bufferSize);
+
+        buffer->sampleBuffer = (uint16_t *)malloc(BUFMAX * sizeof(uint16_t));
+        memset(buffer->sampleBuffer, 0, BUFMAX * sizeof(uint16_t));
+
         strncpy(buffer->label, label, 256);
+        buffer->written = false;
+        buffer->read = false;
+        buffer->frameNumber = 0;
     }
     return buffer;
 }
@@ -95,7 +108,7 @@ __attribute__((visibility("default")))
         videoWidth = VIDEO_WIDTH;
         videoHeight = VIDEO_HEIGHT;
         sampleRate = AUDIO_SAMPLERATE;
-        
+
         dispatch_queue_attr_t priorityAttribute = dispatch_queue_attr_make_with_qos_class( DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INTERACTIVE, 0);
         audioQueue = dispatch_queue_create("com.provenance.jaguar.audio", priorityAttribute);
         videoQueue = dispatch_queue_create("com.provenance.jaguar.video", priorityAttribute);
@@ -110,9 +123,9 @@ __attribute__((visibility("default")))
 //        sampleBuffer = (uint16_t *)malloc(BUFMAX * sizeof(uint16_t));
 //        memset(sampleBuffer, 0, BUFMAX * sizeof(uint16_t));
     }
-    
+
     _current = self;
-    
+
     return self;
 }
 
@@ -133,8 +146,18 @@ __attribute__((visibility("default")))
         strcpy(vjs.EEPROMPath, filePath.fileSystemRepresentation);
     }
 
-    self->videoWidth           = 320;
-    self->videoHeight          = 240;
+    // Use fixed dimensions initially
+    self->videoWidth = 320;
+    self->videoHeight = 240;
+
+    // Get the actual dimensions from TOM after init
+    JaguarInit();
+
+    self->videoWidth = TOMGetVideoModeWidth();
+    self->videoHeight = TOMGetVideoModeHeight();
+
+    // Calculate aligned width for the buffer
+    const size_t alignedWidth = (self->videoWidth + 3) & ~3;
 
     struct JagBuffer *buffer1 = initJagBuffer("a");
     struct JagBuffer *buffer2 = initJagBuffer("b");
@@ -143,8 +166,28 @@ __attribute__((visibility("default")))
     buffer2->next = buffer1;
 
     self->videoBuffer = buffer1;
-    //    frontBuffer  = (uint32_t *)calloc(sizeof(uint32_t), 1024 * 512);
-    //    backBuffer  = (uint32_t *)calloc(sizeof(uint32_t), 1024 * 512);
+
+    // Set up screen buffer with proper pitch
+    JaguarSetScreenPitch(alignedWidth);  // Use aligned width for pitch
+    JaguarSetScreenBuffer(videoBuffer->videoBuffer);
+
+    ILOG(@"Jaguar dimensions - Content: %dx%d, Buffer: %dx%d, Pitch: %d",
+         self->videoWidth, self->videoHeight,
+         VIDEO_WIDTH, VIDEO_HEIGHT,
+         alignedWidth);
+
+    // Initialize buffer with a test pattern
+    for (int y = 0; y < self->videoHeight; y++) {
+        for (int x = 0; x < self->videoWidth; x++) {
+            uint32_t color;
+            if ((x / 32) % 2 == 0) {
+                color = 0xFF0000FF;  // Red
+            } else {
+                color = 0xFF00FF00;  // Green
+            }
+            videoBuffer->videoBuffer[y * self->videoWidth + x] = color;
+        }
+    }
 
     sampleBuffer = (uint16_t *)malloc(BUFMAX * sizeof(uint16_t)); //found in dac.h
     memset(sampleBuffer, 0, BUFMAX * sizeof(uint16_t));
@@ -176,6 +219,16 @@ __attribute__((visibility("default")))
     retro_set_audio_sample_batch_jaguar((unsigned long (*)(const short *, unsigned long))update_audio_batch);
 
     JaguarInit();                                             // set up hardware
+
+    // Now update dimensions after hardware init
+    self->videoWidth = TOMGetVideoModeWidth();
+    self->videoHeight = TOMGetVideoModeHeight();
+
+    // Update pitch after getting actual dimensions
+    JaguarSetScreenPitch(self->videoWidth);
+
+    ILOG(@"Jaguar video dimensions: %dx%d", self->videoWidth, self->videoHeight);
+
     if (!externalBIOS) {
         memcpy(jagMemSpace + 0xE00000, (vjs.biosType == BT_K_SERIES ? jaguarBootROM : jaguarBootROM2), 0x20000); // Use the stock BIOS
     } else {
@@ -286,7 +339,7 @@ __attribute__((visibility("default")))
         [self pollControllers];
     }
 #endif
-    
+
     if (self->multithreaded) {
         __block BOOL expired = NO;
         dispatch_time_t killTime = dispatch_time(DISPATCH_TIME_NOW, self->frameTime * NSEC_PER_SEC);

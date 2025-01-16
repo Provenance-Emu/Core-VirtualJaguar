@@ -10,17 +10,15 @@
 #ifndef JaguarBuffer_h
 #define JaguarBuffer_h
 
-//#include <sys/types.h>
-
-//#import <jaguar.h>
-//#import <libretro.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 #define AUDIO_BIT_DEPTH 16
 #define AUDIO_CHANNELS 2
 #define AUDIO_SAMPLERATE 48000
 #define BUFPAL  1920
 #define BUFNTSC 1600
-#define BUFMAX (2048 * sizeof(uint16_t))
+#define BUFMAX 2048
 #define VIDEO_WIDTH 1024
 #define VIDEO_HEIGHT 512
 
@@ -29,15 +27,15 @@ extern uint8_t joypad1Buttons[21];
 
 typedef struct JagBuffer {
     char label[256];
-    uint32_t videoBuffer[VIDEO_WIDTH * VIDEO_HEIGHT];
-    uint16_t * sampleBuffer[BUFMAX];
+    uint32_t *videoBuffer;
+    uint16_t *sampleBuffer;
 
     bool read;
     bool written;
     bool audio_read;
     bool audio_written;
 
-    u_long frameNumber;
+    unsigned long frameNumber;
     struct JagBuffer* next;
 } JagBuffer;
 

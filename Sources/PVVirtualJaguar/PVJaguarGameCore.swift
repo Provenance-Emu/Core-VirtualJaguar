@@ -48,13 +48,6 @@ public class PVJaguarGameCore: PVEmulatorCore {
 
     @objc public override dynamic var rendersToOpenGL: Bool { false }
 
-
-//    @MainActor
-//    @objc public override var videoBufferSize: CGSize { .init(width: Int(videoWidth), height: videoHeight) }
-
-//    @MainActor
-//    @objc public override var aspectSize: CGSize { .init(width: Int(TOMGetVideoModeWidth()), height: Int(TOMGetVideoModeHeight())) }
-
     // MARK: Lifecycle
     package var _bridge: PVJaguarGameCoreBridge = .init()
 
@@ -69,7 +62,7 @@ public class PVJaguarGameCore: PVEmulatorCore {
         let width = Int(TOMGetVideoModeWidth())
         let height = Int(TOMGetVideoModeHeight())
         let size = CGSize(width: width, height: height)
-        ILOG("Jaguar buffer size: \(size)")
+        DLOG("Jaguar buffer size: \(size)")
         return size
     }
 
@@ -79,7 +72,7 @@ public class PVJaguarGameCore: PVEmulatorCore {
         let width = Int(TOMGetVideoModeWidth())
         let height = Int(TOMGetVideoModeHeight())
         let rect = CGRect(x: 0, y: 0, width: width, height: height)
-        ILOG("Jaguar screen rect: \(rect)")
+        DLOG("Jaguar screen rect: \(rect)")
         return rect
     }
 
@@ -95,9 +88,11 @@ public class PVJaguarGameCore: PVEmulatorCore {
     /// Log video buffer details when it's accessed
     @objc override public var videoBuffer: UnsafeMutableRawPointer? {
         let buffer = super.videoBuffer
+        #if DEBUG
         if let buffer = buffer {
-            ILOG("Jaguar video buffer: address=\(String(describing: buffer)), expectedSize=\(expectedBytesPerRow * Int(bufferSize.height))")
+            DLOG("Jaguar video buffer: address=\(String(describing: buffer)), expectedSize=\(expectedBytesPerRow * Int(bufferSize.height))")
         }
+        #endif
         return buffer
     }
 }
@@ -190,7 +185,6 @@ public extension PVJaguarGameCore {
         }
     }
 
-
 //    @objc func didReleaseJaguarButton(_ button: PVJaguarButton, forPlayer player: Int) {
 //
 //        // Function to set a value at a specific index
@@ -215,7 +209,7 @@ public extension PVJaguarGameCore {
 
 #if canImport(OpenGLES) || canImport(OpenGL)
     /// Core outputs in XRGB8888 format
-    @objc override var pixelFormat: GLenum { GLenum(GL_RGBA) }
+    @objc override var pixelFormat: GLenum { GLenum(GL_BGRA) }
 
     /// For 8-bit per channel (32-bit total), we use UNSIGNED_BYTE
     @objc override var pixelType: GLenum { GLenum(GL_UNSIGNED_BYTE) }
@@ -223,6 +217,7 @@ public extension PVJaguarGameCore {
     /// Internal format should match the input format
     @objc override var internalPixelFormat: GLenum { GLenum(GL_RGBA) }
 
+    
     /// Calculate aligned bytes per row
     private var alignedBytesPerRow: Int {
         // Use actual content width for stride

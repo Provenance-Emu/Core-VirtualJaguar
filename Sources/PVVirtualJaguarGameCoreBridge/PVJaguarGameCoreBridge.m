@@ -483,22 +483,6 @@ __attribute__((visibility("default")))
     return self->videoBuffer->videoBuffer;
 }
 
-#if !TARGET_OS_WATCH
-
-- (GLenum)pixelFormat {
-    return GL_BGRA;
-}
-
-- (GLenum)pixelType {
-    return GL_UNSIGNED_BYTE;
-}
-
-- (GLenum)internalPixelFormat
-{
-    return GL_RGBA;
-}
-#endif
-
 - (double)audioSampleRate
 {
     return self->sampleRate;

@@ -62,7 +62,7 @@ public class PVJaguarGameCore: PVEmulatorCore {
         let width = Int(TOMGetVideoModeWidth())
         let height = Int(TOMGetVideoModeHeight())
         let size = CGSize(width: width, height: height)
-        DLOG("Jaguar buffer size: \(size)")
+        // DLOG("Jaguar buffer size: \(size)")
         return size
     }
 
@@ -72,7 +72,7 @@ public class PVJaguarGameCore: PVEmulatorCore {
         let width = Int(TOMGetVideoModeWidth())
         let height = Int(TOMGetVideoModeHeight())
         let rect = CGRect(x: 0, y: 0, width: width, height: height)
-        DLOG("Jaguar screen rect: \(rect)")
+        // DLOG("Jaguar screen rect: \(rect)")
         return rect
     }
 
@@ -88,11 +88,11 @@ public class PVJaguarGameCore: PVEmulatorCore {
     /// Log video buffer details when it's accessed
     @objc override public var videoBuffer: UnsafeMutableRawPointer? {
         let buffer = super.videoBuffer
-        #if DEBUG
-        if let buffer = buffer {
-            DLOG("Jaguar video buffer: address=\(String(describing: buffer)), expectedSize=\(expectedBytesPerRow * Int(bufferSize.height))")
-        }
-        #endif
+//        #if DEBUG
+//        if let buffer = buffer {
+//            DLOG("Jaguar video buffer: address=\(String(describing: buffer)), expectedSize=\(expectedBytesPerRow * Int(bufferSize.height))")
+//        }
+//        #endif
         return buffer
     }
 }

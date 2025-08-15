@@ -416,6 +416,13 @@ __attribute__((visibility("default")))
     // remove the double pointers?
     // Also need to test with doubleBuffer to true then @JoeMatt
 
+    // If resolution changes, we need to update the pitch
+    if ((tomWidth != videoWidth || tomHeight != videoHeight) && tomWidth > 0 && tomHeight > 0) {
+        JaguarSetScreenPitch(videoWidth);
+        videoWidth = tomWidth;
+        videoHeight = tomHeight;
+    }
+
     videoBuffer->read = YES;
     videoBuffer = videoBuffer->next;
     videoBuffer->written = NO;

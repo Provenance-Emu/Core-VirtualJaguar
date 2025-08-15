@@ -480,6 +480,9 @@ __attribute__((visibility("default")))
 }
 
 - (const void *)videoBuffer {
+    if (self->videoBuffer == nil) {
+        return NULL;
+    }
     return self->videoBuffer->videoBuffer;
 }
 

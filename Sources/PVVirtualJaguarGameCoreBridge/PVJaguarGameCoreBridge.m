@@ -34,8 +34,8 @@ JagBuffer* initJagBuffer(const char *label) {
     JagBuffer* buffer = malloc(sizeof(JagBuffer));
     if (buffer != NULL) {
         // Allocate buffer using actual content dimensions
-        const size_t width = TOMGetVideoModeWidth();
-        const size_t height = TOMGetVideoModeHeight();
+        const size_t width = VIDEO_WIDTH; // TOMGetVideoModeWidth();
+        const size_t height = VIDEO_HEIGHT; // TOMGetVideoModeHeight();
         const size_t alignedWidth = (width + 3) & ~3;
         const size_t bufferSize = alignedWidth * height * sizeof(uint32_t);
 

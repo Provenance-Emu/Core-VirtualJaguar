@@ -24,7 +24,6 @@ internal final class JaguarCoreOptions: CoreOptions, Sendable {
             .init(title: "Hacks",
                   description: "Performance hacks that work with some games better than others."),
             subOptions: [blitterOption,
-                         doomResHackOption,
                          forcePalOption,
                          mutliThreadedRenderingOption])
 
@@ -39,8 +38,6 @@ internal final class JaguarCoreOptions: CoreOptions, Sendable {
 
     nonisolated(unsafe) static let blitterOption: CoreOption = .bool(.init(title: "Use Fast Blitter", description: "Use fast but maybe more buggy bliter", requiresRestart: true), defaultValue: true)
 
-
-    nonisolated(unsafe) static let doomResHackOption: CoreOption = .bool(.init(title: "DOOM Res Hack", description: "For DOOM", requiresRestart: true), defaultValue: false)
 
     nonisolated(unsafe) static let forcePalOption: CoreOption = .bool(.init(title: "Force PAL", description: "Force PAL mode over NTSC. May fix ROMs that are misdetected or coded for NTSC.", requiresRestart: true), defaultValue: false)
 
@@ -67,7 +64,6 @@ extension PVJaguarGameCore: CoreOptional {
 public extension PVJaguarGameCore {
     @objc var virtualjaguar_bios: Bool { PVJaguarGameCore.valueForOption(JaguarCoreOptions.biosOption).asBool }
     @objc var virtualjaguar_usefastblitter: Bool { PVJaguarGameCore.valueForOption(JaguarCoreOptions.blitterOption).asBool }
-    @objc var virtualjaguar_doom_res_hack: Bool { PVJaguarGameCore.valueForOption(JaguarCoreOptions.doomResHackOption).asBool }
     @objc var virtualjaguar_pal: Bool { PVJaguarGameCore.valueForOption(JaguarCoreOptions.forcePalOption).asBool }
 
     @objc var virtualjaguar_mutlithreaded: Bool { PVJaguarGameCore.valueForOption(JaguarCoreOptions.mutliThreadedRenderingOption).asBool }

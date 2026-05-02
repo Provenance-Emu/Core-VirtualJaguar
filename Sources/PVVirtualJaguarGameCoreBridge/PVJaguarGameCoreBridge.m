@@ -22,6 +22,8 @@
 #import <GLUT/GLUT.h>
 #endif
 
+extern uint16_t eeprom_ram[64];
+
 retro_audio_sample_batch_t audio_batch_cb;
 void retro_set_audio_sample_batch_jaguar(retro_audio_sample_batch_t cb) { audio_batch_cb = cb; }
 
@@ -142,21 +144,16 @@ __attribute__((visibility("default")))
             *error = fileError;
             return false;
         }
-        NSString *filePath = [batterySavesDirectory stringByAppendingString:@"/"];
-        strcpy(vjs.EEPROMPath, filePath.fileSystemRepresentation);
     }
 
-    // Use fixed dimensions initially
     self->videoWidth = 320;
     self->videoHeight = 240;
 
-    // Get the actual dimensions from TOM after init
     JaguarInit();
 
     self->videoWidth = TOMGetVideoModeWidth();
     self->videoHeight = TOMGetVideoModeHeight();
 
-    // Calculate aligned width for the buffer
     const size_t alignedWidth = (self->videoWidth + 3) & ~3;
 
     struct JagBuffer *buffer1 = initJagBuffer("a");
@@ -167,8 +164,7 @@ __attribute__((visibility("default")))
 
     self->videoBuffer = buffer1;
 
-    // Set up screen buffer with proper pitch
-    JaguarSetScreenPitch(alignedWidth);  // Use aligned width for pitch
+    JaguarSetScreenPitch(alignedWidth);
     JaguarSetScreenBuffer(videoBuffer->videoBuffer);
 
     ILOG(@"Jaguar dimensions - Content: %dx%d, Buffer: %dx%d, Pitch: %d",
@@ -176,95 +172,51 @@ __attribute__((visibility("default")))
          VIDEO_WIDTH, VIDEO_HEIGHT,
          alignedWidth);
 
-    // Initialize buffer with a test pattern
     for (int y = 0; y < self->videoHeight; y++) {
         for (int x = 0; x < self->videoWidth; x++) {
-            uint32_t color;
-            if ((x / 32) % 2 == 0) {
-                color = 0xFF0000FF;  // Red
-            } else {
-                color = 0xFF00FF00;  // Green
-            }
+            uint32_t color = ((x / 32) % 2 == 0) ? 0xFF0000FF : 0xFF00FF00;
             videoBuffer->videoBuffer[y * self->videoWidth + x] = color;
         }
     }
 
-    sampleBuffer = (uint16_t *)malloc(BUFMAX * sizeof(uint16_t)); //found in dac.h
+    sampleBuffer = (uint16_t *)malloc(BUFMAX * sizeof(uint16_t));
     memset(sampleBuffer, 0, BUFMAX * sizeof(uint16_t));
 
-    //    //LogInit("vj.log");                                      // initialize log file for debugging
     vjs.hardwareTypeNTSC = true;
 
-    strcpy(vjs.romName, [path.lastPathComponent cStringUsingEncoding:NSUTF8StringEncoding]);
-
-    BOOL externalBIOS = false;
-
-    // Look to see if user has copied a bios into the bios dir
     NSFileManager *fm = [NSFileManager defaultManager];
     NSString *biosPath = [self.BIOSPath stringByAppendingPathComponent:@"jagboot.rom"];
+    BOOL externalBIOS = NO;
     if ([fm fileExistsAtPath:biosPath] && self.virtualjaguar_bios) {
         ILOG(@"Using bios at path %@", biosPath);
-        strcpy(vjs.jagBootPath, [biosPath cStringUsingEncoding:NSUTF8StringEncoding]);
-        // No idea if this is working actually - does useJaguarBIOS do something?
         vjs.useJaguarBIOS = true;
-        externalBIOS = true;
+        externalBIOS = YES;
     } else {
         ILOG(@"No external BIOS found. Using no BIOS.");
         vjs.useJaguarBIOS = false;
-        externalBIOS = false;
     }
 
     vjs.useFastBlitter = self.virtualjaguar_usefastblitter;
 
     retro_set_audio_sample_batch_jaguar((unsigned long (*)(const short *, unsigned long))update_audio_batch);
 
-    JaguarInit();                                             // set up hardware
+    JaguarInit();
 
-    // Now update dimensions after hardware init
     self->videoWidth = TOMGetVideoModeWidth();
     self->videoHeight = TOMGetVideoModeHeight();
-
-    // Update pitch after getting actual dimensions
     JaguarSetScreenPitch(self->videoWidth);
 
     ILOG(@"Jaguar video dimensions: %dx%d", self->videoWidth, self->videoHeight);
 
     if (!externalBIOS) {
-        memcpy(jagMemSpace + 0xE00000, (vjs.biosType == BT_K_SERIES ? jaguarBootROM : jaguarBootROM2), 0x20000); // Use the stock BIOS
+        memcpy(jagMemSpace + 0xE00000, jaguarBootROM, 0x20000);
     } else {
         NSData *data = [NSData dataWithContentsOfFile:biosPath];
-        memcpy(jagMemSpace + 0xE00000, data.bytes, data.length); // Use the stock BIOS
+        memcpy(jagMemSpace + 0xE00000, data.bytes, data.length);
     }
 
-    // Load up the default ROM if in Alpine mode:
-    if (vjs.hardwareTypeAlpine) {
-        NSData* alpineData = [NSData dataWithContentsOfFile:@(vjs.alpineROMPath)];
-
-        BOOL romLoaded = JaguarLoadFile((uint8_t*)alpineData.bytes, alpineData.length);
-
-        // If regular load failed, try just a straight file load
-        // (Dev only! I don't want people to start getting lazy with their releases again! :-P)
-        //        if (!romLoaded) {
-        //            romLoaded = AlpineLoadFile((uint8_t*)alpineData.bytes, alpineData.length);
-        //        }
-
-        if (romLoaded) {
-            ILOG(@"Alpine Mode: Successfully loaded file \"%s\".\n", vjs.alpineROMPath);
-        } else {
-            ILOG(@"Alpine Mode: Unable to load file \"%s\"!\n", vjs.alpineROMPath);
-        }
-
-        // Attempt to load/run the ABS file...
-        //        LoadSoftware(@(vjs.absROMPath));
-        memcpy(jagMemSpace + 0xE00000, jaguarDevBootROM2, 0x20000);    // Use the stub BIOS
-
-        return romLoaded;
-    } else {
-        BOOL romLoaded = [self loadSoftware:path];
-        return romLoaded;
-    }
-
-    return NO;
+    BOOL romLoaded = [self loadSoftware:path];
+    return romLoaded;
 }
 
 - (BOOL)loadSoftware:(NSString *)path {
@@ -274,32 +226,19 @@ __attribute__((visibility("default")))
     NSFileManager *fm = [NSFileManager defaultManager];
 
     NSString *biosPath = [self.BIOSPath stringByAppendingPathComponent:@"jagboot.rom"];
-    BOOL externalBIOS = false;
     if ([fm fileExistsAtPath:biosPath]) {
-        // No idea if this is working actually
         biosPointer = [NSData dataWithContentsOfFile:biosPath].bytes;
     }
 
-    if (!externalBIOS && vjs.hardwareTypeAlpine) {
-        biosPointer = jaguarDevBootROM2;
-    }
-
-    if ([path.lowercaseString containsString:@"doom"]) {
-        doom_res_hack = 1;
-    } else { doom_res_hack = 0; }
-
     memcpy(jagMemSpace + 0xE00000, biosPointer, 0x20000);
 
-    // We have to load our software *after* the Jaguar RESET
-    SET32(jaguarMainRAM, 0, 0x00200000);        // Set top of stack...
-    BOOL cartridgeLoaded = JaguarLoadFile((uint8_t*)romData.bytes, romData.length);   // load rom
+    SET32(jaguarMainRAM, 0, 0x00200000);
+    BOOL cartridgeLoaded = JaguarLoadFile((uint8_t*)romData.bytes, romData.length);
 
     JaguarReset();
 
     [self initVideo];
 
-    // This is icky because we've already done it
-    // it gets worse :-P
     if (!vjs.useJaguarBIOS) {
         SET32(jaguarMainRAM, 4, jaguarRunAddress);
     }
@@ -341,7 +280,6 @@ __attribute__((visibility("default")))
 #endif
 
     if (self->multithreaded) {
-        __block BOOL expired = NO;
         dispatch_time_t killTime = dispatch_time(DISPATCH_TIME_NOW, self->frameTime * NSEC_PER_SEC);
 
         struct JagBuffer*videoBuffer = self->videoBuffer;
@@ -350,12 +288,9 @@ __attribute__((visibility("default")))
         dispatch_group_enter(self->renderGroup);
         dispatch_async(self->videoQueue, ^{
             MAKESTRONG(self);
-            vjs.frameSkip = skip || expired;
-            //        printf("will write frame %lul\written: %s\tread:%s\tlabel:%s\n", videoBuffer->frameNumber, BS(videoBuffer->written), BS(videoBuffer->read), videoBuffer->label);
             JaguarExecuteNew();
             videoBuffer->written = YES;
             videoBuffer->frameNumber = currentFrame;
-            //        printf("did write frame %lul\tskip: %s\texpired:%s\nlabel:%s\n", videoBuffer->frameNumber, BS(skip), BS(expired), videoBuffer->label);
             dispatch_semaphore_signal(strongself->waitToBeginFrameSemaphore);
             dispatch_group_leave(strongself->renderGroup);
         });
@@ -365,27 +300,11 @@ __attribute__((visibility("default")))
             MAKESTRONG(self);
             dispatch_semaphore_wait(strongself->waitToBeginFrameSemaphore, killTime);
             SoundCallback(NULL, ( uint16_t *) strongself->videoBuffer->sampleBuffer, strongself->audioBufferSize);
-            //        [[_current ringBufferAtIndex:0] write:videoBuffer->sampleBuffer maxLength:audioBufferSize*2];
-            //        printf("wrote audio frame %lul\tlabel:%s\n", videoBuffer->frameNumber, videoBuffer->label);
             dispatch_group_leave(strongself->renderGroup);
         });
-        //        // Don't block the frame draw waiting for audio
-        //    dispatch_group_enter(renderGroup);
-        //    dispatch_async(audioQueue, ^{
-        //        SDLSoundCallback(NULL, sampleBuffer, bufferSize);
-        //        [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
-        //        dispatch_group_leave(renderGroup);
-        //    });
-
-        //    dispatch_group_wait(renderGroup, killTime);
-        //    expired = YES;
     } else {
-        vjs.frameSkip = skip;
         JaguarExecuteNew();
-
         SoundCallback(NULL, sampleBuffer, audioBufferSize);
-        //    [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
-
     }
 }
 
@@ -796,10 +715,6 @@ size_t retro_get_memory_size_jaguar(unsigned type)
 
 -(void)virtualjaguar_usefastblitter:(BOOL)value {
     vjs.useFastBlitter = value;
-}
-
--(void)virtualjaguar_doom_res_hack:(BOOL)value {
-    doom_res_hack = value;
 }
 
 -(void)virtualjaguar_pal:(BOOL)value {

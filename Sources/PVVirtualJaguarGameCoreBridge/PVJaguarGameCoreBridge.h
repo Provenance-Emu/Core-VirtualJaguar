@@ -59,7 +59,7 @@ NS_HEADER_AUDIT_BEGIN(nullability, sendability)
 @property (nonatomic, assign ) BOOL virtualjaguar_usefastblitter;
 
 // MARK: Core
-- (void)loadFileAtPath:(NSString *)path error:(NSError * __autoreleasing *)error;
+- (BOOL)loadFileAtPath:(NSString *)path error:(NSError * __autoreleasing *)error;
 - (void)executeFrameSkippingFrame:(BOOL)skip;
 - (void)executeFrame;
 - (void)swapBuffers;

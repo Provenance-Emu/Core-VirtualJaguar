@@ -166,7 +166,7 @@ __attribute__((visibility("default")))
     return self;
 }
 
--  (void)loadFileAtPath:(NSString *)path error:(NSError * __nullable __autoreleasing * __nullable)error {
+-  (BOOL)loadFileAtPath:(NSString *)path error:(NSError * __nullable __autoreleasing * __nullable)error {
     NSString *batterySavesDirectory = self.batterySavesPath;
 
     if([batterySavesDirectory length] != 0) {
@@ -177,7 +177,7 @@ __attribute__((visibility("default")))
                                                         error:&fileError];
         if (fileError != nil) {
             if (error) *error = fileError;
-            return;
+            return NO;
         }
     }
 
@@ -250,7 +250,7 @@ __attribute__((visibility("default")))
         memcpy(jagMemSpace + 0xE00000, data.bytes, data.length);
     }
 
-    [self loadSoftware:path];
+    return [self loadSoftware:path];
 }
 
 - (BOOL)loadSoftware:(NSString *)path {

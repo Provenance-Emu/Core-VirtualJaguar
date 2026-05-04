@@ -1,5 +1,6 @@
 @import Foundation;
-//@import PVCoreBridge;
+#import <objc/message.h>
+@import PVCoreBridge;
 @import PVEmulatorCore;
 #if !TARGET_OS_WATCH
 @import GameController;
@@ -23,6 +24,47 @@
 #endif
 
 extern uint16_t eeprom_ram[64];
+extern uint8_t *mtMem;
+extern uint32_t jaguarMainROMCRC32;
+
+// TOM (video) functions not in libjaguar public headers
+extern uint32_t TOMGetVideoModeWidth(void);
+extern uint32_t TOMGetVideoModeHeight(void);
+extern uint32_t tomWidth;
+extern uint32_t tomHeight;
+
+// JERRY (audio) functions
+extern void SoundCallback(void *userdata, uint16_t *buffer, int length);
+extern uint16_t *sampleBuffer;
+
+// JERRY (joystick) - button constants and joypad state
+enum {
+    BUTTON_FIRST = 0,
+    BUTTON_U = 0, BUTTON_D = 1, BUTTON_L = 2, BUTTON_R = 3,
+    BUTTON_s = 4, BUTTON_7 = 5, BUTTON_4 = 6, BUTTON_1 = 7,
+    BUTTON_0 = 8, BUTTON_8 = 9, BUTTON_5 = 10, BUTTON_2 = 11,
+    BUTTON_d = 12, BUTTON_9 = 13, BUTTON_6 = 14, BUTTON_3 = 15,
+    BUTTON_A = 16, BUTTON_B = 17, BUTTON_C = 18,
+    BUTTON_OPTION = 19, BUTTON_PAUSE = 20, BUTTON_LAST = 20
+};
+extern uint8_t joypad0Buttons[];
+extern uint8_t joypad1Buttons[];
+extern bool joysticksEnabled;
+
+// BIOS
+extern uint8_t jaguarBootROM[];
+
+// M68K
+extern void m68k_pulse_reset(void);
+
+// libretro API
+size_t retro_serialize_size(void);
+bool retro_serialize(void *data, size_t size);
+bool retro_unserialize(const void *data, size_t size);
+void retro_cheat_reset(void);
+void retro_cheat_set(unsigned index, bool enabled, const char *code);
+void *retro_get_memory_data(unsigned type);
+size_t retro_get_memory_size(unsigned type);
 
 retro_audio_sample_batch_t audio_batch_cb;
 void retro_set_audio_sample_batch_jaguar(retro_audio_sample_batch_t cb) { audio_batch_cb = cb; }
@@ -60,18 +102,11 @@ static const size_t update_audio_batch(const int16_t *data, const size_t frames)
     if(current == nil)
         return 0;
 
-    //	dispatch_group_enter(current->renderGroup);
-    //	dispatch_async(current->audioQueue, ^{
-    //		dispatch_time_t killTime = dispatch_time(DISPATCH_TIME_NOW, frameTime * NSEC_PER_SEC);
-    //		dispatch_semaphore_wait(current->waitToBeginFrameSemaphore, killTime);
-    return [[current ringBufferAtIndex:0] write:data size:frames << 2];
-    //    [[_current ringBufferAtIndex:0] write:sampleBuffer maxLength:bufferSize*2];
-
-    //		[[current ringBufferAtIndex:0] write:data maxLength:frames * [current channelCount] * 2];
-    //		dispatch_group_leave(current->renderGroup);
-    //	});
-
-    //	return frames;
+    id rb = [current ringBufferAtIndex:0];
+    if (rb && [rb respondsToSelector:@selector(write:size:)]) {
+        return (size_t)((NSInteger (*)(id, SEL, const void *, NSInteger))objc_msgSend)(rb, @selector(write:size:), data, (NSInteger)(frames << 2));
+    }
+    return 0;
 }
 
 @interface PVJaguarGameCoreBridge () <ObjCBridgedCoreBridge>
@@ -131,7 +166,7 @@ __attribute__((visibility("default")))
     return self;
 }
 
--  (BOOL)loadFileAtPath:(NSString *)path error:(NSError * __nullable __autoreleasing * __nullable)error {
+-  (void)loadFileAtPath:(NSString *)path error:(NSError * __nullable __autoreleasing * __nullable)error {
     NSString *batterySavesDirectory = self.batterySavesPath;
 
     if([batterySavesDirectory length] != 0) {
@@ -141,8 +176,8 @@ __attribute__((visibility("default")))
                                                    attributes:nil
                                                         error:&fileError];
         if (fileError != nil) {
-            *error = fileError;
-            return false;
+            if (error) *error = fileError;
+            return;
         }
     }
 
@@ -215,8 +250,7 @@ __attribute__((visibility("default")))
         memcpy(jagMemSpace + 0xE00000, data.bytes, data.length);
     }
 
-    BOOL romLoaded = [self loadSoftware:path];
-    return romLoaded;
+    [self loadSoftware:path];
 }
 
 - (BOOL)loadSoftware:(NSString *)path {
@@ -583,79 +617,50 @@ __attribute__((visibility("default")))
     }
 }
 
-void *retro_get_memory_data_jaguar(unsigned type)
-{
-    if(type == RETRO_MEMORY_SYSTEM_RAM)
-        return jaguarMainRAM;
-    else if (type == RETRO_MEMORY_SAVE_RAM)
-        return eeprom_ram;
-    else return NULL;
-}
-
-size_t retro_get_memory_size_jaguar(unsigned type)
-{
-    if(type == RETRO_MEMORY_SYSTEM_RAM)
-        return 0x200000;
-    else if (type == RETRO_MEMORY_SAVE_RAM)
-        return 128;
-    else return 0;
-}
-
 - (BOOL)loadSaveFile:(NSString *)path forType:(int)type {
-    size_t size = retro_get_memory_size_jaguar(type);
-    void *ramData = retro_get_memory_data_jaguar(type);
+    size_t size = retro_get_memory_size(type);
+    void *ramData = retro_get_memory_data(type);
 
     if (size == 0 || !ramData)
-    {
         return false;
-    }
 
     NSData *data = [NSData dataWithContentsOfFile:path];
     if (!data || ![data length])
-    {
-        DLog(@"Couldn't load save file.");
         return false;
-    }
 
     [data getBytes:ramData length:size];
-    // TODO: Should instead use SET32 or a byte copy to jaguarMainRAM/eeprom?
     return true;
 }
 
 - (BOOL)writeSaveFile:(NSString *)path forType:(int)type {
-    size_t size = retro_get_memory_size_jaguar(type);
-    void *ramData = retro_get_memory_data_jaguar(type);
+    size_t size = retro_get_memory_size(type);
+    void *ramData = retro_get_memory_data(type);
 
-    if (ramData && (size > 0))
-    {
-        NSData *data = [NSData dataWithBytes:ramData length:size];
-        BOOL success = [data writeToFile:path atomically:YES];
-        if (!success)
-        {
-            DLog(@"Error writing save file");
-        }
-        return success;
-    } else { return false; }
+    if (!ramData || size == 0)
+        return false;
+
+    NSData *data = [NSData dataWithBytes:ramData length:size];
+    return [data writeToFile:path atomically:YES];
 }
 
-//- (BOOL)saveStateToFileAtPath:(NSString *)fileName error:(NSError**)error   {
-//    NSAssert(NO, @"Shouldn't be here since we overwrite the async call");
-//}
-//
-//- (BOOL)loadStateFromFileAtPath:(NSString *)fileName error:(NSError**)error   {
-//    NSAssert(NO, @"Shouldn't be here since we overwrite the async call");
-//}
-
 - (void)saveStateToFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *)) __attribute__((noescape)) block {
-    __block BOOL wasPaused = [self isEmulationPaused];
+    BOOL wasPaused = [self isEmulationPaused];
     [self setPauseEmulation:true];
 
-    BOOL status = [self writeSaveFile:[fileName stringByAppendingString:@"system"]
-                              forType:RETRO_MEMORY_SYSTEM_RAM];
-    if (status) {
-        status = [self writeSaveFile:[fileName stringByAppendingString:@"eeprom"]
-                             forType:RETRO_MEMORY_SAVE_RAM];
+    size_t stateSize = retro_serialize_size();
+    void *stateData = malloc(stateSize);
+    BOOL status = NO;
+
+    if (stateData) {
+        status = retro_serialize(stateData, stateSize);
+        if (status) {
+            NSData *data = [NSData dataWithBytesNoCopy:stateData length:stateSize freeWhenDone:YES];
+            status = [data writeToFile:fileName atomically:YES];
+        } else {
+            free(stateData);
+        }
     }
+
     [self setPauseEmulation:wasPaused];
     if (block) {
         NSError *error = nil;
@@ -663,11 +668,9 @@ size_t retro_get_memory_size_jaguar(unsigned type)
             error = [NSError errorWithDomain:@"org.provenance.GameCore.ErrorDomain"
                                         code:-5
                                     userInfo:@{
-                NSLocalizedDescriptionKey : @"Jagar Could not save the current state.",
+                NSLocalizedDescriptionKey : @"Jaguar: Could not save state.",
                 NSFilePathErrorKey : fileName
             }];
-
-
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             block(status, error);
@@ -676,28 +679,26 @@ size_t retro_get_memory_size_jaguar(unsigned type)
 }
 
 - (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *)) __attribute__((noescape)) block {
-    __block BOOL wasPaused = [self isEmulationPaused];
+    BOOL wasPaused = [self isEmulationPaused];
     [self setPauseEmulation:true];
 
-    BOOL status = [self loadSaveFile:[fileName stringByAppendingString:@"system"]
-                             forType:RETRO_MEMORY_SYSTEM_RAM];
-    if (status) {
-        status = [self loadSaveFile:[fileName stringByAppendingString:@"eeprom"]
-                            forType:RETRO_MEMORY_SAVE_RAM];
-    }
-    [self setPauseEmulation:wasPaused];
+    NSData *data = [NSData dataWithContentsOfFile:fileName];
+    BOOL status = NO;
 
+    if (data && [data length] > 0) {
+        status = retro_unserialize([data bytes], [data length]);
+    }
+
+    [self setPauseEmulation:wasPaused];
     if (block) {
         NSError *error = nil;
         if (!status) {
             error = [NSError errorWithDomain:@"org.provenance.GameCore.ErrorDomain"
                                         code:-5
                                     userInfo:@{
-                NSLocalizedDescriptionKey : @"Jagar Could not load the current state.",
+                NSLocalizedDescriptionKey : @"Jaguar: Could not load state.",
                 NSFilePathErrorKey : fileName
             }];
-
-
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             block(status, error);
@@ -706,7 +707,33 @@ size_t retro_get_memory_size_jaguar(unsigned type)
 }
 
 -(BOOL)supportsSaveStates {
-    return NO;
+    return YES;
+}
+
+#pragma mark - Cheats
+
+- (void)setCheat:(NSString *)code setType:(NSString *)type setEnabled:(BOOL)enabled {
+    retro_cheat_set(0, enabled, [code UTF8String]);
+}
+
+- (BOOL)setCheat:(NSString *)code setType:(NSString *)type setCodeType:(NSString *)codeType
+        setIndex:(UInt8)cheatIndex setEnabled:(BOOL)enabled error:(NSError **)error {
+    retro_cheat_set(cheatIndex, enabled, [code UTF8String]);
+    return YES;
+}
+
+- (void)resetCheatCodes {
+    retro_cheat_reset();
+}
+
+#pragma mark - RetroAchievements
+
+- (NSUInteger)ramSize {
+    return retro_get_memory_size(RETRO_MEMORY_SYSTEM_RAM);
+}
+
+- (const void *)ramPointer {
+    return retro_get_memory_data(RETRO_MEMORY_SYSTEM_RAM);
 }
 
 -(void)virtualjaguar_bios:(BOOL)value {

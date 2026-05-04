@@ -45,10 +45,6 @@ typedef enum PVJaguarButton: NSInteger PVJaguarButton;
 
 NS_HEADER_AUDIT_BEGIN(nullability, sendability)
 
-extern uint16_t eeprom_ram[];
-
-int doom_res_hack=0; // Doom Hack to double pixel if pwidth==8 (163*2)
-
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Weverything" // Silence "Cannot find protocol definition" warning due to forward declaration.
 @interface PVJaguarGameCoreBridge: PVCoreObjCBridge <ObjCBridgedCoreBridge, PVJaguarSystemResponderClient>
@@ -86,6 +82,16 @@ int doom_res_hack=0; // Doom Hack to double pixel if pwidth==8 (163*2)
 
 - (void)didPushJaguarButton:(PVJaguarButton)button forPlayer:(NSInteger)player;
 - (void)didReleaseJaguarButton:(PVJaguarButton)button forPlayer:(NSInteger)player;
+
+// MARK: Cheats
+- (void)setCheat:(NSString *)code setType:(NSString *)type setEnabled:(BOOL)enabled;
+- (BOOL)setCheat:(NSString *)code setType:(NSString *)type setCodeType:(NSString *)codeType
+        setIndex:(UInt8)cheatIndex setEnabled:(BOOL)enabled error:(NSError **)error;
+- (void)resetCheatCodes;
+
+// MARK: RetroAchievements Memory
+@property (nonatomic, readonly) NSUInteger ramSize;
+@property (nonatomic, readonly, nullable) const void *ramPointer;
 
 @end
 

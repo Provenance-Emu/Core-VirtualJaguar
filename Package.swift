@@ -41,6 +41,7 @@ enum Sources {
         "m68000/cpustbl.c",
         "m68000/m68kinterface.c",
         "m68000/readcpu.c",
+        "libretro.c",
     ]
 
     static let libretro_common: [String] = [
@@ -66,7 +67,7 @@ let package = Package(
         .iOS(.v17),
         .tvOS(.v17),
         .watchOS(.v9),
-        .macOS(.v11),
+        .macOS(.v14),
         .macCatalyst(.v17),
         .visionOS(.v1)
     ],
@@ -94,7 +95,7 @@ let package = Package(
         .package(path: "../../PVAudio"),
         .package(path: "../../PVLogging"),
         .package(path: "../../PVObjCUtils"),
-        .package(name: "PVPrimitives", path: "../PVPrimitives/"),
+        .package(name: "PVPrimitives", path: "../../PVPrimitives/"),
 
         .package(url: "https://github.com/Provenance-Emu/SwiftGenPlugin.git", branch: "develop"),
     ],
@@ -196,6 +197,7 @@ let package = Package(
                 .define("HAVE_COCOATOUCH", to: "1"),
                 .define("__GCCUNIX__", to: "1"),
                 .headerSearchPath("./"),
+                .headerSearchPath("../"),
                 .headerSearchPath("core"),
                 .headerSearchPath("tom"),
                 .headerSearchPath("jerry"),

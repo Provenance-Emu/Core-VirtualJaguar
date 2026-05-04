@@ -56,45 +56,6 @@ public class PVJaguarGameCore: PVEmulatorCore {
         self.bridge = (_bridge as! any ObjCBridgedCoreBridge)
     }
 
-    /// The actual video buffer size from the core
-    @objc public override var bufferSize: CGSize {
-        // Use TOM's dimensions for the actual content size
-        let width = Int(TOMGetVideoModeWidth())
-        let height = Int(TOMGetVideoModeHeight())
-        let size = CGSize(width: width, height: height)
-        // DLOG("Jaguar buffer size: \(size)")
-        return size
-    }
-
-    /// The visible screen area
-    @objc public override var screenRect: CGRect {
-        // Use TOM's dimensions for the visible area
-        let width = Int(TOMGetVideoModeWidth())
-        let height = Int(TOMGetVideoModeHeight())
-        let rect = CGRect(x: 0, y: 0, width: width, height: height)
-        // DLOG("Jaguar screen rect: \(rect)")
-        return rect
-    }
-
-    /// The actual bytes per pixel based on our pixel format
-    private var bytesPerPixel: Int {
-        switch pixelType {
-        case GLenum(GL_UNSIGNED_BYTE): return 4  // RGBA8
-        case GLenum(GL_UNSIGNED_INT): return 4   // 32-bit
-        default: return 4
-        }
-    }
-
-    /// Log video buffer details when it's accessed
-    @objc override public var videoBuffer: UnsafeMutableRawPointer? {
-        let buffer = super.videoBuffer
-//        #if DEBUG
-//        if let buffer = buffer {
-//            DLOG("Jaguar video buffer: address=\(String(describing: buffer)), expectedSize=\(expectedBytesPerRow * Int(bufferSize.height))")
-//        }
-//        #endif
-        return buffer
-    }
 }
 
 extension PVJaguarGameCore: PVJaguarSystemResponderClient {
@@ -205,44 +166,61 @@ public extension PVJaguarGameCore {
 //        return .init(x: 0, y: 0, width: Int(TOMGetVideoModeWidth()), height: Int(TOMGetVideoModeHeight()))
 //    }
 
-    @objc override var supportsSaveStates: Bool { return false }
+    @objc override var supportsSaveStates: Bool { return true }
 
 #if canImport(OpenGLES) || canImport(OpenGL)
-    /// Core outputs in XRGB8888 format
     @objc override var pixelFormat: GLenum { GLenum(GL_BGRA) }
-
-    /// For 8-bit per channel (32-bit total), we use UNSIGNED_BYTE
     @objc override var pixelType: GLenum { GLenum(GL_UNSIGNED_BYTE) }
-
-    /// Internal format should match the input format
     @objc override var internalPixelFormat: GLenum { GLenum(GL_RGBA) }
-
-    
-    /// Calculate aligned bytes per row
-    private var alignedBytesPerRow: Int {
-        // Use actual content width for stride
-        let width = Int(TOMGetVideoModeWidth())
-        let alignedWidth = (width + 3) & ~3  // Align to 4 bytes
-        let bytes = alignedWidth * bytesPerPixel
-        ILOG("Jaguar aligned bytes per row: \(bytes) (content width: \(width), aligned width: \(alignedWidth))")
-        return bytes
-    }
-
-    /// Use aligned row bytes for expected bytes per row
-    private var expectedBytesPerRow: Int {
-        let bytes = alignedBytesPerRow
-        ILOG("Jaguar expected bytes per row: \(bytes) (aligned width: \((bytes/bytesPerPixel)) * bytesPerPixel: \(bytesPerPixel))")
-        return bytes
-    }
 #endif
-//    @objc override open var frameInterval: TimeInterval {
-//        return vjs.hardwareTypeNTSC ? 60.0 : 50.0
-//    }
+}
 
-//    @objc override public var videoBuffer: UnsafeMutableRawPointer<UInt16>? {
-//        guard let jagVideoBuffer = jagVideoBuffer else {
-//            return nil
-//        }
-//        return UnsafeMutableRawPointer(jagVideoBuffer.pointee.sampleBuffer)
-//    }
+// MARK: - Cheats
+
+extension PVJaguarGameCore: GameWithCheat {
+    public var supportsCheatCode: Bool { true }
+
+    public var cheatCodeTypes: [String] {
+        [CheatCodeTypes.rawCode.stringValue]
+    }
+
+    public func setCheat(code: String, type: String, codeType: String, cheatIndex: UInt8, enabled: Bool) -> Bool {
+        do {
+            try _bridge.setCheat(code, setType: type, setCodeType: codeType, setIndex: cheatIndex, setEnabled: enabled)
+            return true
+        } catch {
+            return false
+        }
+    }
+
+    public func resetCheatCodes() {
+        _bridge.resetCheatCodes()
+    }
+}
+
+// MARK: - RetroAchievements
+
+extension PVJaguarGameCore: CoreRetroAchievements {
+    public var achievementsDelegate: (any RetroAchievementsOSDDelegate)? {
+        get { nil }
+        set {}
+    }
+
+    public func prepareAchievements(gameHash: String) async {}
+    public func stopAchievements() {}
+    public func tickAchievements() {}
+    public var achievementsActive: Bool { false }
+    public var hardcoreMode: Bool {
+        get { false }
+        set {}
+    }
+
+    public func achievementMemoryRegions() -> [AchievementMemoryRegion] {
+        guard let ptr = _bridge.ramPointer, _bridge.ramSize > 0 else { return [] }
+        return [AchievementMemoryRegion(
+            base: UnsafeMutableRawPointer(mutating: ptr),
+            size: Int(_bridge.ramSize),
+            kind: .systemRAM
+        )]
+    }
 }

@@ -24,7 +24,7 @@
 #endif
 
 extern uint16_t eeprom_ram[64];
-extern uint8_t *mtMem;
+extern uint8_t mtMem[0x20000];   // matches definition in src/core/memtrack.c
 extern uint32_t jaguarMainROMCRC32;
 
 // TOM (video) functions not in libjaguar public headers

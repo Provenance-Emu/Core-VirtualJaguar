@@ -13,6 +13,7 @@ enum Sources {
         "src/tom/blitter_compare.c",
         "src/tom/blitter_mmio.c",
         "src/tom/blitter_simd_neon.c",
+        "src/tom/blitter_simd_sse2.c",
         "src/tom/gpu.c",
         "src/tom/op.c",
         "src/tom/tom.c",
@@ -193,7 +194,10 @@ let package = Package(
             // under target.path" rule. All other sources live under src/.
             path: "Sources/virtualjaguar-libretro",
             exclude: [
-                "src/tom/blitter_simd_sse2.c",
+                // The scalar implementation is the no-SIMD fallback. We
+                // always have either NEON or SSE2 available on the
+                // platforms we target (Apple silicon arm64, Intel x86_64
+                // sim slice), so scalar is dead code in the SPM build.
                 "src/tom/blitter_simd_scalar.c",
             ],
             sources: Sources.libjaguar,

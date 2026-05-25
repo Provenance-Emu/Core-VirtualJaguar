@@ -282,7 +282,26 @@ __attribute__((visibility("default")))
     self->audioBufferSize = vjs.hardwareTypeNTSC ? BUFNTSC : BUFPAL;
     self->frameTime = vjs.hardwareTypeNTSC ? 1.0/60.0 : 1.0/50.0;
 
+    // Restore any prior EEPROM/Memory Track battery save from disk.
+    // Must run AFTER JaguarLoadFile so jaguarMainROMCRC32 is set (Memory Track
+    // detection) and the EEPROM buffer is live. If the file doesn't exist the
+    // helper returns NO and the core's default-initialized EEPROM stands.
+    NSString *eepromPath = [self eepromSaveFilePath];
+    if (eepromPath.length) {
+        [self loadSaveFile:eepromPath forType:RETRO_MEMORY_SAVE_RAM];
+    }
+
     return cartridgeLoaded;
+}
+
+/// Returns `<batterySavesPath>/<romName>.eeprom` or nil if either component is missing.
+- (NSString *)eepromSaveFilePath {
+    NSString *savesDir = self.batterySavesPath;
+    NSString *name = self.romName;
+    if (savesDir.length == 0 || name.length == 0) {
+        return nil;
+    }
+    return [savesDir stringByAppendingPathComponent:[name stringByAppendingPathExtension:@"eeprom"]];
 }
 
 #define BS(b) b?"Y":"N"
@@ -388,6 +407,20 @@ __attribute__((visibility("default")))
 - (void)setupEmulation { }
 
 - (void)stopEmulation {
+    // Persist EEPROM/Memory Track NVRAM BEFORE JaguarDone(). The libretro
+    // memory pointers (eeprom_save_buf / mtMem) live inside the core; once
+    // JaguarDone() tears the subsystem down the data is gone.
+    NSString *eepromPath = [self eepromSaveFilePath];
+    if (eepromPath.length) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:self.batterySavesPath
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil
+                                                        error:NULL];
+        if (![self writeSaveFile:eepromPath forType:RETRO_MEMORY_SAVE_RAM]) {
+            WLOG(@"Jaguar: failed to write EEPROM battery save to %@", eepromPath);
+        }
+    }
+
     JaguarDone();
 
     [super stopEmulation];

@@ -12,7 +12,14 @@ enum Sources {
         "src/tom/blitter.c",
         "src/tom/blitter_compare.c",
         "src/tom/blitter_mmio.c",
+        // All three SIMD variants are handed to the compiler; each one
+        // guards itself via src/tom/blitter_simd_arch.h and compiles to an
+        // empty TU unless it is the right one for the target. Exactly one
+        // survives per target -- scalar included, so a target with neither
+        // NEON nor SSE2 still gets a blitter_simd_ops rather than a link
+        // error. BLITTER_SIMD_AUTODETECT below is what arms that.
         "src/tom/blitter_simd_neon.c",
+        "src/tom/blitter_simd_scalar.c",
         "src/tom/blitter_simd_sse2.c",
         "src/tom/gpu.c",
         "src/tom/op.c",
@@ -261,19 +268,6 @@ let package = Package(
             // duplicating it under src/ to satisfy SPM's "sources must live
             // under target.path" rule. All other sources live under src/.
             path: "Sources/virtualjaguar-libretro",
-            exclude: [
-                // The scalar implementation is the no-SIMD fallback. We
-                // always have either NEON or SSE2 available on the
-                // platforms we target (Apple silicon arm64, Intel x86_64
-                // sim slice), so scalar is dead code in the SPM build.
-                //
-                // Load-bearing: blitter_simd_{neon,sse2}.c each blank
-                // themselves out on the wrong arch, so a target that is
-                // neither ARM nor x86 would define blitter_simd_ops
-                // nowhere and fail to link rather than fall back. Adding
-                // a platform here means checking that first.
-                "src/tom/blitter_simd_scalar.c",
-            ],
             sources: Sources.libjaguar,
             publicHeadersPath: "src/core",
             packageAccess: true,

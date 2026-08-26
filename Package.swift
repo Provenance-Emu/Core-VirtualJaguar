@@ -257,6 +257,12 @@ let package = Package(
                 // always have either NEON or SSE2 available on the
                 // platforms we target (Apple silicon arm64, Intel x86_64
                 // sim slice), so scalar is dead code in the SPM build.
+                //
+                // Load-bearing: blitter_simd_{neon,sse2}.c each blank
+                // themselves out on the wrong arch, so a target that is
+                // neither ARM nor x86 would define blitter_simd_ops
+                // nowhere and fail to link rather than fall back. Adding
+                // a platform here means checking that first.
                 "src/tom/blitter_simd_scalar.c",
             ],
             sources: Sources.libjaguar,
@@ -267,6 +273,20 @@ let package = Package(
                 .define("__LIBRETRO__", to: "1"),
                 .define("HAVE_COCOATOUCH", to: "1"),
                 .define("__GCCUNIX__", to: "1"),
+                // Makefile.common picks ONE blitter_simd_<arch>.c and passes
+                // a matching -DBLITTER_SIMD_<ARCH>; blitter_simd.h uses that
+                // -D to decide which implementation blitter.c inlines. We
+                // select by arch guard instead, so we have no -D to pass and
+                // blitter.c silently inlined the SCALAR ops on arm64 while
+                // the linked vtable was NEON -- and the vtable is only used
+                // by the core's own tests, so nothing caught it.
+                //
+                // This tells blitter_simd.h to derive the arch from the
+                // compiler's predefined macros. It must be decided there and
+                // not here: this manifest is compiled for the HOST, so a
+                // check in Swift would hand the x86_64 simulator slice the
+                // arm64 answer.
+                .define("BLITTER_SIMD_AUTODETECT", to: "1"),
                 // Repo root for `<libretro_core_options.h>` and friends
                 // referenced by libretro.c, plus per-subsystem header dirs
                 // so internal includes like `#include "jaguar.h"` resolve.

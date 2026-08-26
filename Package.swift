@@ -313,9 +313,6 @@ let package = Package(
         .target(
             name: "libretro-common",
             path: "Sources/virtualjaguar-libretro/libretro-common",
-            exclude: [
-                "include/vfs/vfs_implementation_cdrom.h"
-            ],
             sources: Sources.libretro_common,
             publicHeadersPath: "include",
             packageAccess: false,

@@ -40,14 +40,42 @@ enum Sources {
         "src/bios/jagbios.c",
         "src/bios/jagcdbios.c",
         "src/bios/jagdevcdbios.c",
-        "src/bios/jagstub1bios.c",
-        "src/bios/jagstub2bios.c",
         "src/m68000/cpudefs.c",
         "src/m68000/cpuemu.c",
         "src/m68000/cpuextra.c",
         "src/m68000/cpustbl.c",
         "src/m68000/m68kinterface.c",
         "src/m68000/readcpu.c",
+        /* Added 2026-08-25 with the bump to v3.5.1. Reconciled against
+         * Makefile.common, which is the authoritative source list --
+         * hand-maintaining this drifted by 27 files over seven releases. */
+        "src/bios/jagbios_m.c",
+        "src/cd/jagcd_bios.c",
+        "src/cd/jagcd_cart.c",
+        "src/cd/jagcd_hle.c",
+        "src/core/biosdb.c",
+        "src/core/bus_arbiter.c",
+        "src/core/jaggd.c",
+        "src/core/nvmbios.c",
+        "src/core/perf_iface.c",
+        "src/core/titledb.c",
+        "src/core/titlehook.c",
+        "src/core/vjtrace.c",
+        "src/jerry/axistune.c",
+        "src/jerry/inputdev.c",
+        "src/jerry/jlink.c",
+        "src/jerry/jlink_discover.c",
+        "src/jerry/jlink_netpacket.c",
+        "src/jerry/jlink_tcp.c",
+        "src/jerry/paddle.c",
+        "src/jerry/quadrature.c",
+        "src/jerry/uart.c",
+        "src/jerry/voicechat.c",
+        "src/jerry/voicemodem.c",
+        "src/tom/blit_memo.c",
+        "src/tom/shadowfb.c",
+        "src/tom/texdump.c",
+        "src/tom/texreplace.c",
         "libretro.c",
     ]
 
@@ -185,11 +213,40 @@ let package = Package(
             ]
         ),
 
+        // MARK: --------- libchdr ---------- //
+
+        // Vendored CHD reader. Built exactly the way Makefile.common builds
+        // it: one unity translation unit, with miniz's compressor switched
+        // back on because texture dump (src/tom/texdump.c) needs
+        // tdefl_write_image_to_png_file_in_memory_ex for its preview PNGs.
+        //
+        // No -std=c99 here, unlike the Makefile: SPM compiles C as gnu11 by
+        // default, which is a superset, so the flag is unnecessary rather
+        // than omitted by accident.
+        .target(
+            name: "libchdr",
+            path: "Sources/virtualjaguar-libretro/deps/libchdr",
+            sources: ["unity.c"],
+            publicHeadersPath: "include",
+            cSettings: [
+                .define("_7ZIP_ST", to: "1"),
+                .define("MINIZ_DEFLATE_APIS", to: "1"),
+                .define("WANT_RAW_DATA_SECTOR", to: "1"),
+                .define("WANT_SUBCODE", to: "1"),
+                .define("VERIFY_BLOCK_CRC", to: "1"),
+                .headerSearchPath("include"),
+                .headerSearchPath("deps/lzma-25.01/include"),
+                .headerSearchPath("deps/miniz-3.1.1"),
+                .headerSearchPath("deps/zstd-1.5.7"),
+                .unsafeFlags(["-Wno-unused-function", "-Wno-unused-variable"]),
+            ]
+        ),
+
         // MARK: --------- libjaguar ---------- //
 
         .target(
             name: "libjaguar",
-            dependencies: ["libretro-common"],
+            dependencies: ["libretro-common", "libchdr"],
             // Point at the submodule root so we can compile the upstream
             // `libretro.c` (which lives at the root) directly, instead of
             // duplicating it under src/ to satisfy SPM's "sources must live
@@ -220,6 +277,9 @@ let package = Package(
                 .headerSearchPath("src/jerry"),
                 .headerSearchPath("src/cd"),
                 .headerSearchPath("src/bios"),
+                // CHD disc images: src/cd/cdintf.c includes <libchdr/chd.h>
+                // unconditionally since the v3.4.0 CHD work (#322/#476).
+                .headerSearchPath("deps/libchdr/include"),
                 .headerSearchPath("src/m68000"),
                 .headerSearchPath("libretro-common/include"),
             ]

@@ -26,7 +26,10 @@ import libjaguar
 @objcMembers
 public class PVJaguarGameCore: PVEmulatorCore {
 
-    @objc public var multithreaded: Bool { virtualjaguar_mutlithreaded }
+    /* `multithreaded` was dropped in 563057f along with the option that fed it
+     * (upstream deleted the variable). The bridge keeps its own `multithreaded`
+     * ivar, whose assignment is commented out at PVJaguarGameCoreBridge.m:173,
+     * so that path is inert either way. */
 
 //    override public var alwaysUseMetal: Bool { false }
 //    override public var alwaysUseGL: Bool { true }
@@ -54,6 +57,35 @@ public class PVJaguarGameCore: PVEmulatorCore {
     public required init() {
         super.init()
         self.bridge = (_bridge as! any ObjCBridgedCoreBridge)
+    }
+
+    /// The bridge cannot import this module -- it is the dependency, not the
+    /// dependent -- so the option values computed here have to be pushed into
+    /// it. This build never runs libretro.c's `check_variables()`, and the
+    /// bridge reads these in `setupEmulation`, which `loadFileAtPath:` calls;
+    /// pushing any later would be too late to affect the machine.
+    ///
+    /// An option added to `CoreOptions.swift` is inert until it gets a line
+    /// here and a matching property on `PVJaguarGameCoreBridge`.
+    public override func loadFile(atPath path: String) throws {
+        applyOptionsToBridge()
+        try super.loadFile(atPath: path)
+    }
+
+    private func applyOptionsToBridge() {
+        _bridge.virtualjaguar_bios = virtualjaguar_bios
+        _bridge.virtualjaguar_bios_type = virtualjaguar_bios_type
+        _bridge.virtualjaguar_usefastblitter = virtualjaguar_usefastblitter
+        _bridge.virtualjaguar_pal = virtualjaguar_pal
+
+        _bridge.virtualjaguar_risc_idle_skip = virtualjaguar_risc_idle_skip
+        _bridge.virtualjaguar_blit_memo = virtualjaguar_blit_memo
+        _bridge.virtualjaguar_risc_clock_pct = virtualjaguar_risc_clock_pct
+        _bridge.virtualjaguar_m68k_clock_pct = virtualjaguar_m68k_clock_pct
+
+        _bridge.virtualjaguar_blitter_timing = virtualjaguar_blitter_timing
+        _bridge.virtualjaguar_gpu_pipeline_timing = virtualjaguar_gpu_pipeline_timing
+        _bridge.virtualjaguar_dram_timing = virtualjaguar_dram_timing
     }
 
 }

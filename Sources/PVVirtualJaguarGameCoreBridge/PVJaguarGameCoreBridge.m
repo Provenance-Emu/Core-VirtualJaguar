@@ -155,6 +155,13 @@ __attribute__((visibility("default")))
         videoHeight = VIDEO_HEIGHT;
         sampleRate = AUDIO_SAMPLERATE;
 
+        /* Stock clocks. Synthesized ivars start at 0, which is not "unscaled"
+         * -- it is a scale the core has never been handed. If PVJaguarGameCore
+         * fails to push its option values, the machine must still run at
+         * hardware speed rather than at zero. */
+        _virtualjaguar_risc_clock_pct = 100;
+        _virtualjaguar_m68k_clock_pct = 100;
+
         dispatch_queue_attr_t priorityAttribute = dispatch_queue_attr_make_with_qos_class( DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INTERACTIVE, 0);
         audioQueue = dispatch_queue_create("com.provenance.jaguar.audio", priorityAttribute);
         videoQueue = dispatch_queue_create("com.provenance.jaguar.video", priorityAttribute);

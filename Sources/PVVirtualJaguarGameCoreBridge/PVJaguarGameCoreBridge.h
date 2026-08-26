@@ -55,8 +55,24 @@ NS_HEADER_AUDIT_BEGIN(nullability, sendability)
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
 
 // MARK: Options
+/* Mirrors of the @objc computed vars on PVJaguarGameCore (CoreOptions.swift).
+ * The bridge cannot import the Swift module -- that direction is circular --
+ * so PVJaguarGameCore copies each value in before loadFile:. setupEmulation
+ * reads them, and this build never runs libretro.c's check_variables(), so an
+ * option added to CoreOptions.swift without a mirror here does nothing. */
 @property (nonatomic, assign ) BOOL virtualjaguar_bios;
+@property (nonatomic, assign ) NSInteger virtualjaguar_bios_type;
 @property (nonatomic, assign ) BOOL virtualjaguar_usefastblitter;
+@property (nonatomic, assign ) BOOL virtualjaguar_pal;
+@property (nonatomic, assign ) BOOL virtualjaguar_risc_idle_skip;
+@property (nonatomic, assign ) BOOL virtualjaguar_blit_memo;
+/* Integer percentages; 100 is stock. Defaulted in -init because 0 is not a
+ * value the core has ever been given -- it would not be "no scaling". */
+@property (nonatomic, assign ) NSInteger virtualjaguar_risc_clock_pct;
+@property (nonatomic, assign ) NSInteger virtualjaguar_m68k_clock_pct;
+@property (nonatomic, assign ) BOOL virtualjaguar_blitter_timing;
+@property (nonatomic, assign ) BOOL virtualjaguar_gpu_pipeline_timing;
+@property (nonatomic, assign ) BOOL virtualjaguar_dram_timing;
 
 // MARK: Core
 - (BOOL)loadFileAtPath:(NSString *)path error:(NSError * __autoreleasing *)error;

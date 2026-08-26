@@ -23,6 +23,15 @@
 #import <GLUT/GLUT.h>
 #endif
 
+/* Option-backed core state. Scalars are declared here the same way the
+ * rest of this file declares core symbols; bus_arbiter.h is included
+ * rather than hand-declared because busArbiter is a struct and a
+ * replicated definition would silently desync on any layout change. */
+#include "bus_arbiter.h"
+extern uint32_t riscClockScalePct;   /* src/core/jaguar.h  -- percent, 100 = stock */
+extern uint32_t m68kClockScalePct;   /* src/core/jaguar.h  -- percent, 100 = stock */
+extern void     BlitMemoSetMode(int mode);  /* src/tom/blit_memo.h -- 0 off, 1 on */
+
 extern uint16_t eeprom_ram[64];
 extern uint8_t mtMem[0x20000];   // matches definition in src/core/memtrack.c
 extern uint32_t jaguarMainROMCRC32;
@@ -217,7 +226,10 @@ __attribute__((visibility("default")))
     sampleBuffer = (uint16_t *)malloc(BUFMAX * sizeof(uint16_t));
     memset(sampleBuffer, 0, BUFMAX * sizeof(uint16_t));
 
-    vjs.hardwareTypeNTSC = true;
+    /* Was hardcoded true, which meant the Force PAL option could never
+     * take effect: this assignment runs after the option setters and
+     * overwrote whatever they had put here. */
+    vjs.hardwareTypeNTSC = !self.virtualjaguar_pal;
 
     NSFileManager *fm = [NSFileManager defaultManager];
     NSString *biosPath = [self.BIOSPath stringByAppendingPathComponent:@"jagboot.rom"];
@@ -232,10 +244,40 @@ __attribute__((visibility("default")))
     }
 
     vjs.useFastBlitter = self.virtualjaguar_usefastblitter;
+    vjs.biosType       = (uint32_t)self.virtualjaguar_bios_type;
+
+    /* Speed. This build does not run libretro.c's check_variables(), so
+     * every one of these has to be applied by hand -- an option added to
+     * CoreOptions.swift without a line here does nothing at all. */
+    vjs.riscIdleSkip      = self.virtualjaguar_risc_idle_skip;
+    riscClockScalePct     = (uint32_t)self.virtualjaguar_risc_clock_pct;
+    m68kClockScalePct     = (uint32_t)self.virtualjaguar_m68k_clock_pct;
+
+    /* Hardware timing (experimental). */
+    vjs.blitterTiming     = self.virtualjaguar_blitter_timing;
+    vjs.gpuPipelineTiming = self.virtualjaguar_gpu_pipeline_timing;
+    busArbiter.enabled    = self.virtualjaguar_dram_timing ? 1 : 0;
+
+    ILOG(@"Jaguar options: idleSkip=%d blitMemo=%d risc=%u%% m68k=%u%% "
+          "blitTiming=%d gpuPipe=%d dram=%d fastBlitter=%d pal=%d",
+         vjs.riscIdleSkip, self.virtualjaguar_blit_memo,
+         riscClockScalePct, m68kClockScalePct,
+         vjs.blitterTiming, vjs.gpuPipelineTiming, busArbiter.enabled,
+         vjs.useFastBlitter, self.virtualjaguar_pal);
 
     retro_set_audio_sample_batch_jaguar((unsigned long (*)(const short *, unsigned long))update_audio_batch);
 
     JaguarInit();
+
+    /* After JaguarInit, deliberately. BlitMemoSetMode refuses the mode for
+     * CD content by reading bootConfig.isCDGame -- and this build never
+     * calls ResolveBootConfig, so that flag only ever holds its zero value.
+     * Harmless today because this bridge has no CD path at all (cartridges
+     * only), but the refusal is inoperative rather than merely unused:
+     * anyone adding CD support here must resolve boot config before
+     * trusting it. libretro.c re-applies the mode once boot config is
+     * known; there is no equivalent call in this build. */
+    BlitMemoSetMode(self.virtualjaguar_blit_memo ? 1 : 0);
 
     self->videoWidth = TOMGetVideoModeWidth();
     self->videoHeight = TOMGetVideoModeHeight();

@@ -213,7 +213,7 @@ let package = Package(
             ]
         ),
 
-        // MARK: --------- libchdr ---------- //
+        // MARK: --------- libchdr-virtualjaguar ---------- //
 
         // Vendored CHD reader. Built exactly the way Makefile.common builds
         // it: one unity translation unit, with miniz's compressor switched
@@ -223,8 +223,17 @@ let package = Package(
         // No -std=c99 here, unlike the Makefile: SPM compiles C as gnu11 by
         // default, which is a superset, so the flag is unnecessary rather
         // than omitted by accident.
+        //
+        // NOT named plain "libchdr": SPM requires target names to be unique
+        // across the whole package graph, and Cores/Mednafen vendors its own
+        // copy under that name. Two cores each vendoring CHD is expected --
+        // they pin different revisions and different build defines -- so the
+        // names have to differ. Mednafen's is the older declaration, so this
+        // one carries the suffix. The `#include <libchdr/chd.h>` spelling in
+        // src/cd/cdintf.c is unaffected: that resolves through
+        // publicHeadersPath, not the target name.
         .target(
-            name: "libchdr",
+            name: "libchdr-virtualjaguar",
             path: "Sources/virtualjaguar-libretro/deps/libchdr",
             sources: ["unity.c"],
             publicHeadersPath: "include",
@@ -246,7 +255,7 @@ let package = Package(
 
         .target(
             name: "libjaguar",
-            dependencies: ["libretro-common", "libchdr"],
+            dependencies: ["libretro-common", "libchdr-virtualjaguar"],
             // Point at the submodule root so we can compile the upstream
             // `libretro.c` (which lives at the root) directly, instead of
             // duplicating it under src/ to satisfy SPM's "sources must live

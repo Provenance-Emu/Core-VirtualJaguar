@@ -1,0 +1,61 @@
+# Keeps this wrapper in step with virtualjaguar-libretro.
+#
+# check: Package.swift names every .c the core compiles (SwiftPM cannot glob).
+#        Fails when that list no longer matches upstream's Makefile.common.
+# bump:  daily, moves the submodule to the tip of the fork's `provenance`
+#        branch (libretro master + carried patches, synced by that repo's own
+#        workflow), regenerates the lists, and opens a PR if anything moved.
+#
+# Neither job compiles: the package depends on ../../PV* by relative path, so
+# it only builds inside a Provenance checkout. Provenance CI builds it once the
+# gitlink there is bumped -- or run `Scripts/update-upstream.sh --build`.
+name: Upstream sync
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 7 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Package.swift matches Makefile.common
+        run: python3 Scripts/sync_upstream_sources.py --check
+
+  bump:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Bump virtualjaguar-libretro and regenerate sources
+        id: bump
+        run: |
+          Scripts/update-upstream.sh
+          echo "describe=$(git -C Sources/virtualjaguar-libretro describe --tags --always)" >> "$GITHUB_OUTPUT"
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: bot/upstream-bump
+          delete-branch: true
+          commit-message: "build(core): bump virtualjaguar-libretro to ${{ steps.bump.outputs.describe }}"
+          title: "build(core): bump virtualjaguar-libretro to ${{ steps.bump.outputs.describe }}"
+          body: |
+            Automated bump to the tip of [Provenance-Emu/virtualjaguar-libretro `provenance`](https://github.com/Provenance-Emu/virtualjaguar-libretro/tree/provenance) (libretro master + carried patches).
+
+            `Package.swift` source lists were regenerated from `Makefile.common` by `Scripts/sync_upstream_sources.py`.
+
+            This PR is not compiled here. Before merging, run `Scripts/update-upstream.sh --build` from a Provenance checkout. After merging, bump `Cores/VirtualJaguar` in Provenance.

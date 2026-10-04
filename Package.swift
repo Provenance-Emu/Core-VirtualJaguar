@@ -83,6 +83,12 @@ enum Sources {
         "src/tom/shadowfb.c",
         "src/tom/texdump.c",
         "src/tom/texreplace.c",
+        /* Added 2026-10-03 with the bump past v3.6.1, again reconciled
+         * against Makefile.common. */
+        "src/core/hookfile.c",
+        "src/debug/gdbsock.c",
+        "src/debug/gdbstub.c",
+        "src/debug/gdbtarget.c",
         "libretro.c",
     ]
 
@@ -300,6 +306,7 @@ let package = Package(
                 .headerSearchPath("src/jerry"),
                 .headerSearchPath("src/cd"),
                 .headerSearchPath("src/bios"),
+                .headerSearchPath("src/debug"),
                 // CHD disc images: src/cd/cdintf.c includes <libchdr/chd.h>
                 // unconditionally since the v3.4.0 CHD work (#322/#476).
                 .headerSearchPath("deps/libchdr/include"),

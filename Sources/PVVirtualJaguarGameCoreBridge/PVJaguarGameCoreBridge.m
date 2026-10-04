@@ -315,6 +315,18 @@ __attribute__((visibility("default")))
 
     memcpy(jagMemSpace + 0xE00000, biosPointer, 0x20000);
 
+    /* Mirrors libretro.c's apply_cart_bios_autodetect(), which this build
+     * never runs: a GPU-only/jagcrypt cart (BootIntros, 42Bastian's
+     * PolyEngine) has its program in the encrypted boot block and nothing
+     * at $802000, so HLE is a guaranteed black screen. Forced even when the
+     * BIOS option is off; biosPointer above already falls back to the
+     * built-in boot ROM when there is no jagboot.rom. */
+    if (!vjs.useJaguarBIOS && romData.length > 0 &&
+        JaguarCartNeedsBIOS((const uint8_t *)romData.bytes, (uint32_t)romData.length)) {
+        ILOG(@"GPU-only cart -- real boot ROM enabled (jagcrypt)");
+        vjs.useJaguarBIOS = true;
+    }
+
     SET32(jaguarMainRAM, 0, 0x00200000);
     BOOL cartridgeLoaded = JaguarLoadFile((uint8_t*)romData.bytes, romData.length);
 
